@@ -26,6 +26,13 @@ This simulator provides **250 original scenario-based practice questions** mappe
 
 ## ✨ Key Features
 
+### 🐱 Animated Cat Study Companion
+* **Interactive Study Buddy**: An expressive, animated vector cat docked in the corner of your screen that keeps studying fun and encouraging.
+* **Celebrates Correct Answers (Cheer Mode)**: When you answer correctly, the cat bursts into a celebratory victory dance with joyful curved eyes (`^.^`), waving paws, colorful sparkles, and cheering messages (*"Purr-fect! You nailed it! 🐾✨"*, *"Meow-velous! 100% correct! ⭐"*).
+* **Comforts & Supports on Mistakes (Support Mode)**: When an answer is incorrect, the cat gently tilts its head with caring eyes (`˶ᵔ ᵕ ᵔ˶`), floating hearts, and comforting words (*"Don't worry, mistakes help us learn! 🐱💛"*, *"I believe in you! Keep going! ✨"*).
+* **Interactive Petting**: Clicking or tapping the cat anytime prompts purrs and motivational study tips.
+* **Final Exam Verdicts**: Celebrates your graduation on passing scores and encourages you with positive coaching if you need review.
+
 ### 🎮 3D Tactile Design & Interactive Animations
 * **Interactive 3D Perspective Background (`#bg3d`)**: HTML5 Canvas engine rendering a dynamic perspective floor grid and drifting geometric polyhedra that cruise forward in 3D space as you scroll.
 * **Mechanical Tactile Keycaps (`.cell`)**: The question palette features elevated 3D keycaps with physical press-down depression (`translateY(2px)`), stamped status when answered, and flag ribbons.

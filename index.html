@@ -479,9 +479,11 @@
   /* ---------- Floating Top-Right 3D Glass Preferences Dock ---------- */
   #prefs {
     position: fixed;
-    top: 14px;
-    right: 20px;
-    z-index: 80;
+    bottom: 20px;
+    left: 24px;
+    top: auto;
+    right: auto;
+    z-index: 90;
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -533,7 +535,7 @@
   }
 
   @media (max-width: 800px) {
-    #prefs { top: 8px; right: 10px; gap: 4px; padding: 4px 5px; }
+    #prefs { bottom: 14px; left: 14px; top: auto; right: auto; gap: 4px; padding: 4px 5px; }
     #prefs .btn { padding: 6px 10px; font-size: .78rem; gap: 5px; }
   }
 
@@ -975,6 +977,268 @@
   }
 
   
+
+  /* ---------- Animated Cat Study Companion ---------- */
+  .cat-companion {
+    position: fixed;
+    bottom: 18px;
+    right: 22px;
+    z-index: 85;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .cat-stage {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    filter: drop-shadow(0 8px 18px rgba(18, 28, 38, 0.2));
+    transition: transform 0.2s ease;
+  }
+  .cat-companion:hover .cat-stage {
+    transform: translateY(-4px) scale(1.05);
+  }
+
+  /* Cat Idle Animation */
+  .cat-idle .cat-head {
+    animation: catHeadBob 3.5s ease-in-out infinite;
+    transform-origin: 60px 75px;
+  }
+  @keyframes catHeadBob {
+    0%, 100% { transform: rotate(0deg); }
+    35% { transform: rotate(2deg) translateY(-1px); }
+    70% { transform: rotate(-2deg) translateY(1px); }
+  }
+  .cat-tail {
+    animation: tailWag 3.2s ease-in-out infinite;
+    transform-origin: 30px 80px;
+  }
+  @keyframes tailWag {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(14deg); }
+  }
+
+  /* Eye Expressions */
+  .eyes-normal { opacity: 1; transition: opacity 0.2s ease; }
+  .eyes-happy { opacity: 0; transition: opacity 0.2s ease; }
+  .eyes-comfort { opacity: 0; transition: opacity 0.2s ease; }
+
+  /* Cat Cheer State (Correct Answer!) */
+  .cat-cheer .eyes-normal { opacity: 0; }
+  .cat-cheer .eyes-happy { opacity: 1; }
+  .cat-cheer .eyes-comfort { opacity: 0; }
+  .cat-cheer .cat-stage {
+    animation: catCheerJump 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) infinite alternate;
+  }
+  @keyframes catCheerJump {
+    0% { transform: translateY(0) scale(1) rotate(0deg); }
+    100% { transform: translateY(-14px) scale(1.08) rotate(3deg); }
+  }
+  .cat-cheer .paw-l { animation: pawCheerL 0.28s ease-in-out infinite alternate; }
+  .cat-cheer .paw-r { animation: pawCheerR 0.28s ease-in-out infinite alternate; }
+  @keyframes pawCheerL {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px) translateX(-2px); }
+  }
+  @keyframes pawCheerR {
+    0% { transform: translateY(-10px) translateX(2px); }
+    100% { transform: translateY(0); }
+  }
+  .cat-cheer .cat-tail {
+    animation: tailCheer 0.4s ease-in-out infinite alternate;
+  }
+  @keyframes tailCheer {
+    0% { transform: rotate(-10deg); }
+    100% { transform: rotate(24deg); }
+  }
+
+  /* Cheer Sparkles */
+  .cat-sparks {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .cat-cheer .cat-sparks {
+    opacity: 1;
+    animation: sparksFade 0.6s ease-in-out infinite alternate;
+  }
+  @keyframes sparksFade {
+    0% { transform: translateY(0) scale(0.9); }
+    100% { transform: translateY(-8px) scale(1.2); }
+  }
+  .spark { font-size: 1.1rem; }
+  .spark.s2 { margin-top: -8px; }
+
+  /* Cat Support State (Wrong Answer / Need Comfort) */
+  .cat-comfort .eyes-normal { opacity: 0; }
+  .cat-comfort .eyes-happy { opacity: 0; }
+  .cat-comfort .eyes-comfort { opacity: 1; }
+  .cat-comfort .cat-stage {
+    animation: catComfortSway 0.9s ease-in-out infinite alternate;
+  }
+  @keyframes catComfortSway {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-4px) rotate(-5deg); }
+  }
+  .cat-comfort .paw-l, .cat-comfort .paw-r {
+    animation: pawHug 0.9s ease-in-out infinite alternate;
+  }
+  @keyframes pawHug {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-4px) scale(1.05); }
+  }
+  .cat-heart {
+    position: absolute;
+    top: -5px;
+    font-size: 1.3rem;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .cat-comfort .cat-heart {
+    animation: heartFloat 1.2s ease-out infinite;
+  }
+  @keyframes heartFloat {
+    0% { transform: translateY(0) scale(0.5); opacity: 0; }
+    50% { transform: translateY(-22px) scale(1.2); opacity: 1; }
+    100% { transform: translateY(-38px) scale(0.9); opacity: 0; }
+  }
+
+  /* Speech Bubble */
+  .cat-bubble {
+    position: absolute;
+    bottom: 102px;
+    right: 8px;
+    width: 210px;
+    background: linear-gradient(180deg, var(--panel-top) 0%, var(--panel-bottom) 100%);
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-size: .86rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--ink);
+    box-shadow: 0 10px 28px -4px rgba(18, 28, 38, 0.18), 0 3px 8px rgba(0,0,0,0.06);
+    pointer-events: none;
+    opacity: 0;
+    transform: scale(0.75) translateY(12px);
+    transform-origin: bottom right;
+    transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .cat-bubble::after {
+    content: "";
+    position: absolute;
+    bottom: -7px;
+    right: 28px;
+    width: 12px;
+    height: 12px;
+    background: var(--panel-bottom);
+    border-right: 1.5px solid var(--line);
+    border-bottom: 1.5px solid var(--line);
+    transform: rotate(45deg);
+  }
+  .cat-bubble.show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  @media (max-width: 800px) {
+    .cat-companion {
+      bottom: 10px;
+      right: 12px;
+      transform: scale(0.85);
+      transform-origin: bottom right;
+    }
+  }
+
+  /* ==========================================================================
+     Ergonomic Docked Cat Companion (Sidebar & Screen-Adaptive)
+     ========================================================================== */
+  .cat-dock-start {
+    margin-top: 18px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  .cat-dock-palette {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1.5px dashed var(--line);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  
+  /* Reset floating positioning when docked */
+  .palette .cat-companion,
+  .cat-dock-start .cat-companion,
+  #results .cat-companion {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    pointer-events: auto;
+    user-select: none;
+  }
+
+  .palette .cat-bubble,
+  .cat-dock-start .cat-bubble,
+  #results .cat-bubble {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-bottom: 8px;
+    transform-origin: bottom center;
+    text-align: center;
+  }
+  .palette .cat-bubble {
+    width: 100%;
+    max-width: 216px;
+  }
+  .cat-dock-start .cat-bubble {
+    width: 250px;
+  }
+  #results .cat-bubble {
+    width: 230px;
+  }
+
+  .palette .cat-bubble::after,
+  .cat-dock-start .cat-bubble::after,
+  #results .cat-bubble::after {
+    bottom: -6px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .palette .cat-stage {
+    width: 110px;
+    height: 92px;
+    cursor: pointer;
+  }
+  .palette .cat-stage svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Results Dock */
+  #results .cat-companion {
+    margin: 8px auto 0;
+  }
+
 </style>
 </head>
 <body>
@@ -1010,6 +1274,7 @@
     <p id="aiMsg" role="status" style="min-height:1.4em;font-size:.9rem"></p>
     <p style="margin-top:18px;font-size:.9rem">Question and answer order is shuffled on every attempt. Some questions ask for two answers, and you must pick both to score. You can flag questions and jump around freely. Answers show only after you submit.</p>
   
+    <div id="catDockStart" class="cat-dock-start"></div>
     </section>
 
   <!-- Exam -->
@@ -1032,6 +1297,93 @@
           <li><span class="k-flag"></span>Flagged for review</li>
         </ul>
         <p class="keyhint">Keyboard: A to D choose an answer, left and right arrows move between questions, F flags.</p>
+        <div id="catDockPalette" class="cat-dock-palette">
+<aside id="catCompanion" class="cat-companion cat-idle" title="Your study buddy cat! Click me for encouragement!" aria-label="Animated Cat Study Buddy">
+  <div class="cat-bubble" id="catBubble" role="status" aria-live="polite">
+    <span id="catMessage"></span>
+  </div>
+  <div class="cat-stage" id="catStage">
+    <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="catBody" cx="50%" cy="40%" r="55%">
+          <stop offset="0%" stop-color="#F5C97C"/>
+          <stop offset="100%" stop-color="#E88220"/>
+        </radialGradient>
+        <radialGradient id="catBelly" cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stop-color="#FDE8BE"/>
+          <stop offset="100%" stop-color="#F7C97E"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Tail -->
+      <g class="cat-tail">
+        <path d="M82 85 Q105 75 100 55 Q96 42 86 50" fill="none" stroke="#E88220" stroke-width="8" stroke-linecap="round"/>
+      </g>
+
+      <!-- Body -->
+      <ellipse cx="60" cy="78" rx="30" ry="28" fill="url(#catBody)"/>
+
+      <!-- Belly patch -->
+      <ellipse cx="60" cy="82" rx="17" ry="18" fill="url(#catBelly)" opacity="0.85"/>
+
+      <!-- Head -->
+      <ellipse cx="60" cy="45" rx="27" ry="25" fill="url(#catBody)"/>
+
+      <!-- Ears -->
+      <g class="cat-ears">
+        <polygon points="34,24 42,8 50,24" fill="#E88220"/>
+        <polygon points="37,24 42,13 48,24" fill="#F5A0A0"/>
+        <polygon points="70,24 78,8 86,24" fill="#E88220"/>
+        <polygon points="73,24 78,13 83,24" fill="#F5A0A0"/>
+      </g>
+
+      <!-- Eyes (default idle) -->
+      <g class="eyes eyes-idle">
+        <ellipse cx="46" cy="44" rx="5.5" ry="7" fill="#221C18"/>
+        <circle cx="44" cy="41.5" r="2.2" fill="#FFFFFF"/>
+        <circle cx="48" cy="45.5" r="1" fill="#FFFFFF"/>
+        <ellipse cx="74" cy="44" rx="5.5" ry="7" fill="#221C18"/>
+        <circle cx="72" cy="41.5" r="2.2" fill="#FFFFFF"/>
+        <circle cx="76" cy="45.5" r="1" fill="#FFFFFF"/>
+      </g>
+
+      <!-- Eyes: Happy Cheering ^.^ -->
+      <g class="eyes eyes-happy">
+        <path d="M38 46 Q44 38 50 46" fill="none" stroke="#221C18" stroke-width="3" stroke-linecap="round"/>
+        <path d="M70 46 Q76 38 82 46" fill="none" stroke="#221C18" stroke-width="3" stroke-linecap="round"/>
+      </g>
+
+      <!-- Eyes: Caring Support -->
+      <g class="eyes eyes-comfort">
+        <path d="M38 47 Q44 41 50 47" fill="none" stroke="#332820" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M70 47 Q76 41 82 47" fill="none" stroke="#332820" stroke-width="2.5" stroke-linecap="round"/>
+      </g>
+
+      <!-- Rosy Cheeks -->
+      <ellipse cx="37" cy="54" rx="5" ry="3.5" fill="#FF839B" opacity="0.6"/>
+      <ellipse cx="83" cy="54" rx="5" ry="3.5" fill="#FF839B" opacity="0.6"/>
+
+      <!-- Whiskers -->
+      <line x1="20" y1="50" x2="42" y2="52" stroke="#B8832A" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="20" y1="55" x2="42" y2="55" stroke="#B8832A" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="78" y1="52" x2="100" y2="50" stroke="#B8832A" stroke-width="1.2" stroke-linecap="round"/>
+      <line x1="78" y1="55" x2="100" y2="55" stroke="#B8832A" stroke-width="1.2" stroke-linecap="round"/>
+
+      <!-- Nose -->
+      <polygon points="58,57 62,57 60,60" fill="#E8607A"/>
+
+      <!-- Mouth -->
+      <path d="M56 61 Q60 65 64 61" fill="none" stroke="#C85070" stroke-width="1.5" stroke-linecap="round"/>
+
+      <!-- Paws -->
+      <g class="cat-paws">
+        <ellipse class="paw paw-l" cx="44" cy="99" rx="9" ry="7" fill="url(#catBelly)" stroke="#E88220" stroke-width="1.2"/>
+        <ellipse class="paw paw-r" cx="76" cy="99" rx="9" ry="7" fill="url(#catBelly)" stroke="#E88220" stroke-width="1.2"/>
+      </g>
+    </svg>
+  </div>
+</aside>
+        </div>
       </aside>
       <main class="card" id="card" data-d="P" aria-live="polite"></main>
     </div>
@@ -1547,6 +1899,7 @@ function fmt(sec) {
 
 /* ---------- start ---------- */
 function beginTest(list, isRetest, fromAi) {
+  dockCat("exam");
   aiMode = !!fromAi;
   retest = !!isRetest; items = buildItems(list);
   answers = items.map(() => []);
@@ -1739,7 +2092,16 @@ function renderQuestion() {
     if (!checked[pos]) {
       const cb = document.createElement("button");
       cb.type = "button"; cb.className = "btn small"; cb.style.margin = "12px 0 0"; cb.textContent = "Check answer";
-      cb.addEventListener("click", () => { if (!answers[pos].length) return; checked[pos] = true; renderQuestion(); });
+      cb.addEventListener("click", () => {
+        if (!answers[pos].length) return;
+        checked[pos] = true;
+        renderQuestion();
+        if (isCorrect(pos)) {
+          catCheer();
+        } else {
+          catSupport();
+        }
+      });
       card.appendChild(cb);
     } else {
       const ex = document.createElement("p");
@@ -1792,6 +2154,7 @@ function isCorrect(i) {
 }
 
 function finish() {
+  dockCat("results");
   clearInterval(tick); clearSave();
   if (lastPos !== null) { tq[lastPos] = (tq[lastPos] || 0) + (Date.now() - qStart) / 1000; lastPos = null; }
   $("exam").hidden = true;
@@ -1801,7 +2164,16 @@ function finish() {
   const correct = items.reduce((n, _, i) => n + (isCorrect(i) ? 1 : 0), 0);
   const pct = Math.round(correct / total * 100);
   animateScoreCounter(pct);
-  if (pct >= 70) setTimeout(fireConfetti, 350);
+  if (pct >= 70) {
+    setTimeout(fireConfetti, 350);
+    setTimeout(() => {
+      catCheer("🎉 CONGRATULATIONS! You passed with " + pct + "%! I'm so proud of you! 🎓🐾");
+    }, 600);
+  } else {
+    setTimeout(() => {
+      catSupport("Solid effort! Review the missed questions below and try again—you're getting closer! 🐱💪");
+    }, 600);
+  }
 
   const by = {};
   Object.keys(DOMAINS).forEach(k => by[k] = { n: 0, ok: 0 });
@@ -1930,6 +2302,7 @@ function renderReview(mode) {
 }
 
 $("retryBtn").addEventListener("click", () => {
+  dockCat("start");
   $("results").hidden = true;
   $("start").hidden = false;
   window.scrollTo(0, 0);
@@ -2002,7 +2375,7 @@ $("resumeBtn").addEventListener("click",()=>{
 });
 $("pauseBtn").addEventListener("click",()=>{
   if (lastPos !== null) { tq[lastPos]=(tq[lastPos]||0)+(Date.now()-qStart)/1000; lastPos=null; }
-  save(); clearInterval(tick); away=null; $("exam").hidden=true; $("start").hidden=false; showResume();
+  save(); clearInterval(tick); away=null; $("exam").hidden=true; $("start").hidden=false; dockCat("start"); showResume();
 });
 function mkPanel(id,title,rows){
   let p=$(id); if(!p){ p=document.createElement("div"); p.className="panel"; p.id=id; $("results").insertBefore(p,$("results").children[2]); }
@@ -2683,7 +3056,101 @@ const shockwaves = [];
   }, { passive: true });
 })();
 
+
+/* ---------- Animated Cat Study Companion Engine ---------- */
+let catTimer = null;
+
+function showCatBubble(msg, duration = 4000) {
+  const bubble = document.getElementById("catBubble");
+  const msgEl = document.getElementById("catMessage");
+  if (!bubble || !msgEl) return;
+  msgEl.textContent = msg;
+  bubble.classList.add("show");
+  clearTimeout(catTimer);
+  catTimer = setTimeout(() => {
+    bubble.classList.remove("show");
+  }, duration);
+}
+
+function setCatState(state, duration = 3500) {
+  const cat = document.getElementById("catCompanion");
+  if (!cat) return;
+  cat.classList.remove("cat-idle", "cat-cheer", "cat-comfort");
+  cat.classList.add(state);
+  setTimeout(() => {
+    cat.classList.remove("cat-cheer", "cat-comfort");
+    cat.classList.add("cat-idle");
+  }, duration);
+}
+
+// When user gets an answer right (CHEER!)
+function catCheer(customMsg) {
+  const cheers = [
+    "Purr-fect! You nailed it! 🐾✨",
+    "Meow-velous! 100% correct! ⭐",
+    "Paws-itively brilliant! Keep it up! 🔥",
+    "High five! That's the right answer! 🐾🎉",
+    "Spot on! Your hard work is showing! 🎯"
+  ];
+  const msg = customMsg || cheers[Math.floor(Math.random() * cheers.length)];
+  setCatState("cat-cheer", 3800);
+  showCatBubble(msg, 4000);
+}
+
+// When user gets an answer wrong (SUPPORT / COMFORT!)
+function catSupport(customMsg) {
+  const supports = [
+    "Don't worry, you'll get the next one! 🐱💛",
+    "Mistakes are how we learn! Keep going! ✨",
+    "Close one! Check the explanation below! 📖🐾",
+    "I believe in you! Shake it off and keep pushing! 🐾💪",
+    "Every question makes you stronger for test day! 🌟"
+  ];
+  const msg = customMsg || supports[Math.floor(Math.random() * supports.length)];
+  setCatState("cat-comfort", 3800);
+  showCatBubble(msg, 4200);
+}
+
+// When user clicks/pets the cat directly
+(function initCatClicks() {
+  const cat = document.getElementById("catCompanion");
+  if (!cat) return;
+  const petResponses = [
+    "Purrrr~ I'm your study buddy! You're doing awesome! 🐾",
+    "Meow! Remember to read each question carefully! ✨",
+    "Purrr~ High five! Let's get that certification! 🎓",
+    "Need a boost? Take a deep breath, you've got this! 🌟",
+    "Paws up! Stay focused and trust your preparation! 🐾💪"
+  ];
+  dockCat("start");
+  cat.addEventListener("click", () => {
+    catCheer(petResponses[Math.floor(Math.random() * petResponses.length)]);
+  });
+})();
+
+
+// Dynamically dock Cat Study Buddy per screen (Clean & never covers buttons)
+function dockCat(screen) {
+  const cat = document.getElementById("catCompanion");
+  if (!cat) return;
+  if (screen === "exam") {
+    const palDock = document.getElementById("catDockPalette");
+    if (palDock && !palDock.contains(cat)) palDock.appendChild(cat);
+  } else if (screen === "results") {
+    const resPanel = document.querySelector("#results .panel .score-row") || document.querySelector("#results .panel");
+    if (resPanel && !resPanel.contains(cat)) resPanel.appendChild(cat);
+  } else {
+    const startDock = document.getElementById("catDockStart");
+    if (startDock && !startDock.contains(cat)) {
+      startDock.appendChild(cat);
+    }
+  }
+}
+
 </script>
+
+
+
 <canvas id="fxCanvas"></canvas>
 </body>
 </html>
