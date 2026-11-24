@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Microsoft exam Practice</title>
+<title>Microsoft exam practice</title>
 <link rel="icon" type="image/jpeg" href="logo.jpg">
 <style>
   :root {
@@ -1427,7 +1427,7 @@ function applyExam(key){
   $("h1").textContent = EX.code+": "+EX.name; document.body.dataset.exam = key; renderCards();
   $("topTitle").textContent = EX.code+" knowledge check";
   $("totQ").textContent = Qcur.length;
-  document.title = EX.code+" knowledge check";
+  document.title = "Microsoft exam practice";
   $("intro").textContent = Qcur.length+" original practice questions for "+EX.code+" ("+EX.name+"), written from the published skills outline, not taken from Microsoft's exam."+(Qcur.length<20?" This exam currently has a short starter set.":"");
   $("timedLbl").textContent = "Time me: "+EX.min+" minutes, auto-submit at zero";
   const w=$("weights"), lg=$("legend"); w.textContent=""; lg.textContent="";
