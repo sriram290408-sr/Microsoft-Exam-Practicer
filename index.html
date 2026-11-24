@@ -1433,6 +1433,26 @@
     .palette { position: static; }
     .cat-dock-right { display: none; }
   }
+
+  /* Exam Anti-Cheating & Integrity: Disable text selection on questions */
+  .card .qtext,
+  .card .code,
+  .card .opt,
+  .card .hint,
+  .card .why,
+  .palette {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  #pauseBtn:disabled,
+  #pauseBtn.disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: auto;
+  }
+
 </style>
 </head>
 <body>
@@ -2104,6 +2124,7 @@ function beginTest(list, isRetest, fromAi) {
   pos = 0;
   timed = !retest && $("timed").checked; learn = $("learn").checked; checked = []; tq = []; lastPos = null;
   timeLeft = EX.min*60; elapsed = 0; strikes = 0; swLog = []; ended = false;
+  pausesUsed = 0; updatePauseBtn();
   $("start").hidden = true;
   $("results").hidden = true;
   $("exam").hidden = false;
@@ -2545,16 +2566,38 @@ function renderSwitches(){
 applyExam("PL300");
 Object.keys(EXAMS).forEach(k=>{const o=document.createElement("option"); o.value=k; o.textContent=EXAMS[k].code+" · "+EXAMS[k].name; $("examSel").appendChild(o);});
 $("examSel").addEventListener("change",()=>applyExam($("examSel").value));
+
+/* ---------- Exam Pause Limit (Max 2 Pauses) ---------- */
+const MAX_PAUSES = 2;
+let pausesUsed = 0;
+
+function updatePauseBtn() {
+  const btn = $("pauseBtn");
+  if (!btn) return;
+  const remaining = Math.max(0, MAX_PAUSES - pausesUsed);
+  if (remaining <= 0) {
+    btn.disabled = true;
+    btn.textContent = "Pause (0/2 left)";
+    btn.title = "Pause limit reached (maximum 2 pauses per test attempt)";
+    btn.classList.add("disabled");
+  } else {
+    btn.disabled = false;
+    btn.textContent = "Pause (" + remaining + " left)";
+    btn.title = "Pause test (" + remaining + " pause" + (remaining === 1 ? "" : "s") + " remaining)";
+    btn.classList.remove("disabled");
+  }
+}
+
 /* ---------- save, history, prefs, export ---------- */
 function savedState(){ try { return JSON.parse(localStorage.getItem(SK)); } catch(e) { return null; } }
 function clearSave(){ try { localStorage.removeItem(SK); } catch(e) {} }
 function save(){
   if (ended || $("exam").hidden || !items.length) return;
-  try { localStorage.setItem(SK, JSON.stringify({key:curKey,items,answers,flags,pos,elapsed,timeLeft,timed,learn,checked,tq,strikes,swLog,retest})); } catch(e) {}
+  try { localStorage.setItem(SK, JSON.stringify({key:curKey,items,answers,flags,pos,elapsed,timeLeft,timed,learn,checked,tq,strikes,swLog,retest,pausesUsed})); } catch(e) {}
 }
 function showResume(){
   const d = savedState(); $("resumeWrap").hidden = !d;
-  if (d && EXAMS[d.key]) $("resumeBtn").textContent = "Resume paused " + EXAMS[d.key].code + " test (" + d.answers.filter(a=>a.length).length + " of " + d.items.length + " answered)";
+  if (d && EXAMS[d.key]) { const rem = Math.max(0, MAX_PAUSES - (d.pausesUsed || 0)); $("resumeBtn").textContent = "Resume paused " + EXAMS[d.key].code + " test (" + d.answers.filter(a=>a.length).length + " of " + d.items.length + " answered · " + rem + " pause" + (rem===1?"":"s") + " left)"; }
   else $("resumeWrap").hidden = true;
 }
 let discardTimer = null, sbTimer = null;
@@ -2570,13 +2613,34 @@ $("resumeBtn").addEventListener("click",()=>{
   $("examSel").value = d.key; applyExam(d.key);
   items=d.items; answers=d.answers; flags=d.flags; pos=d.pos; elapsed=d.elapsed; timeLeft=d.timeLeft; timed=d.timed; learn=d.learn;
   checked=d.checked||[]; tq=d.tq||[]; strikes=d.strikes||0; swLog=d.swLog||[]; retest=d.retest; ended=false; lastPos=null; away=null;
+  pausesUsed = d.pausesUsed || 0; updatePauseBtn();
   $("start").hidden=true; $("results").hidden=true; $("exam").hidden=false;
+  dockCat("exam");
+  if (typeof showCatBubble === "function") {
+    showCatBubble("Welcome back! Let's crush this test together! 🐾✨", 4200);
+    setCatState("cat-cheer", 3000);
+  }
   $("totQ").textContent=items.length; $("topTitle").textContent = retest ? "Weak-area practice ("+EX.code+")" : EX.code+" knowledge check";
   buildGrid(); renderQuestion(); clearInterval(tick); tick=setInterval(onTick,1000); onTick(true);
 });
-$("pauseBtn").addEventListener("click",()=>{
-  if (lastPos !== null) { tq[lastPos]=(tq[lastPos]||0)+(Date.now()-qStart)/1000; lastPos=null; }
-  save(); clearInterval(tick); away=null; $("exam").hidden=true; $("start").hidden=false; dockCat("start"); showResume();
+$("pauseBtn").addEventListener("click", () => {
+  if (pausesUsed >= MAX_PAUSES) {
+    if (typeof showCatBubble === "function") {
+      showCatBubble("Pause limit reached! Maximum 2 pauses allowed per test attempt. 🐾⏱️", 4500);
+      setCatState("cat-comfort", 3500);
+    }
+    return;
+  }
+  pausesUsed++;
+  updatePauseBtn();
+  if (lastPos !== null) { tq[lastPos] = (tq[lastPos] || 0) + (Date.now() - qStart) / 1000; lastPos = null; }
+  save();
+  clearInterval(tick);
+  away = null;
+  $("exam").hidden = true;
+  $("start").hidden = false;
+  dockCat("start");
+  showResume();
 });
 function mkPanel(id,title,rows){
   let p=$(id); if(!p){ p=document.createElement("div"); p.className="panel"; p.id=id; $("results").insertBefore(p,$("results").children[2]); }
@@ -3491,6 +3555,60 @@ function catCommentOnFlag(isFlagged) {
     setCatState("cat-cheer", 3000);
   }
 }
+
+
+/* ---------- Exam Integrity: Prevent Copy, Paste, Cut & Context Menu ---------- */
+(function initAntiCopy() {
+  function notifyBlocked(action) {
+    if ($("exam").hidden) return; // Only active during exam
+    if (typeof showCatBubble === "function") {
+      showCatBubble(action + " is disabled during the exam for test integrity! 🐾🚫", 4000);
+      setCatState("cat-comfort", 3200);
+    }
+  }
+
+  // Prevent clipboard events
+  ["copy", "cut", "paste"].forEach(evtName => {
+    document.addEventListener(evtName, (e) => {
+      if (!$("exam").hidden) {
+        e.preventDefault();
+        const label = evtName === "paste" ? "Pasting" : (evtName === "cut" ? "Cutting" : "Copying");
+        notifyBlocked(label);
+      }
+    });
+  });
+
+  // Prevent right-click context menu during exam
+  document.addEventListener("contextmenu", (e) => {
+    if (!$("exam").hidden) {
+      e.preventDefault();
+      notifyBlocked("Right-click menu");
+    }
+  });
+
+  // Prevent drag-selection of question content
+  document.addEventListener("dragstart", (e) => {
+    if (!$("exam").hidden) {
+      e.preventDefault();
+    }
+  });
+
+  // Block keyboard shortcuts: Ctrl+C, Ctrl+V, Ctrl+X, Ctrl+Insert, Shift+Insert
+  window.addEventListener("keydown", (e) => {
+    if ($("exam").hidden) return;
+    const isCtrlOrMeta = e.ctrlKey || e.metaKey;
+    const k = e.key ? e.key.toLowerCase() : "";
+
+    if (isCtrlOrMeta && (k === "c" || k === "v" || k === "x" || k === "insert")) {
+      e.preventDefault();
+      const action = (k === "v") ? "Pasting" : (k === "x" ? "Cutting" : "Copying");
+      notifyBlocked(action);
+    } else if (e.shiftKey && e.key === "Insert") {
+      e.preventDefault();
+      notifyBlocked("Pasting");
+    }
+  }, true);
+})();
 
 </script>
 
