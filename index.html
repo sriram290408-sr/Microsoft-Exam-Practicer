@@ -2004,6 +2004,7 @@ function renderQuestion() {
     flags[pos] = !flags[pos];
     flagBtn.textContent = flags[pos] ? "Flagged for review" : "Flag for review";
     flagBtn.setAttribute("aria-pressed", flags[pos] ? "true" : "false");
+    catCommentOnFlag(flags[pos]);
     refreshChrome();
   });
   meta.appendChild(flagBtn);
@@ -2075,6 +2076,8 @@ function renderQuestion() {
         void curCell.offsetWidth;
         curCell.classList.add("cell-stamp");
       }
+      // Cat reacts to answer selection
+      catCommentOnAnswer();
       refreshChrome();
     });
     const span = document.createElement("span");
@@ -2121,6 +2124,7 @@ function renderQuestion() {
   next.className = "btn"; next.type = "button";
   next.textContent = pos === items.length - 1 ? "Go to first unanswered" : "Next";
   next.addEventListener("click", () => {
+    catCommentOnNext(pos);
     if (pos < items.length - 1) { pos++; }
     else {
       const idx = answers.findIndex(a => a.length === 0);
@@ -3111,21 +3115,35 @@ function catSupport(customMsg) {
   showCatBubble(msg, 4200);
 }
 
-// When user clicks/pets the cat directly
+// When user clicks/pets/touches the cat directly
 (function initCatClicks() {
   const cat = document.getElementById("catCompanion");
   if (!cat) return;
   const petResponses = [
-    "Purrrr~ I'm your study buddy! You're doing awesome! 🐾",
-    "Meow! Remember to read each question carefully! ✨",
-    "Purrr~ High five! Let's get that certification! 🎓",
-    "Need a boost? Take a deep breath, you've got this! 🌟",
-    "Paws up! Stay focused and trust your preparation! 🐾💪"
+    "Purrrr~ Thank you for the pets! 🐾 You're doing amazing!",
+    "Meow! I believe in you! 100%! ✨",
+    "Purrr~ You just made my day better! 🎓 Keep going!",
+    "Hehe, tickles! 😸 Take a deep breath, you've got this! 🌟",
+    "Paws up! Stay focused — that certificate is yours! 🐾💪",
+    "Mrow~ Every question you answer makes you stronger! 💛",
+    "Squeak! I'm cheering for you from the sidebar! 🎉",
+    "Purr purr~ Keep trusting your preparation! You're so close! 🏆"
   ];
+  let petCount = 0;
   dockCat("start");
   cat.addEventListener("click", () => {
-    catCheer(petResponses[Math.floor(Math.random() * petResponses.length)]);
+    petCount++;
+    if (petCount % 5 === 0) {
+      showCatBubble("Wow, you've petted me " + petCount + " times! 😺 I love studying with you!", 4500);
+      setCatState("cat-cheer", 3500);
+    } else {
+      catCheer(petResponses[Math.floor(Math.random() * petResponses.length)]);
+    }
   });
+  cat.addEventListener("touchstart", (e) => {
+    e.preventDefault();
+    cat.click();
+  }, { passive: false });
 })();
 
 
@@ -3144,6 +3162,122 @@ function dockCat(screen) {
     if (startDock && !startDock.contains(cat)) {
       startDock.appendChild(cat);
     }
+  }
+}
+
+
+// =====================================================
+// Cat Companion: Contextual Comments on User Actions
+// =====================================================
+
+// Called when user selects / changes an answer
+function catCommentOnAnswer() {
+  const answered = answers.filter(a => a.length > 0).length;
+  const total = items.length;
+  const pct = Math.round(answered / total * 100);
+
+  const pool = [
+    "Great choice! Trust your instincts! 🐾",
+    "Noted! You're making progress! ✨",
+    "Mrow~ Interesting pick! 🤔",
+    "Answer locked in! Keep the momentum! 🚀",
+    "Nice one! " + answered + " of " + total + " answered so far! 📋",
+    "You're doing great — stay focused! 💪",
+    "Purrr~ That's the spirit! 🌟",
+    "Every answer gets you closer to the cert! 🏆"
+  ];
+
+  // Milestone messages
+  if (answered === Math.round(total * 0.25)) {
+    showCatBubble("25% done! You're on a roll! 🎉🐾", 4000);
+    setCatState("cat-cheer", 3000);
+    return;
+  }
+  if (answered === Math.round(total * 0.5)) {
+    showCatBubble("Halfway there! Pawsome work! 🐾🌟", 4500);
+    setCatState("cat-cheer", 3800);
+    return;
+  }
+  if (answered === Math.round(total * 0.75)) {
+    showCatBubble("75% answered! Almost there, champion! 🏆🐾", 4500);
+    setCatState("cat-cheer", 3800);
+    return;
+  }
+  if (answered === total) {
+    showCatBubble("All questions answered! Ready to submit? 😸✅", 5000);
+    setCatState("cat-cheer", 4000);
+    return;
+  }
+
+  // Show cat message only occasionally (every 3rd answer) to avoid spam
+  if (answered % 3 === 0 || Math.random() < 0.25) {
+    const msg = pool[Math.floor(Math.random() * pool.length)];
+    showCatBubble(msg, 3200);
+    // Small wiggle but no state change — keep idle animation
+  }
+}
+
+// Called when user clicks Next / Previous to navigate
+function catCommentOnNext(currentPos) {
+  const answered = answers[currentPos] && answers[currentPos].length > 0;
+  const isFlagged = flags[currentPos];
+
+  const withAnswerPool = [
+    "Moving on! You got this! 🐾",
+    "Next question, here we go! 🚀",
+    "Mrow~ Keep the streak alive! ✨",
+    "Smooth! On to the next one! 🌟",
+    "Great pace! Keep it up! 💪"
+  ];
+  const withoutAnswerPool = [
+    "Skipped? You can always come back! 🐾",
+    "No worries — flag it and return later! 🏳️",
+    "Mrow~ Sometimes skipping is smart! 🤔",
+    "Come back to that one — you'll figure it out! 💡"
+  ];
+  const flaggedPool = [
+    "Flagged question ahead — I'll remind you! 🏳️🐾",
+    "You flagged this one — give it another look! 🔍",
+    "Mrow~ This one's marked for review. Take your time! ⏱️"
+  ];
+
+  // Only show on some transitions (not every single one)
+  if (Math.random() > 0.4) return;
+
+  let pool, state;
+  if (isFlagged) {
+    pool = flaggedPool; state = "cat-idle";
+  } else if (answered) {
+    pool = withAnswerPool; state = "cat-idle";
+  } else {
+    pool = withoutAnswerPool; state = "cat-comfort";
+  }
+  const msg = pool[Math.floor(Math.random() * pool.length)];
+  showCatBubble(msg, 3000);
+  if (state !== "cat-idle") setCatState(state, 2800);
+}
+
+// Called when user flags or unflags a question
+function catCommentOnFlag(isFlagged) {
+  const flaggedCount = flags.filter(Boolean).length;
+  if (isFlagged) {
+    const pool = [
+      "Flagged! I'll keep an eye on this one for you! 🏳️🐾",
+      "Smart move — flag tricky ones and revisit! 🔍",
+      "Mrow~ Good thinking! You can review flagged questions before submitting! ✨",
+      "Flagged! " + flaggedCount + " question" + (flaggedCount > 1 ? "s" : "") + " marked for review! 📌",
+      "I'll bookmark that one too! 🐾🔖"
+    ];
+    showCatBubble(pool[Math.floor(Math.random() * pool.length)], 4000);
+    setCatState("cat-idle", 3500);
+  } else {
+    const pool = [
+      "Flag removed! Feeling confident about it now? 😺",
+      "Unflagged! You've got this one covered! 🐾✅",
+      "Mrow~ Cleared! Moving forward with confidence! 🌟"
+    ];
+    showCatBubble(pool[Math.floor(Math.random() * pool.length)], 3500);
+    setCatState("cat-cheer", 3000);
   }
 }
 
