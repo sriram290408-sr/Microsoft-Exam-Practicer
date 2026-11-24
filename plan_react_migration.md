@@ -131,3 +131,27 @@ graph TD
 3. **Palette & Visual Polish**:
    - High-contrast royal blue for answered questions in light mode; luminous blue in dark mode.
    - Smooth results page scroll without disorienting tilt.
+
+Platform                Certification
+
+Databricks              Databricks Certified Data Engineer Associate
+
+Snowflake               SnowPro Core Certification
+
+Azure Databricks        Microsoft Certified: Azure Databricks Data Engineer Associate (DP-750)
+ 
+Databricks              Databricks Certified Data Analyst Associate
+
+Azure AI                Microsoft Certified: Azure AI Apps and Agents Developer Associate (AI-103)
+
+Microsoft Copilot       Microsoft Certified: AI Agent Builder Associate (AB-620)
+
+Anthropic Claude        Claude Certified Developer – Foundations (CCDV-F)
+
+Already added from this list:
+
+Microsoft Fabric        Microsoft Certified: Fabric Data Engineer Associate (DP-700)
+
+Microsoft Fabric        Microsoft Certified: Fabric Analytics Engineer Associate (DP-600)
+
+Power BI	        Microsoft Certified: Power BI Data Analyst Associate (PL-300)
