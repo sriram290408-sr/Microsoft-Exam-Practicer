@@ -1,0 +1,1261 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microsoft exam Practice</title>
+<style>
+  :root {
+    --canvas: #E8EBF0;
+    --panel: #FFFFFF;
+    --ink: #17202B;
+    --ink-soft: #55616F;
+    --line: #CDD3DB;
+    --accent: #F2C811;
+    --accent-ink: #3B3000;
+    --good: #1E7B4F;
+    --good-bg: #E3F3EA;
+    --bad: #B42D3A;
+    --bad-bg: #FBE7E9;
+    --prep: #0F7B8A;
+    --model: #4B53BC;
+    --viz: #A8336A;
+    --secure: #5B6B7B;
+    --radius: 6px;
+    --sans: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --mono: Consolas, "Cascadia Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  html { background: var(--canvas); }
+  body {
+    margin: 0; font-family: var(--sans); color: var(--ink); background: var(--canvas);
+    font-size: 16px; line-height: 1.5; min-height: 100vh;
+  }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 16px; }
+  [hidden] { display: none !important; }
+
+  /* ---------- start screen ---------- */
+  .start { max-width: 720px; margin: 8vh auto 0; background: var(--panel); border-radius: var(--radius); padding: 32px; border-top: 8px solid var(--accent); }
+  .start h1 { font-size: 2rem; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.01em; }
+  .start p { color: var(--ink-soft); margin: 0 0 16px; max-width: 62ch; }
+  .weights { display: flex; height: 44px; border-radius: 4px; overflow: hidden; margin: 24px 0 8px; }
+  .weights div { display: flex; align-items: center; padding: 0 10px; color: #fff; font-size: .85rem; font-weight: 600; white-space: nowrap; overflow: hidden; }
+  .weight-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: .9rem; color: var(--ink-soft); margin-bottom: 24px; }
+  .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }
+  .check { display: flex; gap: 10px; align-items: center; margin-bottom: 24px; }
+  .check input { width: 18px; height: 18px; accent-color: var(--ink); }
+  .btn { border: 0; border-radius: var(--radius); padding: 12px 22px; font-weight: 600; background: var(--ink); color: #fff; }
+  .btn:hover { background: #2A3747; }
+  .btn.accent { background: var(--accent); color: var(--accent-ink); }
+  .btn.accent:hover { background: #E3BA05; }
+  .btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+  .btn.ghost:hover { background: rgba(23,32,43,.07); }
+  .btn.small { padding: 7px 14px; font-size: .9rem; }
+  .btn[disabled] { opacity: .4; cursor: not-allowed; }
+
+  /* ---------- exam ---------- */
+  .topbar { display: flex; align-items: center; gap: 16px; background: var(--ink); color: #fff; border-radius: var(--radius); padding: 10px 16px; margin-bottom: 14px; position: sticky; top: 8px; z-index: 5; }
+  .topbar .title { font-weight: 700; margin-right: auto; }
+  .topbar .stat { font-variant-numeric: tabular-nums; color: #D5DBE3; font-size: .95rem; }
+  .topbar .stat b { color: #fff; }
+  .topbar .timer { font-family: var(--mono); font-size: 1.05rem; color: var(--accent); }
+  .progress { height: 4px; background: #2D3B4B; border-radius: 2px; position: absolute; left: 16px; right: 16px; bottom: 0; }
+  .progress i { display: block; height: 100%; background: var(--accent); border-radius: 2px; transition: width .2s; }
+
+  .layout { display: grid; grid-template-columns: 232px 1fr; gap: 14px; align-items: start; }
+  .palette { background: var(--panel); border-radius: var(--radius); padding: 14px; position: sticky; top: 72px; }
+  .palette h2 { font-size: .95rem; margin: 0 0 10px; }
+  .grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; }
+  .cell { aspect-ratio: 1; border: 1.5px solid var(--line); background: #fff; border-radius: 4px; font-size: .8rem; font-weight: 600; position: relative; padding: 0; font-variant-numeric: tabular-nums; }
+  .cell.done { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .cell.current { outline: 3px solid var(--accent); outline-offset: 1px; }
+  .cell.flag::after { content: ""; position: absolute; top: -1px; right: -1px; border-style: solid; border-width: 0 10px 10px 0; border-color: transparent var(--bad) transparent transparent; }
+  .key { margin: 12px 0 0; padding: 0; list-style: none; font-size: .8rem; color: var(--ink-soft); display: grid; gap: 4px; }
+  .key span { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; border: 1.5px solid var(--line); }
+  .key .k-done { background: var(--ink); border-color: var(--ink); }
+  .key .k-flag { background: var(--bad); border-color: var(--bad); }
+
+  .card { background: var(--panel); border-radius: var(--radius); padding: 28px 30px; border-left: 8px solid var(--prep); }
+  .card[data-d="M"] { border-left-color: var(--model); }
+  .card[data-d="V"] { border-left-color: var(--viz); }
+  .card[data-d="S"] { border-left-color: var(--secure); }
+  .qmeta { display: flex; gap: 12px; align-items: center; color: var(--ink-soft); font-size: .9rem; margin-bottom: 14px; flex-wrap: wrap; }
+  .qmeta .flagbtn { margin-left: auto; }
+  .flagbtn { background: none; border: 1.5px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: .85rem; }
+  .flagbtn[aria-pressed="true"] { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); font-weight: 600; }
+  .qtext { font-size: 1.15rem; line-height: 1.5; margin: 0 0 14px; max-width: 70ch; }
+  pre.code { background: #F3F5F8; border: 1px solid var(--line); border-radius: 4px; padding: 12px 14px; font-family: var(--mono); font-size: .92rem; overflow-x: auto; margin: 0 0 16px; white-space: pre-wrap; }
+  .hint { font-size: .9rem; color: var(--ink-soft); margin: 0 0 10px; font-weight: 600; }
+  .opts { display: grid; gap: 8px; margin: 0; padding: 0; border: 0; }
+  .opt { display: flex; gap: 12px; align-items: flex-start; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 12px 14px; cursor: pointer; background: #fff; }
+  .opt:hover { border-color: var(--ink-soft); }
+  .opt input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--ink); flex: none; }
+  .opt:has(input:checked) { border-color: var(--ink); background: #FFFAE0; box-shadow: inset 5px 0 0 var(--accent); }
+  .opt:has(input:focus-visible) { outline: 3px solid var(--ink); outline-offset: 2px; }
+  .nav { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
+  .nav .spacer { margin-left: auto; }
+
+  /* ---------- results ---------- */
+  .results { display: grid; gap: 14px; }
+  .panel { background: var(--panel); border-radius: var(--radius); padding: 26px 30px; }
+  .score-row { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+  .score-num { font-size: 4.5rem; font-weight: 700; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .score-num small { font-size: 1.6rem; color: var(--ink-soft); font-weight: 600; }
+  .verdict { max-width: 56ch; }
+  .verdict h2 { margin: 0 0 6px; font-size: 1.35rem; }
+  .verdict p { margin: 0; color: var(--ink-soft); }
+  .domains { display: grid; gap: 16px; margin-top: 6px; }
+  .drow .dhead { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 5px; font-weight: 600; }
+  .drow .dhead span:last-child { font-variant-numeric: tabular-nums; }
+  .bar { height: 14px; background: #E4E8ED; border-radius: 3px; position: relative; }
+  .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 3px; }
+  .bar::after { content: ""; position: absolute; left: 70%; top: -4px; bottom: -4px; width: 2px; background: var(--ink); opacity: .7; }
+  .bar-note { font-size: .85rem; color: var(--ink-soft); margin-top: 8px; }
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0 16px; }
+  .filters .btn[aria-pressed="true"] { background: var(--ink); color: #fff; }
+  .rev { border: 1.5px solid var(--line); border-left-width: 8px; border-radius: var(--radius); padding: 18px 20px; margin-bottom: 12px; background: #fff; }
+  .rev.ok { border-left-color: var(--good); }
+  .rev.no { border-left-color: var(--bad); }
+  .rev h3 { margin: 0 0 8px; font-size: 1rem; line-height: 1.45; max-width: 74ch; }
+  .rev .tag { font-size: .85rem; font-weight: 700; margin-bottom: 6px; }
+  .rev.ok .tag { color: var(--good); }
+  .rev.no .tag { color: var(--bad); }
+  .ropt { padding: 7px 12px; border-radius: 4px; margin: 4px 0; font-size: .95rem; border: 1px solid transparent; }
+  .ropt.right { background: var(--good-bg); border-color: var(--good); }
+  .ropt.wrong { background: var(--bad-bg); border-color: var(--bad); }
+  .ropt .mk { font-weight: 700; margin-right: 6px; }
+  .why { margin: 10px 0 0; padding: 10px 14px; background: #F3F5F8; border-radius: 4px; font-size: .95rem; max-width: 74ch; }
+  .why b { font-weight: 700; }
+
+  @media (max-width: 800px) {
+    .layout { grid-template-columns: 1fr; }
+    .palette { position: static; }
+    .grid { grid-template-columns: repeat(10, 1fr); }
+    .card { padding: 20px 18px; }
+    .start { padding: 24px 20px; margin-top: 16px; }
+    .topbar { flex-wrap: wrap; gap: 6px 14px; }
+    .panel { padding: 20px 18px; }
+    .score-num { font-size: 3.6rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .progress i { transition: none; } }
+
+  /* ---------- design pass: answer-sheet look, per-exam accent ---------- */
+  :root { --canvas:#E7ECF1; --ink:#12202E; --ink-soft:#4F5D6B; --line:#CBD4DD; --r-panel:10px; --on-accent:#3B3000;
+    --serif:"Charter","Iowan Old Style","Palatino Linotype",Georgia,serif; }
+  body[data-exam="PL900"]{--accent:#742774;--on-accent:#fff}
+  body[data-exam="DP600"]{--accent:#0E7C86;--on-accent:#fff}
+  body[data-exam="DP700"]{--accent:#107C41;--on-accent:#fff}
+  body[data-exam="DP800"]{--accent:#0B5CAD;--on-accent:#fff}
+  body{background-image:radial-gradient(circle,#B9C5D0 1px,transparent 1.3px);background-size:22px 22px}
+  body.dark{background-image:radial-gradient(circle,#26333F 1px,transparent 1.3px)}
+  .btn.accent{color:var(--on-accent)} .btn.accent:hover{filter:brightness(.94);background:var(--accent)}
+  .btn.big{padding:14px 30px;font-size:1.05rem}
+  .start{max-width:920px;margin:5vh auto 0;padding:40px;border-radius:var(--r-panel);border:1px solid var(--line)}
+  .start h1{font-family:var(--serif);font-size:2.5rem;letter-spacing:-.015em;margin:0 0 8px}
+  .start .lede{font-size:1.08rem;max-width:58ch}
+  .cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:22px 0 26px}
+  @media (max-width:860px){.cards{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}}
+  .xcard{text-align:left;background:var(--panel);border:1.5px solid var(--line);border-radius:var(--radius);padding:14px 14px 14px 20px;position:relative;display:grid;gap:2px}
+  .xcard::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--c);border-radius:5px 0 0 5px}
+  .xcard b{font-size:1.15rem}.xcard span{font-size:.85rem;color:var(--ink-soft)}
+  .xcard:hover{border-color:var(--ink-soft)}
+  .xcard[aria-checked="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
+  .examname{font-family:var(--serif);font-size:1.6rem;margin:0 0 6px}
+  .check{padding:12px 14px;border:1.5px solid var(--line);border-radius:var(--radius);margin-bottom:10px!important}
+  .topbar{position:sticky;top:8px;z-index:20;background:var(--panel);color:var(--ink);border:1px solid var(--line);box-shadow:0 2px 10px rgba(18,32,46,.08);border-radius:var(--r-panel)}
+  .topbar .stat{color:var(--ink-soft)} .topbar .stat b{color:var(--ink)} .topbar .timer{color:var(--ink);font-weight:600}
+  .progress{background:var(--line)}
+  .palette{border-radius:var(--r-panel);border:1px solid var(--line)}
+  .cell{border-radius:5px;background:var(--panel);color:var(--ink)} .cell.done{background:var(--ink);color:var(--panel)}
+  .keyhint{font-size:.8rem;color:var(--ink-soft);margin:12px 0 0}
+  .card{border:1px solid var(--line);border-left:5px solid var(--prep);border-radius:var(--r-panel);padding:36px 40px}
+  .card[data-d="M"]{border-left-color:var(--model)} .card[data-d="V"]{border-left-color:var(--viz)} .card[data-d="S"]{border-left-color:var(--secure)}
+  .qtext{font-family:var(--serif);font-size:1.3rem;line-height:1.6;max-width:68ch}
+  pre.code{background:var(--canvas)}
+  .opts{counter-reset:o}
+  .opt{position:relative;padding:14px 16px;gap:14px;align-items:center;background:var(--panel)}
+  .opt input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+  .opt::before{counter-increment:o;content:counter(o,upper-alpha);flex:none;width:30px;height:30px;border:1.5px solid var(--ink-soft);border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.9rem}
+  .opt:has(input[type=checkbox])::before{border-radius:6px}
+  .opt:has(input:checked){border-color:var(--ink);background:color-mix(in srgb,var(--accent) 10%,var(--panel));box-shadow:none}
+  .opt:has(input:checked)::before{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+  .panel{border-radius:var(--r-panel);border:1px solid var(--line)}
+  .score-num{font-family:var(--serif)} .rev{background:var(--panel)} .bar{background:var(--line)}
+  #prefs .btn{background:var(--panel);color:var(--ink);border:1px solid var(--line);box-shadow:0 1px 4px rgba(0,0,0,.12)}
+  @media (max-width:800px){.start{padding:24px 18px}.card{padding:22px 18px}.nav{position:sticky;bottom:0;background:var(--panel);padding:12px 0;margin-bottom:-6px}.topbar{top:4px}}
+  .rbox{display:inline-flex;margin-left:10px;vertical-align:top;background:var(--ink);border-radius:var(--radius);overflow:hidden}
+  #resumeWrap .btn{background:transparent;color:var(--panel);border-radius:0}
+  #resumeWrap .btn:hover{background:color-mix(in srgb,var(--panel) 16%,transparent)}
+  #resumeWrap #discardBtn{padding:12px 16px;font-size:1.25rem;line-height:1;border-left:1px solid color-mix(in srgb,var(--panel) 35%,transparent)}
+  .aiout{white-space:pre-wrap;margin:10px 0 0;padding:10px 14px;border-left:3px solid var(--accent);background:var(--canvas);border-radius:4px;max-width:70ch}
+  body.dark{--canvas:#0F161E;--panel:#1A2430;--ink:#E8EDF3;--ink-soft:#A9B4C0;--line:#33414F}
+  body.dark .btn{background:#E8EDF3;color:#17202B}
+  body.dark .btn.accent{background:var(--accent);color:var(--on-accent)}
+  body.dark .btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+  body.dark .opt{background:#1F2B38}
+  body.dark .opt:has(input:checked){background:color-mix(in srgb,var(--accent) 22%,#1F2B38)}
+  body.dark .why{background:#222F3D}
+  body.dark pre.code{background:#0F161E}
+  body.dark select,body.dark textarea{background:#1F2B38!important;color:var(--ink)}
+  @media print{.btn,.topbar,#filters,#prefs{display:none!important}body{background:#fff}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Start -->
+  <section class="start" id="start">
+    <h1>Microsoft exam practice</h1>
+    <p class="lede">Pick an exam, take a practice test, and see which skill areas need more work.</p>
+    <div class="cards" id="examCards" role="radiogroup" aria-label="Choose an exam"></div>
+    <h2 class="examname" id="h1"></h2>
+    <label hidden class="check" style="margin-bottom:16px"><span style="font-weight:600">Exam&nbsp;</span><select id="examSel" style="font:inherit;padding:8px 10px;border:1.5px solid var(--ink);border-radius:4px;background:#fff"></select></label>
+    <p id="intro"></p>
+    <div class="weights" id="weights" role="img"></div>
+    <div class="weight-legend" id="legend"></div>
+    <label class="check"><input type="checkbox" id="timed"> <span id="timedLbl"></span></label>
+    <label class="check"><input type="checkbox" id="learn"> Learning mode: check each answer and read the explanation as you go</label>
+    <p style="font-size:.9rem"><b>Tab rule:</b> leaving this tab or window shows a warning and asks for a reason. The third time ends the test.</p>
+    <button class="btn accent big" id="startBtn">Start test</button>
+    <span class="rbox" id="resumeWrap" hidden><button class="btn" id="resumeBtn"></button><button class="btn" id="discardBtn" title="Discard paused test" aria-label="Discard paused test">×</button></span>
+    <button class="btn ghost" id="aiGenBtn" hidden style="margin-left:10px">Practice with new AI-written questions</button>
+    <p id="aiMsg" role="status" style="min-height:1.4em;font-size:.9rem"></p>
+    <p style="margin-top:18px;font-size:.9rem">Question and answer order is shuffled on every attempt. Some questions ask for two answers, and you must pick both to score. You can flag questions and jump around freely. Answers show only after you submit.</p>
+  </section>
+
+  <!-- Exam -->
+  <section id="exam" hidden>
+    <div class="topbar">
+      <span class="title" id="topTitle">PL-300 knowledge check</span>
+      <span class="stat">Answered <b id="ansCount">0</b> of <span id="totQ">50</span></span>
+      <span class="stat timer" id="timer">00:00</span>
+      <button class="btn ghost small" id="pauseBtn">Pause</button>
+      <button class="btn accent small" id="submitBtn">Submit test</button>
+      <div class="progress"><i id="progressFill" style="width:0"></i></div>
+    </div>
+    <div class="layout">
+      <aside class="palette" aria-label="Question navigator">
+        <h2>Questions</h2>
+        <div class="grid" id="grid"></div>
+        <ul class="key">
+          <li><span class="k-done"></span>Answered</li>
+          <li><span class="k-flag"></span>Flagged for review</li>
+        </ul>
+        <p class="keyhint">Keyboard: A to D choose an answer, left and right arrows move between questions, F flags.</p>
+      </aside>
+      <main class="card" id="card" data-d="P" aria-live="polite"></main>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section id="results" class="results" hidden>
+    <div class="panel">
+      <div class="score-row">
+        <div class="score-num"><span id="scorePct">0</span><small>%</small></div>
+        <div class="verdict"><h2 id="verdictTitle"></h2><p id="verdictText"></p></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2 style="margin:0 0 16px;font-size:1.15rem">By skill area</h2>
+      <div class="domains" id="domains"></div>
+      <p class="bar-note">The dark tick on each bar marks 70%. The real exam scales its passing score of 700 out of 1000, so this percentage is only a rough guide.</p>
+    </div>
+    <div class="panel">
+      <h2 style="margin:0 0 6px;font-size:1.15rem">Review your answers</h2>
+      <div class="filters" id="filters"></div>
+      <div id="review"></div>
+      <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+        <button class="btn" id="retryBtn">Take it again</button>
+        <button class="btn accent" id="weakBtn">Practice my weak spots</button>
+        <button class="btn ghost" id="csvBtn">Download CSV</button>
+        <button class="btn ghost" id="printBtn">Print</button>
+      </div>
+    </div>
+  </section>
+</div>
+<div id="prefs" style="position:fixed;right:10px;bottom:10px;z-index:50;display:flex;gap:6px"><button class="btn small" id="darkBtn">Dark</button><button class="btn small" id="sizeBtn">Text size</button></div>
+<div id="swModal" role="alertdialog" aria-modal="true" aria-labelledby="swTitle" hidden style="position:fixed;inset:0;background:rgba(23,32,43,.88);z-index:99;display:flex;align-items:center;justify-content:center;padding:16px">
+ <div style="background:#fff;border-radius:6px;max-width:480px;width:100%;padding:24px">
+  <h2 id="swTitle" style="margin:0 0 6px;font-size:1.25rem"></h2>
+  <p id="swSub" style="margin:0 0 12px;color:#55616F"></p>
+  <label for="swReason" style="font-weight:600">Why did you leave the test?</label>
+  <textarea id="swReason" rows="3" style="width:100%;margin:6px 0 4px;font:inherit;padding:8px;border:1.5px solid #17202B;border-radius:4px"></textarea>
+  <p style="margin:0 0 12px;font-size:.85rem;color:#55616F">Type at least 5 characters to continue.</p>
+  <button class="btn accent" id="swBtn" disabled>Return to the test</button>
+ </div></div>
+
+<script>
+/* d: P prepare, M model, V visualize, S manage and secure. a: indexes of correct options in the authored order. */
+let DOMAINS = {
+  P: { name: "Prepare the data", color: "var(--prep)" },
+  M: { name: "Model the data", color: "var(--model)" },
+  V: { name: "Visualize and analyze", color: "var(--viz)" },
+  S: { name: "Manage and secure", color: "var(--secure)" }
+};
+
+const Q = [
+/* ---------- Prepare the data (14) ---------- */
+{ d:"P", q:"A CSV file loads into Power Query with the real column names sitting in the first data row, and the columns are called Column1, Column2 and so on. What should you do?",
+  o:["Use First Row as Headers","Transpose the table","Unpivot the columns","Fill down the first row"], a:[0],
+  e:"Use First Row as Headers promotes row 1 to column names. Transpose and unpivot reshape the data, and fill down copies values into empty cells." },
+{ d:"P", q:"A Sales query has one column per month (Jan, Feb, Mar and so on) holding sales values. You need one Month column and one Sales column. Which transformation do you use?",
+  o:["Unpivot Columns","Pivot Column","Transpose","Group By"], a:[0],
+  e:"Unpivoting turns columns into attribute and value rows. Choosing Unpivot Other Columns on the key columns keeps the query working when new month columns appear." },
+{ d:"P", q:"You want to see the percentage of valid, error and empty values in a column while cleaning data. Which Power Query view option shows this?",
+  o:["Column quality","Column distribution","Show whitespace","Monospaced"], a:[0],
+  e:"Column quality shows the percentage of valid, error and empty values. Column distribution shows distinct and unique counts instead." },
+{ d:"P", q:"A query reads from SQL Server and you want filters to run on the server. Which step will typically break query folding?",
+  o:["Adding an Index Column","Filtering rows by a column value","Removing columns","Renaming columns"], a:[0],
+  e:"Filter, remove and rename steps usually fold into the native SQL query. An index column generally cannot be translated, so later steps run in the Power Query engine." },
+{ d:"P", q:"Twelve monthly Excel files with identical structure sit in one folder. What is the best way to load them as a single table that picks up new files on refresh?",
+  o:["Folder connector, then Combine & Transform","Import each file separately and use DAX UNION","Create twelve models and relate them","Use Merge Queries on the file names"], a:[0],
+  e:"The Folder connector with Combine & Transform builds a function from a sample file and applies it to every file in the folder, including new ones." },
+{ d:"P", q:"You have Sales2024 and Sales2025 queries with exactly the same columns. You need one table that contains all rows. What do you use?",
+  o:["Append Queries","Merge Queries","Group By","Pivot Column"], a:[0],
+  e:"Append stacks rows from tables with the same structure. Merge adds columns by matching keys, like a join." },
+{ d:"P", q:"Text dates such as 31/12/2025 turn into errors or wrong months when you change the column type to Date. What is the best fix?",
+  o:["Change Type > Using Locale, with English (United Kingdom)","Set the Short date format on the Modeling tab","Replace / with - in every value","Change the type to Decimal Number"], a:[0],
+  e:"Type conversion uses your machine's locale by default. Using Locale tells Power Query the source text is day-first." },
+{ d:"P", q:"Your team must point the same queries at a development or a production SQL Server without editing each query. What should you use?",
+  o:["Power Query parameters for server and database","Duplicate every query for each environment","Row-level security roles","Calculation groups"], a:[0],
+  e:"Parameters hold the server and database names, so you change a value in one place, or per deployment stage, instead of editing queries." },
+{ d:"P", q:"A query combines a SQL Server table with an Excel file and fails with an error about data sources and privacy levels (Formula.Firewall). What should you do?",
+  o:["Set appropriate privacy levels for the data sources","Switch the Excel file to DirectQuery","Turn off query folding for the whole model","Convert the SQL table to a calculated table"], a:[0],
+  e:"Power Query checks privacy levels when it combines data from several sources. Setting them correctly, within your organization's policy, resolves the error." },
+{ d:"P", q:"A fact table in Azure SQL has billions of rows and the report must show near-real-time data. Importing it is not possible. Which storage mode fits?",
+  o:["DirectQuery","Import","Scheduled refresh every eight hours","Dataflow with Import"], a:[0],
+  e:"DirectQuery sends queries to the source at report time, so data stays current and nothing is stored in the model. The trade-off is slower visuals." },
+{ d:"P", q:"Which TWO actions reduce the size of an Import-mode model?",
+  o:["Remove columns that are not used in reports, relationships or DAX","Split a DateTime column into separate Date and Time columns","Add a calculated column for every measure you might need later","Keep all text key columns as long free-form strings"], a:[0,1], multi:true,
+  e:"Unused columns cost memory, and splitting DateTime sharply lowers the number of distinct values to compress. Extra calculated columns and long text keys make the model larger." },
+{ d:"P", q:"Several semantic models need the same cleaned Customer table, and you want to do the transformation once and reuse it. What should you use?",
+  o:["A Power BI dataflow","A calculated table in each model","Report bookmarks","A sensitivity label"], a:[0],
+  e:"A dataflow runs Power Query in the service and stores the result, so many models can connect to one cleaned copy." },
+{ d:"P", q:"To configure incremental refresh on a table, which parameters must you create in Power Query?",
+  o:["RangeStart and RangeEnd, both of type Date/Time","StartDate and EndDate, both of type Text","LowerBound and UpperBound, both of type Whole number","Only a RefreshDays parameter"], a:[0],
+  e:"Incremental refresh requires the reserved parameters RangeStart and RangeEnd of type Date/Time. You filter the table on them, then set the policy." },
+{ d:"P", q:"A report-style sheet shows Region only on the first row of each group, and the rows below it are null. You need Region on every row. What do you apply to the Region column?",
+  o:["Fill Down","Fill Up","Remove Blank Rows","Replace Errors"], a:[0],
+  e:"Fill Down copies the last non-null value into the null cells below it. Fill Up would copy values from below." },
+
+/* ---------- Model the data (14) ---------- */
+{ d:"M", q:"The Customer table has a unique CustomerID, and the Sales table has many rows per CustomerID. Which relationship is recommended?",
+  o:["One-to-many from Customer to Sales, single filter direction","Many-to-many, both directions","One-to-one, both directions","Many-to-many, single direction from Sales"], a:[0],
+  e:"A star schema uses one-to-many relationships from dimension tables to the fact table, with filters flowing from the dimension to the fact." },
+{ d:"M", q:"Two tables you need to relate both contain duplicate values in their Product column. What is the best modeling approach?",
+  o:["Create a Product dimension with unique values and relate both tables to it","Create a many-to-many relationship with both-direction filtering","Concatenate all columns into one key","Merge both tables into one wide table"], a:[0],
+  e:"A shared dimension table with unique keys keeps relationships one-to-many and the model simple and fast." },
+{ d:"M", q:"The Sales table has OrderDate and ShipDate, and both relate to the Date table. The ShipDate relationship is inactive. Which measure returns sales by ship date?",
+  o:["CALCULATE([Total Sales], USERELATIONSHIP(Sales[ShipDate], 'Date'[Date]))","CALCULATE([Total Sales], CROSSFILTER(Sales[ShipDate], 'Date'[Date], Both))","SUMX(ALL(Sales), Sales[ShipDate])","RELATED('Date'[Date])"], a:[0],
+  e:"USERELATIONSHIP activates an inactive relationship for the duration of a CALCULATE. CROSSFILTER changes filter direction, which is a different job." },
+{ d:"M", q:"You need a profit margin percentage that recalculates for each cell of a visual and responds to slicers. What should you create?",
+  o:["A measure","A calculated column","A calculated table","A query parameter"], a:[0],
+  e:"Measures are evaluated at query time in the current filter context. Calculated columns are computed at refresh, row by row, and stored." },
+{ d:"M", c:"Sales All Regions =\n    CALCULATE( [Total Sales], ALL( Region ) )",
+  q:"A table visual shows Region and the measure above. What does each row display?",
+  o:["Total sales across all regions","Sales for that row's region","Blank","An error"], a:[0],
+  e:"ALL(Region) removes the filter coming from the Region table, so every row evaluates over all regions." },
+{ d:"M", q:"Which DAX function gives a year-to-date total when the model has a properly marked date table?",
+  o:["TOTALYTD","SAMEPERIODLASTYEAR","PREVIOUSMONTH","DATEADD"], a:[0],
+  e:"TOTALYTD returns an expression evaluated from the start of the year to the current date. The others shift or select other date ranges." },
+{ d:"M", q:"Which TWO are best-practice requirements for a date table used with time-intelligence functions?",
+  o:["It has a date column with unique values and no gaps in the date range","It is marked as the date table in the model","It must use DirectQuery storage mode","Its date column must be stored as text"], a:[0,1], multi:true,
+  e:"Time intelligence needs a contiguous set of unique dates, and marking the table as the date table tells the engine which column to use. Storage mode and text dates are not requirements." },
+{ d:"M", q:"You are writing a margin measure, and Sales can be zero for some products. Which expression avoids a divide-by-zero error in the safest way?",
+  o:["DIVIDE([Profit], [Sales])","[Profit] / [Sales]","[Profit] * 1 / [Sales]","MOD([Profit], [Sales])"], a:[0],
+  e:"DIVIDE handles a zero or blank denominator and returns BLANK, or an alternate result you provide, instead of an error." },
+{ d:"M", q:"The Sales table has Quantity and UnitPrice columns but no revenue column. Which measure returns total revenue?",
+  o:["SUMX(Sales, Sales[Quantity] * Sales[UnitPrice])","SUM(Sales[Quantity]) * SUM(Sales[UnitPrice])","AVERAGE(Sales[Quantity]) * COUNT(Sales[UnitPrice])","COUNTROWS(Sales) * 100"], a:[0],
+  e:"SUMX is an iterator: it multiplies the two columns row by row and then adds the results. Multiplying two totals gives the wrong answer." },
+{ d:"M", q:"In a calculated column on Sales, you need Product[Category] through an existing many-to-one relationship. Which function do you use?",
+  o:["RELATED","RELATEDTABLE","VALUES","ALLEXCEPT"], a:[0],
+  e:"RELATED fetches a value from the one side of a relationship. RELATEDTABLE goes the other way and returns a table of related rows." },
+{ d:"M", q:"What is a main risk of enabling bi-directional cross-filtering on many relationships?",
+  o:["Ambiguous filter paths and slower queries","Measures can no longer be created","Rows are deleted from the dimension tables","The model switches to DirectQuery"], a:[0],
+  e:"Bi-directional filters can create ambiguous paths between tables and add query cost. Use them only where a scenario needs them." },
+{ d:"M", q:"What is the main benefit of using VAR in a DAX measure?",
+  o:["A value is calculated once and reused, which improves readability and can improve performance","It stores the result in the file so the measure never recalculates","It lets the measure write data back to the source","It is required before using any iterator function"], a:[0],
+  e:"Variables are evaluated once where they are defined and can be referenced several times, which makes long expressions easier to read and debug." },
+{ d:"M", q:"A DirectQuery fact table is slow for visuals shown at year and category level. Which approach helps most?",
+  o:["Add an imported aggregation table and map it with Manage aggregations","Add more slicers to every page","Turn all columns into text","Disable the relationships"], a:[0],
+  e:"User-defined aggregations answer high-level queries from a small imported table and only fall back to DirectQuery for detailed queries." },
+{ d:"M", q:"Which expression returns total sales for products whose Color is Red only?",
+  o:["CALCULATE([Total Sales], Product[Color] = \"Red\")","FILTER(Sales, Product[Color] = \"Red\")","SUMX(Product, \"Red\")","[Total Sales] = \"Red\""], a:[0],
+  e:"CALCULATE evaluates a measure after applying the filter you give it. FILTER on its own returns a table, not a value." },
+
+/* ---------- Visualize and analyze (14) ---------- */
+{ d:"V", q:"You need to show how monthly revenue changed over the last three years. Which visual fits best?",
+  o:["Line chart","Pie chart","Funnel chart","Treemap"], a:[0],
+  e:"Line charts show change across a continuous axis such as time. Pie charts and treemaps show parts of a whole." },
+{ d:"V", q:"You want to show how a starting value rises and falls through several increases and decreases to reach an ending value. Which visual do you use?",
+  o:["Waterfall chart","Scatter chart","Gauge","Donut chart"], a:[0],
+  e:"A waterfall chart shows the running effect of positive and negative contributions between a start and an end value." },
+{ d:"V", q:"You want to look for a relationship between two numeric measures, such as price and units sold, across hundreds of products. Which visual fits?",
+  o:["Scatter chart","Stacked column chart","Card","Ribbon chart"], a:[0],
+  e:"A scatter chart plots two numeric values on its axes, with one point per item, so correlations and outliers stand out." },
+{ d:"V", q:"Business users want to find which factors most influence whether a customer churns, and rank them. Which visual is built for this?",
+  o:["Key influencers","Decomposition tree","Matrix","Q&A"], a:[0],
+  e:"Key influencers uses AI to rank the factors that drive a metric or outcome. A decomposition tree breaks a measure down by dimensions you choose." },
+{ d:"V", q:"Users should be able to right-click a product on a summary page and jump to a detail page that is filtered to that product. What do you configure?",
+  o:["Drillthrough","Sync slicers","Bookmarks only","Row-level security"], a:[0],
+  e:"Drillthrough pages receive the filter context of the item the user right-clicks, so the detail page opens already filtered." },
+{ d:"V", q:"You want users to switch between a chart view and a table view of the same data with a button, on the same page. What do you use?",
+  o:["Bookmarks with buttons and the Selection pane","Drillthrough","Report page tooltips","Sync slicers"], a:[0],
+  e:"Bookmarks capture which visuals are shown or hidden. Buttons then trigger the bookmarks, and the Selection pane controls visibility." },
+{ d:"V", q:"A Year slicer on page 1 should also filter the visuals on pages 2 and 3. How do you do this?",
+  o:["Use the Sync slicers pane","Copy the slicer manually and set the same value","Create a drillthrough page","Add a relationship to the slicer"], a:[0],
+  e:"Sync slicers lets one slicer apply to chosen pages and keeps its selection in step." },
+{ d:"V", q:"You need cells in a matrix to turn red when the value is below target and green when it is above. What do you apply?",
+  o:["Conditional formatting","A report theme","A bookmark","A custom tooltip"], a:[0],
+  e:"Conditional formatting colors cells using rules, a color scale or a field value." },
+{ d:"V", q:"When users hover over a bar, you want a small chart with extra detail for that bar to appear. What do you create?",
+  o:["A report page tooltip","A drillthrough page","A paginated report","A dataflow"], a:[0],
+  e:"A report page designed as a tooltip appears on hover and is filtered to the item under the cursor." },
+{ d:"V", q:"You want users to choose which measure a chart displays, such as Sales, Profit or Units, from a slicer. What should you use?",
+  o:["Field parameters","Calculation groups in Power BI Desktop only","Row-level security","Incremental refresh"], a:[0],
+  e:"Field parameters let report users switch the fields or measures used in a visual with a slicer, without writing extra DAX switches." },
+{ d:"V", q:"Which TWO actions improve the accessibility of a report?",
+  o:["Add alternative text to visuals","Set a logical tab order for keyboard navigation","Use red and green alone to show good and bad status","Remove all titles from visuals"], a:[0,1], multi:true,
+  e:"Alt text helps screen readers and a sensible tab order helps keyboard users. Color alone excludes color-blind users, and titles help everyone." },
+{ d:"V", q:"A report page loads slowly. You want to find which visual takes the longest and see the DAX query for it. Which tool do you use?",
+  o:["Performance analyzer","Q&A visual","Selection pane","Manage roles"], a:[0],
+  e:"Performance analyzer records the time spent on DAX queries, visual rendering and other work for each visual, and can export the query." },
+{ d:"V", q:"The finance team needs a pixel-perfect, multi-page invoice that is designed for printing and PDF export. What should you build?",
+  o:["A paginated report","A standard Power BI report with a matrix","A dashboard","A dataflow"], a:[0],
+  e:"Paginated reports, built with Power BI Report Builder, are meant for fixed-layout, printable output that can span many pages." },
+{ d:"V", q:"You want to extend a line chart with predicted values for the next six months, including a confidence band. Where do you set this up?",
+  o:["The Analytics pane, using Forecast","The Selection pane","The Bookmarks pane","The Sync slicers pane"], a:[0],
+  e:"The Analytics pane offers forecast, trend lines, constant lines and similar overlays for supported charts." },
+
+/* ---------- Manage and secure Power BI (8) ---------- */
+{ d:"S", q:"Sales managers must see only the rows for their own region in a shared report. What is the correct approach?",
+  o:["Create roles with DAX table filters under Manage roles, then assign members in the service","Create one workspace per manager","Hide the Region column in the report","Use bookmarks to switch regions"], a:[0],
+  e:"Row-level security is defined with roles and DAX filters, then members or groups are assigned in the Power BI service. Hiding or bookmarking is not security." },
+{ d:"S", q:"You want one RLS role that filters data by whoever is signed in, instead of making a role per user. Which DAX function do you use in the filter?",
+  o:["USERPRINCIPALNAME()","USERELATIONSHIP()","SELECTEDVALUE()","LOOKUPVALUE()"], a:[0],
+  e:"USERPRINCIPALNAME returns the signed-in user's sign-in name, which you match against a security table to build dynamic RLS." },
+{ d:"S", q:"In Power BI Desktop, how do you check what a user in a given RLS role will see before you publish?",
+  o:["View as roles","Performance analyzer","Q&A setup","Sync slicers"], a:[0],
+  e:"View as roles on the Modeling tab applies the selected roles, and optionally a user name, so you can test the result." },
+{ d:"S", q:"A developer must be able to publish and edit content in a workspace but must not be able to add or remove users. Which workspace role should you assign?",
+  o:["Contributor","Viewer","Admin","Member"], a:[0],
+  e:"Contributors can create, edit and publish content but cannot manage access. Members can add people at or below their own role, and Admins manage everything." },
+{ d:"S", q:"You need to classify a semantic model as confidential and have that classification and its protection follow the data when it is exported. What should you apply?",
+  o:["A sensitivity label","An endorsement badge","A bookmark","A dataflow"], a:[0],
+  e:"Sensitivity labels from Microsoft Purview Information Protection classify content and can carry protection with exported data." },
+{ d:"S", q:"A semantic model uses an on-premises SQL Server and must refresh on a schedule in the Power BI service. What do you need?",
+  o:["An on-premises data gateway","A Power BI dataflow Gen1 only","A paginated report","A sensitivity label"], a:[0],
+  e:"The on-premises data gateway lets the service reach data sources that are not directly accessible from the cloud, so scheduled refresh can run." },
+{ d:"S", q:"You want to promote content through development, test and production stages with controlled deployments. Which feature do you use?",
+  o:["Deployment pipelines","Bookmarks","Field parameters","Sync slicers"], a:[0],
+  e:"Deployment pipelines manage content across stages, compare differences between them, and support rules for stage-specific settings." },
+{ d:"S", q:"After review, your organization wants to mark a semantic model as trusted and approved for company-wide use. Which endorsement applies?",
+  o:["Certified","Promoted","Featured","Sensitivity label"], a:[0],
+  e:"Certified endorsement is given by authorized reviewers after a review process. Promoted is something the content owner can set themselves." }
+];
+
+const EXAMS = {
+PL300: { code:"PL-300", name:"Power BI Data Analyst", min:100, doms:DOMAINS, bank:Q },
+PL900: { code:"PL-900", name:"Power Platform Fundamentals", min:45,
+ doms:{P:"Business value of Power Platform",M:"Foundational components",V:"Power Apps and Power BI",S:"Power Automate and Copilot Studio"},
+ bank:[
+{d:"P",q:"A company wants staff to build simple business apps and automations without developers. Which Power Platform benefit does this describe?",o:["Low-code development","Physical server management","Custom firmware design","Manual data re-entry"],a:[0],e:"Power Platform is a low-code platform that lets business users build apps, automations and reports."},
+{d:"M",q:"Which service is the underlying data platform that stores data in tables for Power Platform apps?",o:["Microsoft Dataverse","Azure Blob Storage only","Windows Registry","Exchange mailbox"],a:[0],e:"Dataverse stores and secures data in tables, with security roles and business logic."},
+{d:"M",q:"What do connectors do in Power Platform?",o:["Link apps and flows to data sources and services","Encrypt local disks","Design report themes","Create Azure subscriptions"],a:[0],e:"Connectors provide a way for apps, flows and reports to talk to services such as SharePoint, Outlook and SQL Server."},
+{d:"V",q:"You need pixel-perfect mobile screens that users arrange freely on a blank screen. Which Power Apps app type fits?",o:["Canvas app","Model-driven app","Power BI paginated report","Desktop flow"],a:[0],e:"Canvas apps start from a blank canvas and give full layout control. Model-driven apps are built from Dataverse data and forms."},
+{d:"S",q:"Which Power Automate flow type runs when a new email arrives?",o:["Automated cloud flow","Instant cloud flow","Business process flow","Scheduled cloud flow"],a:[0],e:"Automated cloud flows start from a trigger event such as a new email. Instant flows start manually, and scheduled flows run on a timetable."},
+{d:"P",q:"Which four products make up Microsoft Power Platform's core? (Choose the best match.)",o:["Power BI, Power Apps, Power Automate, Copilot Studio","Excel, Word, Outlook, Teams","Azure VMs, Azure SQL, Azure AD, Azure DevOps","Dataverse, SharePoint, OneDrive, Planner"],a:[0],e:"The core is Power BI, Power Apps, Power Automate and Copilot Studio, with Power Pages for websites and Dataverse as the data layer."},
+{d:"P",q:"A department keeps retyping data from emails into a spreadsheet. Which Power Platform capability best removes this manual work?",o:["Automating the process with Power Automate","Building a dashboard in Power BI","Creating a Power Pages site","Adding a Dataverse table only"],a:[0],e:"Power Automate automates repetitive tasks and can read emails and write to data sources."},
+{d:"P",q:"What does the term 'citizen developer' mean?",o:["A business user who builds solutions with low-code tools","A government-employed programmer","An external contractor who writes C#","A user with only read access"],a:[0],e:"Citizen developers are non-professional developers who build apps and automations using low-code tools."},
+{d:"P",q:"Which statement best describes how Power Platform works with other Microsoft services?",o:["It connects to Microsoft 365, Dynamics 365 and Azure through connectors","It only works with Dataverse","It cannot use Microsoft 365 data","It requires every app to be rewritten in .NET"],a:[0],e:"Power Platform integrates with Microsoft 365, Dynamics 365, Azure and hundreds of other services through connectors."},
+{d:"P",q:"Which benefit of Power Platform helps a company react faster to changing business needs?",o:["Rapid app and process creation","Lower screen resolution","Fixed release cycles of years","Mandatory hardware purchases"],a:[0],e:"Low-code tools shorten the time to create and change apps and flows."},
+{d:"P",q:"Which tool should an administrator use to manage environments, data policies and capacity across the platform?",o:["Power Platform admin center","Power Query editor","Visual Studio Code","Azure Data Studio"],a:[0],e:"The Power Platform admin center manages environments, data loss prevention policies, capacity and settings."},
+{d:"P",q:"An organization wants to stop users from combining a business connector with a social media connector in one flow. What do they configure?",o:["A data loss prevention (DLP) policy","A Power BI sensitivity label","A canvas app theme","A Dataverse view"],a:[0],e:"DLP policies group connectors as business, non-business or blocked, controlling which can be used together."},
+{d:"P",q:"What is an environment in Power Platform?",o:["A container that holds apps, flows and data, used to separate work","A type of Power BI visual","A Microsoft 365 licence","A Windows operating system image"],a:[0],e:"Environments are containers for storing, managing and sharing an organization's data, apps and flows."},
+{d:"P",q:"Which AI feature lets you describe an app or flow in everyday language and have it generated for you?",o:["Copilot","Conditional formatting","Row-level security","Gateways"],a:[0],e:"Copilot in Power Apps and Power Automate can build apps and flows from natural-language descriptions."},
+{d:"P",q:"Which two benefits does Power Platform provide for business users? (Choose two.)",multi:true,o:["Build solutions without deep coding skills","Connect to many data sources","Replace the need for any data storage","Remove all licensing requirements"],a:[0,1],e:"It offers low-code building and wide connectivity. It doesn't remove the need for data storage or licences."},
+{d:"P",q:"Which Microsoft tool combines Power Platform apps, flows and bots into reusable packages that can be moved between environments?",o:["Solutions","Bookmarks","Dataflows","Themes"],a:[0],e:"Solutions package components such as apps, flows and tables so they can be transported and managed."},
+{d:"P",q:"Which statement about the Center of Excellence (CoE) Starter Kit is correct?",o:["It helps organizations govern and adopt Power Platform","It replaces Dataverse","It is a Power BI visual","It is a paid hardware appliance"],a:[0],e:"The CoE Starter Kit provides tools and guidance for governing and driving adoption of Power Platform."},
+{d:"M",q:"What is Dataverse best described as?",o:["A secure, scalable data platform for storing business data in tables","A chart type in Power BI","A mobile operating system","An email service"],a:[0],e:"Dataverse stores data in tables with built-in security, relationships and business logic."},
+{d:"M",q:"In Dataverse, what is a column?",o:["A field that stores one kind of data in a table","A user's licence","A flow trigger","A page layout"],a:[0],e:"Columns define the fields, such as name or date, that each row in a Dataverse table holds."},
+{d:"M",q:"Which Dataverse table type includes standard business tables such as Account and Contact?",o:["Standard tables","Virtual tables only","Elastic tables only","Temporary tables"],a:[0],e:"Standard tables such as Account and Contact come with Dataverse out of the box."},
+{d:"M",q:"What do security roles control in Dataverse?",o:["What users can do with data, such as read, create or delete","The colours of an app","How fast a flow runs","Which visuals appear in a report"],a:[0],e:"Security roles grant privileges over tables, such as create, read, write and delete, at set access levels."},
+{d:"M",q:"Which type of connector is built by a developer for a service that has no existing connector?",o:["Custom connector","Standard connector","Premium connector","Trigger connector"],a:[0],e:"Custom connectors wrap a REST API so Power Platform can use services without a prebuilt connector."},
+{d:"M",q:"AI Builder lets you add which kind of capability to apps and flows?",o:["Prebuilt or custom AI models, such as form processing","Physical device drivers","Operating-system updates","Printer sharing"],a:[0],e:"AI Builder offers models such as form processing, text analysis and prediction that apps and flows can call."},
+{d:"M",q:"Which Dataverse feature lets you set up many-to-one links between tables, such as Contact to Account?",o:["Relationships","Themes","Bookmarks","Triggers"],a:[0],e:"Relationships connect tables and let you look up related rows."},
+{d:"M",q:"What is the purpose of a trigger in a connector?",o:["It starts a flow when an event happens","It stores data in Dataverse","It formats a report","It signs users in"],a:[0],e:"Triggers are events, such as a new email arriving, that start a flow. Actions are the steps the flow then performs."},
+{d:"M",q:"Which two items are examples of standard (non-premium) Microsoft 365 connectors? (Choose two.)",multi:true,o:["SharePoint","Outlook","HTTP request","Custom connector"],a:[0,1],e:"SharePoint and Outlook are standard connectors. HTTP and custom connectors need a premium licence."},
+{d:"M",q:"What does the on-premises data gateway let cloud services do?",o:["Reach data that stays in your own network","Host websites","Edit images","Send text messages"],a:[0],e:"The gateway gives secure access from cloud services to on-premises data sources."},
+{d:"M",q:"Which Power Platform feature manages application lifecycle, such as moving a solution from test to production?",o:["Pipelines in Power Platform","Gridlines","Slicers","Quick Insights"],a:[0],e:"Pipelines automate moving solutions between environments."},
+{d:"M",q:"Where can you see the data stored by Dataverse in a simple tabular editor within Power Apps?",o:["Tables area of Power Apps","Visual Studio debugger","Outlook calendar","Windows registry"],a:[0],e:"The Tables area in Power Apps lets you view and edit Dataverse tables and data."},
+{d:"V",q:"Which type of Power Apps app starts from your data and is made of forms, views and dashboards?",o:["Model-driven app","Canvas app","Desktop flow","Paginated report"],a:[0],e:"Model-driven apps are generated from Dataverse tables and their components, with less control over layout."},
+{d:"V",q:"In a canvas app, what do you use to run logic such as filtering a list?",o:["Power Fx formulas","C# classes","SQL stored procedures","Ladder logic"],a:[0],e:"Power Fx is the low-code formula language used in canvas apps."},
+{d:"V",q:"What does Power Pages create?",o:["External-facing business websites","Paginated reports","Desktop flows","Email templates"],a:[0],e:"Power Pages builds secure, low-code websites for customers and partners, often backed by Dataverse."},
+{d:"V",q:"In Power BI, what is a report?",o:["One or more pages of visuals based on a semantic model","A single number on a card","A Dataverse table","A Teams channel"],a:[0],e:"A report is a set of visuals across pages that explore a dataset or semantic model."},
+{d:"V",q:"Which Power BI tool do you use to build reports on your own computer?",o:["Power BI Desktop","Power BI mobile app only","Power Automate Desktop","Outlook"],a:[0],e:"Power BI Desktop is the free Windows application used to connect to data, model it and build reports."},
+{d:"V",q:"What is a Power BI dashboard?",o:["A single page of pinned tiles from reports and other sources","A collection of Dataverse tables","A type of flow","A security role"],a:[0],e:"Dashboards combine pinned tiles, often from several reports, on one page in the Power BI service."},
+{d:"V",q:"Which feature lets Power BI users ask questions about their data in plain language?",o:["Q&A","Gateways","Row-level security","Sensitivity labels"],a:[0],e:"Q&A answers natural-language questions with a visual."},
+{d:"V",q:"Which Power BI element filters the visuals on a report page when you select a value?",o:["Slicer","Card","Tooltip","Theme"],a:[0],e:"Slicers let report readers filter the data shown."},
+{d:"V",q:"You need an app on your phone that scans a barcode and logs a stock count. Which Power Apps capability supports this?",o:["Canvas app with the barcode scanner control","Power BI card visual","A scheduled cloud flow only","Dataflow"],a:[0],e:"Canvas apps include controls for device features such as the camera and barcode scanner."},
+{d:"V",q:"How can you share a Power BI report with colleagues in the service?",o:["Publish it to a workspace and share it or distribute an app","Email the Dataverse table","Print the Power Fx formulas","Create a DLP policy"],a:[0],e:"Reports are published to a workspace in the Power BI service, then shared or distributed as an app."},
+{d:"V",q:"Which statement about Power BI visuals is correct?",o:["Visuals show data as charts, maps, tables and more","Visuals store flows","Visuals replace Dataverse","Visuals can only be tables"],a:[0],e:"Power BI offers many visual types, including charts, maps and tables."},
+{d:"S",q:"Which Power Automate flow type is started by pressing a button in the mobile app?",o:["Instant cloud flow","Automated cloud flow","Scheduled cloud flow","Process mining flow"],a:[0],e:"Instant flows are triggered manually, for example with a button."},
+{d:"S",q:"Which kind of flow runs every Monday at 8 AM?",o:["Scheduled cloud flow","Instant cloud flow","Automated cloud flow","Business process flow"],a:[0],e:"Scheduled cloud flows run at set times."},
+{d:"S",q:"What does robotic process automation (RPA) in Power Automate do?",o:["Automates tasks in desktop apps and legacy systems by mimicking user actions","Builds Power BI reports","Hosts websites","Stores Dataverse rows"],a:[0],e:"Desktop flows use RPA to automate actions in apps that lack APIs."},
+{d:"S",q:"Which Power Automate feature guides users through stages of a process and shows progress?",o:["Business process flow","Scheduled cloud flow","Desktop flow","Custom connector"],a:[0],e:"Business process flows lead people through defined stages of a process."},
+{d:"S",q:"What can an approval action in a flow do?",o:["Send a request and wait for an approve or reject response","Create a Power BI dataset","Delete a Dataverse environment","Change a user's licence"],a:[0],e:"Approvals route a request to people and continue the flow with their response."},
+{d:"S",q:"What is Copilot Studio used for?",o:["Building conversational agents (chatbots)","Designing printed reports","Managing virtual machines","Editing photos"],a:[0],e:"Copilot Studio lets you build and publish conversational agents with little or no code."},
+{d:"S",q:"In Copilot Studio, what is a topic?",o:["A conversation path triggered by what the user says","A Dataverse table","A Power BI theme","A DLP policy"],a:[0],e:"Topics are conversation paths that start from trigger phrases and define how the agent responds."},
+{d:"S",q:"Where can a Copilot Studio agent be published?",o:["Websites, Microsoft Teams and other channels","Only on a USB drive","Only inside Power BI","Only in Visual Studio"],a:[0],e:"Agents can be published to several channels, including websites and Teams."},
+{d:"S",q:"What does process mining in Power Automate help you do?",o:["Find and analyse how a business process really runs","Create web pages","Encrypt devices","Draw charts in Excel"],a:[0],e:"Process mining analyses event data to find bottlenecks and automation opportunities."},
+{d:"S",q:"A flow must run only if an invoice total is above 1,000. Which flow element do you add?",o:["Condition","Trigger","Connector","Environment"],a:[0],e:"A condition branches the flow based on a test such as a value comparison."}
+]},
+DP600: { code:"DP-600", name:"Fabric Analytics Engineer", min:100,
+ doms:{P:"Plan, implement and manage a solution",M:"Prepare and serve data",V:"Implement and manage semantic models",S:"Explore and analyze data"},
+ bank:[
+{d:"P",q:"You need to give a team access to one Fabric workspace's items only, without letting them manage the workspace. Which role is the smallest that lets them edit content?",o:["Contributor","Admin","Viewer","Capacity admin"],a:[0],e:"Contributor can create and edit items but cannot manage membership. Viewer is read-only."},
+{d:"M",q:"Which Fabric item lets you query lakehouse Delta tables with T-SQL in read-only mode, automatically?",o:["SQL analytics endpoint","Eventstream","Dataflow Gen1","Notebook default pool"],a:[0],e:"Each lakehouse gets a SQL analytics endpoint that exposes its Delta tables for read-only T-SQL queries."},
+{d:"M",q:"You need to ingest from many sources with low-code transformations using Power Query. Which Fabric item do you pick?",o:["Dataflow Gen2","KQL queryset","Spark job definition","Semantic link"],a:[0],e:"Dataflow Gen2 uses Power Query Online for low-code ingestion and transformation."},
+{d:"V",q:"A semantic model needs fast queries over very large lakehouse data without importing it. Which storage mode is designed for this in Fabric?",o:["Direct Lake","Dual with no relationships","Import with daily refresh only","Live connection to Excel"],a:[0],e:"Direct Lake reads Delta files in OneLake directly, giving import-like speed without copying data into the model."},
+{d:"S",q:"Which tool lets you view and edit a semantic model's measures from your own workstation scripts, such as with C# scripts, without opening Power BI Desktop?",o:["Tabular Editor","Excel Power Pivot only","Windows Explorer","Azure Monitor"],a:[0],e:"Tabular Editor connects through the XMLA endpoint and can script changes to semantic model metadata."},
+{d:"P",q:"Which Fabric item type holds a collection of items, such as lakehouses and notebooks, and is the main unit for access control?",o:["Workspace","Eventstream","Shortcut","Gateway"],a:[0],e:"Workspaces group Fabric items and are where roles such as Admin, Member, Contributor and Viewer are assigned."},
+{d:"P",q:"Which Fabric workspace role can add or remove members and delete the workspace?",o:["Admin","Contributor","Viewer","Member without edit rights"],a:[0],e:"Admin has full control. Contributor edits content, and Viewer only views."},
+{d:"P",q:"You want to track changes to semantic models and notebooks in Azure DevOps or GitHub. Which Fabric feature do you set up?",o:["Git integration","Deployment pipeline rules","Data lineage view","Sensitivity labels"],a:[0],e:"Git integration connects a workspace to a repository for version control."},
+{d:"P",q:"You need to move content from a test workspace to production and change a data source per stage. What do you configure?",o:["Deployment pipeline with deployment rules","A shortcut","A gateway cluster","A sensitivity label"],a:[0],e:"Deployment rules let you change parameters and data source connections for each stage."},
+{d:"P",q:"Which tool lets you see how items such as lakehouses, dataflows and reports depend on each other?",o:["Lineage view","Query folding indicator","Performance Analyzer","Quick measure"],a:[0],e:"Lineage view shows upstream and downstream relationships between items in a workspace."},
+{d:"P",q:"Which sensitivity-related feature classifies and protects content, such as Confidential, across Fabric and Microsoft 365?",o:["Microsoft Purview sensitivity labels","Row-level security","Data masking in notebooks","Direct Lake"],a:[0],e:"Sensitivity labels classify data and can travel with it when exported."},
+{d:"P",q:"What is OneLake?",o:["A single, unified data lake for the whole Fabric tenant","A kind of Power BI visual","A paid add-on for DAX","A Teams channel"],a:[0],e:"OneLake is the built-in logical data lake in Fabric. Items store their data in it by default."},
+{d:"P",q:"Which two actions are possible with a Fabric capacity admin role? (Choose two.)",multi:true,o:["Assign workspaces to the capacity","Manage capacity settings","Edit every report's visuals","Write DAX for all models"],a:[0,1],e:"Capacity admins assign workspaces and manage capacity-level settings. They don't automatically edit content."},
+{d:"P",q:"Which XMLA endpoint capability do external tools use to work with Fabric semantic models?",o:["Read and write access to model metadata","Printing of paginated reports","Mobile app notifications","Creation of Dataverse tables"],a:[0],e:"The XMLA endpoint exposes semantic models to tools such as Tabular Editor and SSMS for reading and writing."},
+{d:"M",q:"Which item combines file storage and Delta tables and offers both a SQL analytics endpoint and Spark access?",o:["Lakehouse","Warehouse","Eventhouse","Dataflow"],a:[0],e:"A lakehouse stores files and Delta tables, and is reachable with Spark and the SQL analytics endpoint."},
+{d:"M",q:"Which item gives full T-SQL read and write support, including INSERT and UPDATE, on tables?",o:["Warehouse","Lakehouse SQL analytics endpoint","Eventstream","Semantic model"],a:[0],e:"A Fabric warehouse supports full T-SQL data modification. The lakehouse endpoint is read-only."},
+{d:"M",q:"Which approach loads only new or changed rows from a source on each run?",o:["Incremental refresh or incremental load","Full reload every run","Deleting the table","Disabling the schedule"],a:[0],e:"Incremental loading processes only new or changed data, which saves time and capacity."},
+{d:"M",q:"Which Power Query step order is best for performance when the source supports query folding?",o:["Keep foldable steps, such as filters, early","Put a custom function first","Add an index column first","Merge with a CSV first"],a:[0],e:"Foldable steps are pushed to the source. A non-foldable step early on stops folding for the steps after it."},
+{d:"M",q:"A data pipeline must copy files from external storage to a lakehouse on a schedule. Which activity do you use?",o:["Copy data activity","Set variable activity","Wait activity","Web hook activity"],a:[0],e:"The Copy data activity moves data between sources and destinations in a pipeline."},
+{d:"M",q:"Which language is used in Fabric notebooks for distributed transformation with Spark? (Choose the best match.)",o:["PySpark","VBA","M language only","DAX only"],a:[0],e:"Notebooks support PySpark, Spark SQL, Scala and R for Spark workloads."},
+{d:"M",q:"Which Delta Lake feature lets you query a table as it was at an earlier point?",o:["Time travel","Shortcut","Mirroring","V-Order"],a:[0],e:"Delta time travel reads earlier table versions by version or timestamp."},
+{d:"M",q:"What is V-Order in Fabric?",o:["A write-time optimization of Parquet files for fast reads","A type of DAX function","A sort for visuals","A security role"],a:[0],e:"V-Order applies special sorting and compression to Parquet files so engines such as Power BI can read them quickly."},
+{d:"M",q:"Which medallion layer holds cleaned and conformed data?",o:["Silver","Bronze","Gold","Platinum"],a:[0],e:"Bronze is raw data, silver is cleaned and conformed, and gold is curated for reporting."},
+{d:"M",q:"You want to replicate an Azure SQL database into OneLake in near real time with little setup. What do you use?",o:["Mirroring","A nightly CSV export","A paginated report","A sensitivity label"],a:[0],e:"Database mirroring continuously replicates data into OneLake as Delta tables."},
+{d:"M",q:"Which SQL clause removes duplicate rows from a result set?",o:["DISTINCT","ORDER BY","HAVING","OFFSET"],a:[0],e:"SELECT DISTINCT returns each unique row once."},
+{d:"M",q:"Which two Power Query actions reduce data volume early to improve refresh speed? (Choose two.)",multi:true,o:["Remove unneeded columns","Filter out unneeded rows","Add many custom columns","Duplicate every query"],a:[0,1],e:"Removing columns and filtering rows early reduces the data that has to be processed."},
+{d:"M",q:"Which join type returns all rows from the left table and matching rows from the right?",o:["Left outer","Inner","Right anti","Full anti"],a:[0],e:"A left outer join keeps every left row and fills right-side columns with nulls where there is no match."},
+{d:"M",q:"Where do you define a reusable, parameterized data source connection that many pipelines share?",o:["Connections","Bookmarks","Themes","Visual interactions"],a:[0],e:"Connections store source details and credentials that pipelines and dataflows can reuse."},
+{d:"M",q:"Which T-SQL function returns the running total for rows ordered by date?",o:["SUM() OVER (ORDER BY date)","COUNT(*)","MAX()","COALESCE()"],a:[0],e:"A window function with ORDER BY gives a running total."},
+{d:"V",q:"Which is the recommended model design for analytics?",o:["Star schema","One wide flat table only","Fully normalized 3NF","Snowflake with many bridge tables"],a:[0],e:"A star schema uses fact tables linked to dimension tables, and is the best fit for the VertiPaq engine."},
+{d:"V",q:"Which relationship cardinality is the usual one between a dimension and a fact table?",o:["One-to-many","Many-to-many","One-to-one","Many-to-one reversed always"],a:[0],e:"One dimension row relates to many fact rows."},
+{d:"V",q:"Which DAX function changes the filter context of a calculation?",o:["CALCULATE","DIVIDE","FORMAT","VALUES only"],a:[0],e:"CALCULATE evaluates an expression in a modified filter context."},
+{d:"V",q:"Which DAX function safely divides and returns a blank or alternate result on divide-by-zero?",o:["DIVIDE","SUM","RELATED","LOOKUPVALUE"],a:[0],e:"DIVIDE handles a zero denominator without an error."},
+{d:"V",q:"Which feature lets you define row-level access in a semantic model?",o:["Row-level security roles","Perspectives","Bookmarks","Field parameters"],a:[0],e:"RLS roles use DAX filters to limit which rows a user sees."},
+{d:"V",q:"You need to reuse one set of measures across many reports. What is the best practice?",o:["Create a shared semantic model and connect reports to it","Copy the PBIX for each report","Export measures to Excel","Create a measure in every report"],a:[0],e:"A shared semantic model gives one definition of measures for many reports."},
+{d:"V",q:"Which tool helps find slow DAX queries and visuals in Power BI Desktop?",o:["Performance Analyzer","Quick Insights","Q&A setup","Bookmarks pane"],a:[0],e:"Performance Analyzer records how long each visual and DAX query takes."},
+{d:"V",q:"A semantic model is far too large for a refresh. Which two actions help? (Choose two.)",multi:true,o:["Remove unused columns","Reduce column cardinality, such as splitting datetime","Add more calculated columns","Turn off compression"],a:[0,1],e:"Fewer columns and lower cardinality shrink the model and speed up refresh."},
+{d:"V",q:"Which function returns a table of the distinct values in a column, honoring filters?",o:["VALUES","SUMX","RANKX","DATEDIFF"],a:[0],e:"VALUES returns the distinct values in the current filter context."},
+{d:"V",q:"Which time-intelligence function gives the total from the start of the year to the current date?",o:["TOTALYTD","EARLIER","USERELATIONSHIP","ALLNOBLANKROW"],a:[0],e:"TOTALYTD aggregates year to date and needs a proper date table."},
+{d:"V",q:"What is a calculation group used for?",o:["Applying one calculation, such as YTD, to many measures","Storing raw data","Scheduling refresh","Creating gateways"],a:[0],e:"Calculation groups reduce measure sprawl by applying calculation items to existing measures."},
+{d:"V",q:"Which feature lets you create a model that does not copy data but queries the source for each visual?",o:["DirectQuery","Import","Dual cached","Scheduled export"],a:[0],e:"DirectQuery sends queries to the source at run time."},
+{d:"V",q:"What is the purpose of marking a table as a date table?",o:["To enable correct time-intelligence calculations","To hide the table from users","To enable row-level security","To compress images"],a:[0],e:"A marked date table, with a contiguous date column, supports time-intelligence functions."},
+{d:"S",q:"Which Fabric tool lets analysts write SQL against a warehouse in a visual no-code editor?",o:["Visual query editor","Notebook","Eventstream","Data wrangler only"],a:[0],e:"The visual query editor builds T-SQL queries with a drag-and-drop interface."},
+{d:"S",q:"Which language do you use to query an eventhouse or KQL database?",o:["Kusto Query Language (KQL)","DAX only","MDX","XQuery"],a:[0],e:"KQL databases are queried with Kusto Query Language."},
+{d:"S",q:"Which Power BI visual best shows how a total breaks down into parts over categories?",o:["Stacked bar or treemap","Gauge","Card","Slicer"],a:[0],e:"Stacked bars and treemaps show part-to-whole relationships."},
+{d:"S",q:"You need to quickly profile column quality, distribution and errors in Power Query. Which feature do you turn on?",o:["Column quality, distribution and profile","Merge queries","Append queries","Custom connectors"],a:[0],e:"Column profiling features show errors, empty values and value distribution."},
+{d:"S",q:"Which feature lets users explore a semantic model from Excel using a PivotTable?",o:["Analyze in Excel","Export to PDF","Embed in Teams","Quick insights"],a:[0],e:"Analyze in Excel connects a PivotTable to a semantic model in the service."},
+{d:"S",q:"Which Spark library displays and transforms DataFrames with a visual grid and generates code?",o:["Data Wrangler","Power Query only","SSMS","Report Builder"],a:[0],e:"Data Wrangler is a notebook tool for exploring data and generating PySpark or pandas code."},
+{d:"S",q:"Which feature allows Power BI to suggest insights such as outliers and trends from your data?",o:["Analyze or Quick Insights","Row-level security","Deployment rules","Sensitivity labels"],a:[0],e:"Automated insights features look for patterns, anomalies and drivers in the data."},
+{d:"S",q:"Which statement about KQL is correct?",o:["It pipes data through operators such as where and summarize","It requires CREATE TABLE for every query","It only runs on Excel","It cannot aggregate"],a:[0],e:"KQL queries chain operators with the pipe symbol, for example filtering with where and aggregating with summarize."}
+]},
+DP700: { code:"DP-700", name:"Fabric Data Engineer", min:100,
+ doms:{P:"Implement and manage an analytics solution",M:"Ingest and transform data",V:"Monitor and optimize"},
+ bank:[
+{d:"P",q:"You want to move code and items between development and production Fabric workspaces in a controlled way. Which feature do you use?",o:["Deployment pipelines","Mirroring","Shortcuts","Data activator rules"],a:[0],e:"Deployment pipelines promote Fabric items across stages such as development, test and production."},
+{d:"M",q:"You need to reference data in another lakehouse or in external storage without copying it. What do you create?",o:["A shortcut","A new Delta copy job","A dataflow gen1","A pinned tile"],a:[0],e:"OneLake shortcuts point to data in place, so no copy is made."},
+{d:"M",q:"Which Spark Structured Streaming source feeds real-time events from Fabric into a lakehouse table with minimal code?",o:["Eventstream","Pipeline copy on a daily schedule","Dataflow Gen2 refresh","Semantic model refresh"],a:[0],e:"Eventstreams capture, transform and route real-time events to destinations such as a lakehouse or eventhouse."},
+{d:"V",q:"Delta tables in your lakehouse have thousands of tiny files and queries are slow. Which maintenance operation compacts them?",o:["OPTIMIZE","VACUUM only","DROP TABLE","ALTER COLUMN"],a:[0],e:"OPTIMIZE compacts small files into larger ones. VACUUM removes old unreferenced files."},
+{d:"V",q:"Where do you check the run history and duration of a data pipeline?",o:["Monitor hub","Capacity settings page only","OneLake file explorer","Sensitivity label policy"],a:[0],e:"The Monitor hub shows activity and run details for pipelines, notebooks, dataflows and more."},
+{d:"P",q:"Which workspace setting lets you pick the Spark runtime version and default pool for notebooks in the workspace?",o:["Data Engineering/Science workspace settings","Power BI tenant branding","Sensitivity label policy","Gateway cluster settings"],a:[0],e:"Spark runtime, pools and environments are configured in the workspace's Data Engineering/Science settings."},
+{d:"P",q:"You want one reusable set of Spark libraries and settings shared by several notebooks. What do you create?",o:["An environment","A shortcut","A dataflow","A deployment rule"],a:[0],e:"Fabric environments bundle runtime, libraries and Spark properties so notebooks and jobs can reuse them."},
+{d:"P",q:"Which feature enforces who can see specific rows of a warehouse table using T-SQL?",o:["Row-level security","Dynamic data masking","Shortcuts","Time travel"],a:[0],e:"Row-level security uses a predicate function and a security policy to filter rows per user."},
+{d:"P",q:"Which T-SQL feature hides the middle digits of a phone number from most users without changing stored data?",o:["Dynamic data masking","Column-level security","Mirroring","V-Order"],a:[0],e:"Dynamic data masking obscures values in query results unless a user has permission to see them."},
+{d:"P",q:"You must stop a group from reading the Salary column of a warehouse table, while allowing other columns. What do you use?",o:["Column-level security with DENY SELECT on the column","A deployment pipeline","Eventstream filter","A Spark pool"],a:[0],e:"Column-level security restricts access to specific columns with GRANT or DENY on those columns."},
+{d:"P",q:"Which OneLake security approach controls access to specific folders or tables inside a lakehouse for different users?",o:["OneLake data access roles","Workspace Viewer role only","Capacity admin role","Sensitivity labels"],a:[0],e:"OneLake data access roles give fine-grained read access to folders and tables within a lakehouse."},
+{d:"P",q:"Which two items can be put under Git source control in a Fabric workspace? (Choose two.)",multi:true,o:["Notebooks","Data pipelines","Capacity metrics","Tenant settings"],a:[0,1],e:"Many Fabric items, including notebooks and pipelines, support Git integration. Tenant and capacity settings don't."},
+{d:"P",q:"Which tool is used to build and publish a database project with schema changes for a Fabric warehouse in a CI/CD flow?",o:["Database projects (SQL projects)","Power BI Desktop","Paginated Report Builder","Visual query editor"],a:[0],e:"SQL database projects hold schema as code and can be deployed through a pipeline."},
+{d:"P",q:"Which role at the workspace level lets a user run notebooks and edit items but not manage access?",o:["Contributor","Admin","Viewer","Capacity admin"],a:[0],e:"Contributors can create and edit items. Admins and members manage access."},
+{d:"P",q:"What is the purpose of a deployment pipeline's stages?",o:["Separate development, test and production content","Store raw files","Schedule dataflows","Mask columns"],a:[0],e:"Stages represent environments such as development, test and production that content moves through."},
+{d:"P",q:"Which scheduling option runs a pipeline every day at 06:00?",o:["Schedule trigger on the pipeline","Mirroring","Shortcut","Direct Lake"],a:[0],e:"Pipelines can run on a schedule, or be started by events such as storage changes."},
+{d:"P",q:"Which activity in a pipeline runs a notebook?",o:["Notebook activity","Copy data activity","Wait activity","Lookup activity"],a:[0],e:"The Notebook activity runs a Fabric notebook as a pipeline step."},
+{d:"P",q:"Which feature passes values such as a date into a notebook run from a pipeline?",o:["Parameters in the notebook's parameters cell","A theme file","A slicer","A sensitivity label"],a:[0],e:"A cell tagged as parameters can receive values from the pipeline's Notebook activity."},
+{d:"M",q:"Which ingestion approach is best for a one-time large file copy into a lakehouse with no transformation?",o:["Copy data activity or Copy job","Streaming eventstream","Power BI slicer","Direct Lake"],a:[0],e:"Copy activities or copy jobs move data in bulk without needing transformation code."},
+{d:"M",q:"Which Fabric feature captures change-based, incremental copy from a source with minimal setup?",o:["Copy job with incremental copy","Deleting and reloading everything","Manual CSV upload","A paginated report"],a:[0],e:"Copy jobs can copy only new or changed data after the first full load."},
+{d:"M",q:"Which Delta write mode adds new rows to an existing table without removing existing ones?",o:["Append","Overwrite","ErrorIfExists","Ignore all"],a:[0],e:"Append adds rows. Overwrite replaces the table's data."},
+{d:"M",q:"Which Delta operation updates, inserts or deletes in one statement based on a match between source and target?",o:["MERGE","TRUNCATE","COPY INTO","VACUUM"],a:[0],e:"MERGE applies inserts, updates and deletes by matching rows, and is common for upserts."},
+{d:"M",q:"Which slowly changing dimension type keeps the full history by adding a new row with start and end dates?",o:["Type 2","Type 1","Type 0","Type 4 only"],a:[0],e:"Type 2 preserves history with new rows. Type 1 overwrites."},
+{d:"M",q:"Which Fabric component captures events from sources such as Kafka or Event Hubs in real time?",o:["Eventstream","Dataflow Gen2","Deployment pipeline","Semantic model"],a:[0],e:"Eventstreams ingest and route streaming events to destinations."},
+{d:"M",q:"Which Spark Structured Streaming concept defines how long late data is accepted when aggregating by time?",o:["Watermark","Checkpoint","Shortcut","Schema hint"],a:[0],e:"A watermark sets how late data can arrive before a window is finalized."},
+{d:"M",q:"What does a checkpoint location do in Structured Streaming?",o:["Stores progress so a stream can recover after a failure","Encrypts data","Creates a Power BI theme","Compresses Parquet"],a:[0],e:"Checkpoints record progress and state to support fault-tolerant restarts."},
+{d:"M",q:"Which KQL operator aggregates rows, such as counting events per minute?",o:["summarize","project","extend","take"],a:[0],e:"summarize groups and aggregates, often with bin() for time buckets."},
+{d:"M",q:"Which KQL operator selects or renames columns?",o:["project","where","join","sort"],a:[0],e:"project chooses which columns to keep and can rename them."},
+{d:"M",q:"Which Spark DataFrame method removes duplicate rows?",o:["dropDuplicates","explode","pivot","cache"],a:[0],e:"dropDuplicates removes duplicate rows, optionally by a subset of columns."},
+{d:"M",q:"Which transformation turns an array column into one row per element in PySpark?",o:["explode","collect_list","withColumnRenamed","coalesce"],a:[0],e:"explode creates a row for each array element."},
+{d:"M",q:"You need to join a very large table with a small lookup table in Spark. Which technique avoids a shuffle?",o:["Broadcast join","Cross join","Full outer join on all columns","Repartition to 1"],a:[0],e:"Broadcasting the small table sends it to every executor so the large table isn't shuffled."},
+{d:"M",q:"Which T-SQL statement loads files from storage into a warehouse table?",o:["COPY INTO","TRUNCATE TABLE","DROP SCHEMA","CREATE INDEX"],a:[0],e:"COPY INTO loads data from files, such as Parquet or CSV, into a warehouse table."},
+{d:"M",q:"A dataflow Gen2 should send output to a lakehouse table. What do you configure?",o:["Data destination","Row-level security","Sensitivity label","Git branch"],a:[0],e:"Dataflow Gen2 queries can have a data destination such as a lakehouse or warehouse."},
+{d:"M",q:"Which two are valid ways to handle missing values in a data cleaning step? (Choose two.)",multi:true,o:["Replace with a default value","Drop rows with nulls in key columns","Rename the workspace","Increase capacity size"],a:[0,1],e:"Replacing or dropping nulls are standard cleaning options, depending on the column's meaning."},
+{d:"M",q:"Which Delta table property enables change data feed so downstream jobs read only changed rows?",o:["delta.enableChangeDataFeed","delta.vorder","delta.logRetention","delta.appendOnly only"],a:[0],e:"The change data feed property records row-level changes for downstream consumption."},
+{d:"M",q:"Which medallion approach would a data engineer use to land raw files untouched first?",o:["Bronze layer","Gold layer","Semantic layer","Presentation layer"],a:[0],e:"Bronze stores raw data as ingested, before cleaning."},
+{d:"V",q:"Where can you see the status, duration and errors of recent pipeline and notebook runs across a workspace?",o:["Monitor hub","Lineage view only","Tenant branding","Gateway settings"],a:[0],e:"The Monitor hub lists activities and their run history."},
+{d:"V",q:"Which feature sends an alert or runs an action when data in an eventstream or report meets a condition?",o:["Activator","V-Order","Deployment rules","Mirroring"],a:[0],e:"Activator (Data Activator) triggers actions such as email or Teams messages when conditions are met on data."},
+{d:"V",q:"A pipeline fails at a Copy activity. Where do you look first for the cause?",o:["The activity's run details and error output","The Power BI theme file","Sensitivity label settings","Tenant domains"],a:[0],e:"Run details show the error message and activity output for diagnosing failures."},
+{d:"V",q:"Which Delta maintenance command removes data files no longer referenced by the table and older than the retention period?",o:["VACUUM","OPTIMIZE","MERGE","ALTER TABLE ADD COLUMN"],a:[0],e:"VACUUM deletes unreferenced files beyond the retention threshold."},
+{d:"V",q:"Which Spark setting helps when one task takes far longer than others because the data is unevenly distributed?",o:["Handle data skew, for example with salting or adaptive query execution","Lower the workspace name length","Disable checkpoints","Use only one executor"],a:[0],e:"Data skew leaves one partition much larger than others. Salting keys or enabling AQE helps rebalance work."},
+{d:"V",q:"Which Spark behaviour makes repeated use of the same DataFrame faster?",o:["Caching it in memory","Re-reading from source every time","Converting to CSV","Dropping partitions"],a:[0],e:"cache() or persist() keeps the DataFrame in memory so later actions reuse it."},
+{d:"V",q:"A warehouse query is slow because statistics are out of date. What can you do?",o:["Update statistics","Rename the table","Disable the workspace","Add a Git branch"],a:[0],e:"Current statistics help the query optimizer choose good plans."},
+{d:"V",q:"Which T-SQL tool shows the plan a query will use so you can find costly steps?",o:["Estimated or actual execution plan","SELECT *","PRINT","GRANT"],a:[0],e:"Execution plans show how the engine processes a query."},
+{d:"V",q:"Which technique reduces data scanned when queries usually filter by date?",o:["Partition the Delta table by date, or use a sensible clustering","Add more joins","Store data as one huge CSV","Disable V-Order"],a:[0],e:"Partitioning or clustering on a commonly filtered column lets engines skip unneeded files."},
+{d:"V",q:"Which two actions help reduce small-file problems in a Delta table? (Choose two.)",multi:true,o:["Run OPTIMIZE","Enable optimize write on Spark writes","Write one row per file","Turn off compaction forever"],a:[0,1],e:"OPTIMIZE and optimized writes produce fewer, larger files."},
+{d:"V",q:"Which metric source shows capacity usage and throttling for Fabric workloads?",o:["Microsoft Fabric Capacity Metrics app","Power BI mobile app","Outlook rules","Visual interactions pane"],a:[0],e:"The Capacity Metrics app reports capacity utilization, throttling and item-level usage."},
+{d:"V",q:"A scheduled dataflow refresh is failing intermittently. What is a sensible first step?",o:["Check refresh history and error details, then fix the source or credentials","Delete the workspace","Disable all pipelines","Rename the dataflow"],a:[0],e:"Refresh history shows when and why runs failed, so you can address the cause."},
+{d:"V",q:"Which Spark UI element helps find which stage of a job is slow?",o:["Stages and tasks view in the Spark monitoring page","Workspace theme","Sensitivity bar","Lineage legend"],a:[0],e:"The Spark monitoring views show stage and task timings and data sizes."},
+{d:"V",q:"Which kind of eventhouse policy keeps recent data in fast storage and ages older data out?",o:["Caching and retention policies","Row-level security","Deployment rules","Git branch policy"],a:[0],e:"Caching policy defines how long data stays in fast storage, and retention policy defines how long it is kept."}
+]},
+DP800: { code:"DP-800", name:"Developing AI-Enabled Database Solutions", min:100,
+ doms:{P:"Design and develop database solutions",M:"Secure, optimize and deploy",V:"Implement AI capabilities in SQL"},
+ bank:[
+{d:"P",q:"You need to enforce that every Orders.CustomerID value exists in the Customers table. What do you add?",o:["A foreign key constraint","A clustered columnstore index","A temporary table","A scalar function"],a:[0],e:"A foreign key enforces referential integrity between tables."},
+{d:"M",q:"Which feature hides sensitive column values, such as showing only the last four digits of a card number, without changing the stored data?",o:["Dynamic data masking","Transparent data encryption","Table partitioning","Query hints"],a:[0],e:"Dynamic data masking obscures values in query results for users without the UNMASK permission."},
+{d:"M",q:"A query scans an entire large table to find a few rows by an unindexed column. What is the most direct fix?",o:["Create a nonclustered index on the column","Add more columns to the table","Disable statistics","Switch to a table variable"],a:[0],e:"A nonclustered index on the filtered column lets the engine seek rather than scan."},
+{d:"V",q:"You store text embeddings in a database and want to find the most similar rows to a query embedding. What type of operation is this?",o:["Vector similarity search","Full outer join","Recursive CTE","Pivot"],a:[0],e:"Vector search ranks rows by distance, such as cosine distance, between embedding vectors."},
+{d:"V",q:"Which technique combines retrieved database content with a prompt so a language model can answer using your own data?",o:["Retrieval-augmented generation","Index defragmentation","Log shipping","Change data capture"],a:[0],e:"Retrieval-augmented generation (RAG) fetches relevant data and supplies it to the model as context."},
+{d:"P",q:"Which data type stores JSON natively in SQL Server 2025 and Azure SQL, with validation and an efficient binary format?",o:["json","nvarchar(max) only","xml only","sql_variant"],a:[0],e:"The native json type validates documents and stores them in an optimized binary format."},
+{d:"P",q:"Which T-SQL function extracts a scalar value, such as a name, from a JSON string?",o:["JSON_VALUE","OPENJSON","JSON_OBJECT","STRING_AGG"],a:[0],e:"JSON_VALUE returns a scalar. JSON_QUERY returns an object or array, and OPENJSON returns rows."},
+{d:"P",q:"Which function turns a JSON array into a set of rows and columns?",o:["OPENJSON","JSON_ARRAY","ISJSON","CONCAT_WS"],a:[0],e:"OPENJSON parses JSON text and returns it as a rowset."},
+{d:"P",q:"Which constraint ensures that a column's values are unique across rows but allows one NULL?",o:["UNIQUE constraint","CHECK constraint","DEFAULT constraint","FOREIGN KEY"],a:[0],e:"A UNIQUE constraint enforces uniqueness, and SQL Server allows a single NULL in a unique column."},
+{d:"P",q:"You need to keep a full history of row changes in a table and query data as of a past time. What do you use?",o:["System-versioned temporal table","A heap table","A table variable","A synonym"],a:[0],e:"Temporal tables keep history automatically and support FOR SYSTEM_TIME queries."},
+{d:"P",q:"Which T-SQL feature lets you reuse a named subquery inside one statement, including recursive queries?",o:["Common table expression (CTE)","Temporary login","Synonym","Linked server"],a:[0],e:"A CTE defines a named result set for a statement and can be recursive."},
+{d:"P",q:"Which statement returns the top-ranked row per group, for example the newest order per customer?",o:["ROW_NUMBER() OVER (PARTITION BY ... ORDER BY ...) filtered to 1","SELECT TOP 1 alone","GROUP BY with no aggregate","UNION ALL"],a:[0],e:"A ranking window function with PARTITION BY ranks rows within each group."},
+{d:"P",q:"Which object runs automatically in response to INSERT, UPDATE or DELETE on a table?",o:["Trigger","View","Schema","Synonym"],a:[0],e:"A DML trigger fires when data changes."},
+{d:"P",q:"What is the main benefit of using a stored procedure over sending ad hoc SQL from an application?",o:["Reuse, parameterization and a controlled permission surface","It removes the need for indexes","It stores data faster","It disables logging"],a:[0],e:"Stored procedures encapsulate logic, accept parameters and can be granted EXECUTE without table access."},
+{d:"P",q:"Which approach best prevents SQL injection in application code?",o:["Parameterized queries","Concatenating user text into the query","Hiding the table names","Disabling logins at night"],a:[0],e:"Parameters keep user input separate from SQL text."},
+{d:"P",q:"Which T-SQL statement is best for an upsert pattern that inserts missing rows and updates existing ones?",o:["MERGE (or UPDATE then INSERT within a transaction)","TRUNCATE","DROP TABLE","DBCC CHECKDB"],a:[0],e:"MERGE, or an UPDATE followed by INSERT in a transaction, handles upserts."},
+{d:"P",q:"You want to expose tables as REST and GraphQL endpoints without writing a backend. What can you use?",o:["Data API builder","SQL Profiler","Database Mail","Linked servers"],a:[0],e:"Data API builder generates REST and GraphQL endpoints from database objects."},
+{d:"P",q:"Which two statements about transactions are correct? (Choose two.)",multi:true,o:["A transaction groups statements so they succeed or fail together","COMMIT makes changes permanent","ROLLBACK makes changes permanent","Transactions disable locking"],a:[0,1],e:"Transactions are atomic, COMMIT saves changes and ROLLBACK undoes them."},
+{d:"P",q:"Which isolation level uses row versioning so readers do not block writers in Azure SQL Database by default?",o:["Read Committed Snapshot Isolation (RCSI)","Serializable","Read Uncommitted","Repeatable Read with table locks"],a:[0],e:"Azure SQL Database uses RCSI by default, so readers see the last committed version."},
+{d:"P",q:"Which T-SQL regular expression support was added in SQL Server 2025?",o:["Functions such as REGEXP_LIKE","LIKE with no wildcard support","Only PATINDEX","CLR-only patterns"],a:[0],e:"SQL Server 2025 adds regular-expression functions such as REGEXP_LIKE and REGEXP_REPLACE."},
+{d:"P",q:"Which feature combines keyword search over text with ranking for natural-language terms?",o:["Full-text search","Table partitioning","Temporal tables","Resource governor"],a:[0],e:"Full-text indexes support word and phrase search with ranking."},
+{d:"M",q:"Which feature encrypts sensitive columns so even database administrators cannot read the plaintext?",o:["Always Encrypted","Transparent data encryption only","Dynamic data masking","Query Store"],a:[0],e:"Always Encrypted keeps keys on the client side so the server never sees plaintext."},
+{d:"M",q:"Which feature encrypts the data files at rest at the database level?",o:["Transparent data encryption (TDE)","Always Encrypted","Row-level security","Ledger"],a:[0],e:"TDE encrypts database files and backups at rest."},
+{d:"M",q:"Which feature lets you give each user access only to certain rows, using a predicate function?",o:["Row-level security","Dynamic data masking","Column encryption","Resource governor"],a:[0],e:"Row-level security uses a security policy with a filter or block predicate."},
+{d:"M",q:"Which authentication option avoids storing passwords in application connection strings for Azure SQL?",o:["Managed identity with Microsoft Entra ID","SQL login with a shared password","Anonymous access","Windows 95 authentication"],a:[0],e:"A managed identity lets an app authenticate without stored secrets."},
+{d:"M",q:"Which feature automatically captures query runtime statistics and plans so you can find regressions?",o:["Query Store","Database Mail","SQL Agent only","Linked servers"],a:[0],e:"Query Store keeps query text, plans and runtime stats over time."},
+{d:"M",q:"A query scans a whole table to find rows by one column. What is the most direct fix?",o:["Add a suitable nonclustered index","Add more columns","Disable statistics","Use SELECT *"],a:[0],e:"A nonclustered index on the filtered column lets the engine seek instead of scan."},
+{d:"M",q:"Which index type suits large analytic scans and aggregations?",o:["Clustered columnstore index","Hash index on a varchar","Spatial index","XML index"],a:[0],e:"Columnstore indexes store data by column, compress it well and speed up analytic queries."},
+{d:"M",q:"What does a covering index do?",o:["Includes all columns a query needs so no lookup is required","Encrypts the table","Duplicates the table","Stops all locks"],a:[0],e:"A covering index contains every column the query needs, using key and INCLUDE columns."},
+{d:"M",q:"Which setting lets the optimizer adapt to parameter values by using different plans, in newer compatibility levels?",o:["Parameter Sensitive Plan optimization","Resource governor only","Replication","Backup compression"],a:[0],e:"Parameter Sensitive Plan optimization can keep several plans for one query depending on parameter values."},
+{d:"M",q:"Which feature captures row changes from the transaction log and writes them to change tables?",o:["Change data capture (CDC)","Dynamic data masking","Database snapshots","Always Encrypted"],a:[0],e:"CDC reads the log and records inserts, updates and deletes in change tables."},
+{d:"M",q:"Which lightweight feature tracks which rows changed, without keeping the old values?",o:["Change tracking","Temporal tables","Ledger tables","Triggers on every column"],a:[0],e:"Change tracking records that a row changed, so a consumer can sync, but doesn't store old values."},
+{d:"M",q:"Which approach deploys schema changes through source control and a pipeline?",o:["SQL database project with CI/CD","Manual changes in production","Emailing scripts","Editing the master database"],a:[0],e:"SQL projects hold schema as code and can be built and deployed in a pipeline."},
+{d:"M",q:"What does the sqlpackage tool do in a deployment?",o:["Publishes a DACPAC to update a target database","Creates Power BI reports","Resizes VMs","Compresses logs"],a:[0],e:"SqlPackage applies a DACPAC, comparing it with the target and updating its schema."},
+{d:"M",q:"Which two practices help secure a database? (Choose two.)",multi:true,o:["Grant the least privilege needed","Use Microsoft Entra authentication and auditing","Share the sa password widely","Disable all logging"],a:[0,1],e:"Least privilege, modern authentication and auditing are core controls."},
+{d:"M",q:"Which feature tamper-evidently records changes so you can prove data was not altered?",o:["Ledger tables","Temporary tables","Synonyms","Table variables"],a:[0],e:"Ledger tables use cryptographic hashes to make changes verifiable."},
+{d:"M",q:"A table has far more rows over time and old data is rarely read. Which feature helps manage it by range of dates?",o:["Table partitioning","Dropping all indexes","Row-level security","Always Encrypted"],a:[0],e:"Partitioning splits a table by a key such as date, easing maintenance and sometimes performance."},
+{d:"M",q:"What is the safest first step when a new deployment causes a query to slow down badly?",o:["Compare plans in Query Store and force the last good plan if needed","Delete the table","Disable the server","Rewrite the application in another language"],a:[0],e:"Query Store lets you see the regression and force a previous plan as a quick mitigation."},
+{d:"V",q:"Which data type stores embeddings in SQL Server 2025 and Azure SQL?",o:["vector","varbinary only for everything","money","geography"],a:[0],e:"The vector data type holds embeddings as fixed-dimension arrays of floats."},
+{d:"V",q:"Which function calculates the distance between two vectors using a chosen metric such as cosine?",o:["VECTOR_DISTANCE","DATEDIFF","LEN","HASHBYTES"],a:[0],e:"VECTOR_DISTANCE takes a metric and two vectors and returns their distance."},
+{d:"V",q:"Which two actions are needed to run semantic search over product descriptions? (Choose two.)",multi:true,o:["Generate embeddings for the text and store them","Compare the query embedding to stored embeddings","Remove all text columns","Convert vectors to dates"],a:[0,1],e:"You embed the data and the query, then find the nearest vectors."},
+{d:"V",q:"Which approach improves speed of nearest-neighbor searches on large vector tables, trading some exactness for speed?",o:["Approximate nearest neighbor (ANN) vector index","Full table scan with exact distance every time","Dropping the vector column","Row-level security"],a:[0],e:"ANN indexes, such as DiskANN-based ones, speed up searches by accepting approximate results."},
+{d:"V",q:"What does retrieval-augmented generation (RAG) do?",o:["Retrieves relevant data and supplies it to a language model as context","Compresses backups","Encrypts columns","Replaces indexes"],a:[0],e:"RAG fetches relevant content, often by vector search, and adds it to the prompt so the model answers from your data."},
+{d:"V",q:"Why split long documents into smaller chunks before creating embeddings?",o:["Embedding models have input limits and smaller chunks give more precise matches","To increase storage use","To avoid using indexes","To disable search"],a:[0],e:"Chunking fits model limits and improves retrieval precision."},
+{d:"V",q:"Which approach combines keyword search and vector search to improve relevance?",o:["Hybrid search with a ranking fusion method such as reciprocal rank fusion","Using only ORDER BY name","Using only TOP 1","Using only foreign keys"],a:[0],e:"Hybrid search merges keyword and vector rankings, for example with reciprocal rank fusion."},
+{d:"V",q:"How can a database call an external AI service's REST endpoint from T-SQL in Azure SQL?",o:["sp_invoke_external_rest_endpoint","BULK INSERT","DBCC SHRINKFILE","sp_who2"],a:[0],e:"sp_invoke_external_rest_endpoint calls an HTTPS REST endpoint from T-SQL."},
+{d:"V",q:"Which object registers an embedding model endpoint so T-SQL can reference it by name?",o:["External model (CREATE EXTERNAL MODEL)","Linked server to Excel","Synonym","Assembly"],a:[0],e:"An external model defines the endpoint and model that functions such as AI_GENERATE_EMBEDDINGS use."},
+{d:"V",q:"Which distance metric is commonly used when comparing normalized text embeddings for similarity?",o:["Cosine distance","Hamming distance on dates","Levenshtein on integers","Manhattan on strings only"],a:[0],e:"Cosine distance measures the angle between vectors and is a common choice for text embeddings."},
+{d:"V",q:"Which practice reduces the risk of a model returning private data in a RAG solution?",o:["Apply row-level security and permissions to what retrieval can return","Give the model full admin access","Store keys in prompts","Turn off logging"],a:[0],e:"Retrieval should respect the same access controls as the underlying data, so users only get data they may see."},
+{d:"V",q:"A model returns plausible but wrong facts. What is the best mitigation in a database-backed assistant?",o:["Ground answers in retrieved data and cite the source rows","Increase the temperature","Remove the data","Ask users to guess"],a:[0],e:"Grounding responses in retrieved data reduces made-up answers."}
+]}
+};
+
+let EX = EXAMS.PL300, Qcur = Q;
+const COLS=["var(--prep)","var(--model)","var(--viz)","var(--secure)"];
+const XCOL={PL300:"#F2C811",PL900:"#742774",DP600:"#0E7C86",DP700:"#107C41",DP800:"#0B5CAD"};
+function renderCards(){
+  const c=$("examCards"); if(!c) return; c.textContent="";
+  Object.keys(EXAMS).forEach(k=>{
+    const b=document.createElement("button"); b.type="button"; b.className="xcard"; b.setAttribute("role","radio");
+    b.setAttribute("aria-checked",k===curKey?"true":"false"); b.style.setProperty("--c",XCOL[k]);
+    const a=document.createElement("b"); a.textContent=EXAMS[k].code;
+    const n=document.createElement("span"); n.textContent=EXAMS[k].name;
+    const m=document.createElement("span"); m.textContent=EXAMS[k].bank.length+" questions, "+EXAMS[k].min+" min";
+    b.append(a,n,m); b.addEventListener("click",()=>{ $("examSel").value=k; applyExam(k); }); c.appendChild(b);
+  });
+}
+function applyExam(key){
+  curKey = key; EX = EXAMS[key]; Qcur = EX.bank;
+  if (key==="PL300") DOMAINS = EX.doms;
+  else { DOMAINS = {}; Object.keys(EX.doms).forEach((k,i)=>DOMAINS[k]={name:EX.doms[k],color:COLS[i]}); }
+  $("h1").textContent = EX.code+": "+EX.name; document.body.dataset.exam = key; renderCards();
+  $("topTitle").textContent = EX.code+" knowledge check";
+  $("totQ").textContent = Qcur.length;
+  document.title = EX.code+" knowledge check";
+  $("intro").textContent = Qcur.length+" original practice questions for "+EX.code+" ("+EX.name+"), written from the published skills outline, not taken from Microsoft's exam."+(Qcur.length<20?" This exam currently has a short starter set.":"");
+  $("timedLbl").textContent = "Time me: "+EX.min+" minutes, auto-submit at zero";
+  const w=$("weights"), lg=$("legend"); w.textContent=""; lg.textContent="";
+  Object.keys(DOMAINS).forEach(k=>{
+    const n=Qcur.filter(x=>x.d===k).length, dv=document.createElement("div");
+    dv.style.width=(n/Qcur.length*100)+"%"; dv.style.background=DOMAINS[k].color; dv.textContent=n; w.appendChild(dv);
+    const sp=document.createElement("span"), dot=document.createElement("i");
+    dot.className="dot"; dot.style.background=DOMAINS[k].color; sp.appendChild(dot); sp.appendChild(document.createTextNode(DOMAINS[k].name)); lg.appendChild(sp);
+  });
+}
+
+/* ---------- state ---------- */
+const $ = id => document.getElementById(id);
+let items = [];          // shuffled questions with shuffled options
+let answers = [];        // array of arrays of selected option indexes
+let flags = [];
+let pos = 0;
+let aiMode = false, AI = null, learn = false, checked = [], tq = [], lastPos = null, qStart = 0, retest = false, curKey = "PL300", lastWeak = null;
+const SK = "plexam_save", HK = "plexam_hist", PK = "plexam_prefs";
+let guardPause = false, strikes = 0, swLog = [], ended = false, away = null, guardOn = false;
+let timed = false, timeLeft = 6000, elapsed = 0, tick = null;
+
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function buildItems(list) {
+  return shuffle(list || Qcur).map(src => {
+    const order = shuffle(src.o.map((_, i) => i));
+    return {
+      src: src, d: src.d, q: src.q, c: src.c, e: src.e,
+      multi: !!src.multi,
+      need: src.a.length,
+      o: order.map(i => src.o[i]),
+      a: src.a.map(orig => order.indexOf(orig)).sort((x, y) => x - y),
+      hintUsed: false, out: []
+    };
+  });
+}
+
+function fmt(sec) {
+  const m = Math.floor(sec / 60), s = sec % 60;
+  return String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+}
+
+/* ---------- start ---------- */
+function beginTest(list, isRetest, fromAi) {
+  aiMode = !!fromAi;
+  retest = !!isRetest; items = buildItems(list);
+  answers = items.map(() => []);
+  flags = items.map(() => false);
+  pos = 0;
+  timed = !retest && $("timed").checked; learn = $("learn").checked; checked = []; tq = []; lastPos = null;
+  timeLeft = EX.min*60; elapsed = 0; strikes = 0; swLog = []; ended = false;
+  $("start").hidden = true;
+  $("results").hidden = true;
+  $("exam").hidden = false;
+  $("topTitle").textContent = retest ? (aiMode ? "AI-written practice (" : "Weak-area practice (") + EX.code + ")" : EX.code + " knowledge check";
+  $("totQ").textContent = items.length;
+  buildGrid();
+  renderQuestion();
+  clearInterval(tick);
+  tick = setInterval(onTick, 1000);
+  onTick(true);
+  window.scrollTo(0, 0);
+}
+$("startBtn").addEventListener("click", () => beginTest());
+
+function onTick(first) {
+  if (!first && elapsed % 10 === 9) save();
+  if (!first) { elapsed++; if (timed) timeLeft--; }
+  $("timer").textContent = timed ? fmt(Math.max(timeLeft, 0)) : fmt(elapsed);
+  $("timer").setAttribute("aria-label", timed ? "Time remaining" : "Time elapsed");
+  if (timed && timeLeft <= 0) { finish(); }
+}
+
+/* ---------- exam rendering ---------- */
+function buildGrid() {
+  const g = $("grid");
+  g.textContent = "";
+  items.forEach((_, i) => {
+    const b = document.createElement("button");
+    b.className = "cell";
+    b.type = "button";
+    b.textContent = i + 1;
+    b.addEventListener("click", () => { pos = i; renderQuestion(); });
+    g.appendChild(b);
+  });
+}
+
+function refreshChrome() {
+  if (!$("exam").hidden && !ended) setTimeout(save, 0);
+  const cells = $("grid").children;
+  let done = 0;
+  for (let i = 0; i < cells.length; i++) {
+    const answered = answers[i].length > 0;
+    if (answered) done++;
+    cells[i].classList.toggle("done", answered);
+    cells[i].classList.toggle("flag", flags[i]);
+    cells[i].classList.toggle("current", i === pos);
+    cells[i].setAttribute("aria-label",
+      "Question " + (i + 1) + (answered ? ", answered" : ", not answered") + (flags[i] ? ", flagged" : ""));
+    if (i === pos) cells[i].setAttribute("aria-current", "true"); else cells[i].removeAttribute("aria-current");
+  }
+  $("ansCount").textContent = done;
+  $("progressFill").style.width = (done / items.length * 100) + "%";
+}
+
+function renderQuestion() {
+  const nowT = Date.now(); if (lastPos !== null) tq[lastPos] = (tq[lastPos] || 0) + (nowT - qStart) / 1000; lastPos = pos; qStart = nowT;
+  const it = items[pos];
+  const card = $("card");
+  card.dataset.d = it.d;
+  card.textContent = "";
+
+  const meta = document.createElement("div");
+  meta.className = "qmeta";
+  const label = document.createElement("span");
+  label.textContent = "Question " + (pos + 1) + " of " + items.length;
+  meta.appendChild(label);
+  const flagBtn = document.createElement("button");
+  flagBtn.type = "button";
+  flagBtn.className = "flagbtn";
+  flagBtn.textContent = flags[pos] ? "Flagged for review" : "Flag for review";
+  flagBtn.setAttribute("aria-pressed", flags[pos] ? "true" : "false");
+  flagBtn.addEventListener("click", () => {
+    flags[pos] = !flags[pos];
+    flagBtn.textContent = flags[pos] ? "Flagged for review" : "Flag for review";
+    flagBtn.setAttribute("aria-pressed", flags[pos] ? "true" : "false");
+    refreshChrome();
+  });
+  meta.appendChild(flagBtn);
+  card.appendChild(meta);
+
+  const qt = document.createElement("p");
+  qt.className = "qtext";
+  qt.textContent = it.q;
+  card.appendChild(qt);
+
+  if (it.c) {
+    const pre = document.createElement("pre");
+    pre.className = "code";
+    pre.textContent = it.c;
+    // show the code before the question text for readability
+    card.insertBefore(pre, qt.nextSibling);
+  }
+
+  const hint = document.createElement("p");
+  hint.className = "hint";
+  hint.textContent = it.multi ? "Choose " + it.need + "." : "Choose one.";
+  card.appendChild(hint);
+
+  if (!it.out.length) {
+    const wrong = shuffle(it.o.map((_, k) => k).filter(k => !it.a.includes(k)));
+    it.out = wrong.slice(0, it.multi ? 1 : 2);
+  }
+  const hb = document.createElement("button");
+  hb.type = "button"; hb.className = "btn ghost small"; hb.style.margin = "0 0 12px";
+  hb.textContent = it.hintUsed ? "Hint used" : "Show hint";
+  hb.disabled = it.hintUsed || (learn && checked[pos]);
+  hb.addEventListener("click", () => { it.hintUsed = true; renderQuestion(); });
+  card.appendChild(hb);
+  if (it.hintUsed) {
+    const hm = document.createElement("p");
+    hm.className = "why"; hm.style.margin = "0 0 12px";
+    hm.textContent = "Hint: this is a " + DOMAINS[it.d].name + " question. " + (it.out.length > 1 ? "Two options" : "One option") + " below can be ruled out.";
+    card.appendChild(hm);
+  }
+
+  const fs = document.createElement("fieldset");
+  fs.className = "opts";
+  const lg = document.createElement("legend");
+  lg.style.cssText = "position:absolute;left:-9999px";
+  lg.textContent = "Answer options";
+  fs.appendChild(lg);
+
+  it.o.forEach((text, i) => {
+    const lab = document.createElement("label");
+    lab.className = "opt";
+    const inp = document.createElement("input");
+    inp.type = it.multi ? "checkbox" : "radio";
+    inp.name = "q" + pos;
+    inp.checked = answers[pos].includes(i);
+    inp.addEventListener("change", () => {
+      if (it.multi) {
+        const set = new Set(answers[pos]);
+        if (inp.checked) set.add(i); else set.delete(i);
+        answers[pos] = [...set].sort((x, y) => x - y);
+      } else {
+        answers[pos] = [i];
+      }
+      refreshChrome();
+    });
+    const span = document.createElement("span");
+    const gone = it.hintUsed && it.out.includes(i);
+    let lbl = gone ? text + "  (ruled out by hint)" : text;
+    if (learn && checked[pos]) { const r = it.a.includes(i), pk = answers[pos].includes(i); lbl = text + (r ? "  ✔ correct" : pk ? "  ✘ your answer" : ""); inp.disabled = true; if (r) lab.style.borderColor = "#1E7A3C"; else if (pk) lab.style.borderColor = "#B3261E"; }
+    span.textContent = lbl;
+    if (gone) { lab.style.opacity = ".5"; span.style.textDecoration = "line-through"; }
+    lab.appendChild(inp);
+    lab.appendChild(span);
+    fs.appendChild(lab);
+  });
+  card.appendChild(fs);
+  if (learn) {
+    if (!checked[pos]) {
+      const cb = document.createElement("button");
+      cb.type = "button"; cb.className = "btn small"; cb.style.margin = "12px 0 0"; cb.textContent = "Check answer";
+      cb.addEventListener("click", () => { if (!answers[pos].length) return; checked[pos] = true; renderQuestion(); });
+      card.appendChild(cb);
+    } else {
+      const ex = document.createElement("p");
+      ex.className = "why"; ex.textContent = (isCorrect(pos) ? "Correct. " : "Not quite. ") + (it.e || "");
+      card.appendChild(ex);
+      addExplain(card, it, answers[pos]);
+    }
+  }
+
+  const nav = document.createElement("div");
+  nav.className = "nav";
+  const prev = document.createElement("button");
+  prev.className = "btn ghost"; prev.type = "button"; prev.textContent = "Previous";
+  prev.disabled = pos === 0;
+  prev.addEventListener("click", () => { pos--; renderQuestion(); });
+  const next = document.createElement("button");
+  next.className = "btn"; next.type = "button";
+  next.textContent = pos === items.length - 1 ? "Go to first unanswered" : "Next";
+  next.addEventListener("click", () => {
+    if (pos < items.length - 1) { pos++; }
+    else {
+      const idx = answers.findIndex(a => a.length === 0);
+      pos = idx === -1 ? 0 : idx;
+    }
+    renderQuestion();
+  });
+  nav.appendChild(prev);
+  nav.appendChild(next);
+  card.appendChild(nav);
+
+  refreshChrome();
+}
+
+$("submitBtn").addEventListener("click", () => {
+  const left = answers.filter(a => a.length === 0).length;
+  const fl = flags.filter(Boolean).length;
+  let msg = "Submit the test now?";
+  if (left) msg = left + " question" + (left > 1 ? "s are" : " is") + " unanswered. Submit anyway?";
+  else if (fl) msg = fl + " question" + (fl > 1 ? "s are" : " is") + " still flagged. Submit anyway?";
+  const sb = $("submitBtn");
+  if (sb.dataset.armed === "1") { clearTimeout(sbTimer); sb.dataset.armed = ""; sb.textContent = "Submit test"; finish(); return; }
+  sb.dataset.armed = "1"; sb.textContent = left ? "Confirm: " + left + " unanswered" : fl ? "Confirm: " + fl + " flagged" : "Confirm submit";
+  sbTimer = setTimeout(() => { sb.dataset.armed = ""; sb.textContent = "Submit test"; }, 5000);
+});
+
+/* ---------- results ---------- */
+function isCorrect(i) {
+  const a = answers[i], c = items[i].a;
+  return a.length === c.length && a.every((v, k) => v === c[k]);
+}
+
+function finish() {
+  clearInterval(tick); clearSave();
+  if (lastPos !== null) { tq[lastPos] = (tq[lastPos] || 0) + (Date.now() - qStart) / 1000; lastPos = null; }
+  $("exam").hidden = true;
+  $("results").hidden = false;
+
+  const total = items.length;
+  const correct = items.reduce((n, _, i) => n + (isCorrect(i) ? 1 : 0), 0);
+  const pct = Math.round(correct / total * 100);
+  $("scorePct").textContent = pct;
+
+  const by = {};
+  Object.keys(DOMAINS).forEach(k => by[k] = { n: 0, ok: 0 });
+  items.forEach((it, i) => { by[it.d].n++; if (isCorrect(i)) by[it.d].ok++; });
+
+  let weakest = null, weakPct = 101;
+  Object.keys(by).forEach(k => {
+    const p = by[k].ok / by[k].n * 100;
+    if (p < weakPct) { weakPct = p; weakest = k; }
+  });
+
+  let title, text;
+  if (pct >= 80) { title = "Strong. You look ready to book the exam."; text = "Review the questions you missed, then do a timed run to check your pacing."; }
+  else if (pct >= 70) { title = "Close to passing level."; text = "Your weakest area is " + DOMAINS[weakest].name.toLowerCase() + ". A few focused study sessions there should lift you clear of the line."; }
+  else if (pct >= 50) { title = "Solid base, with real gaps."; text = "Start with " + DOMAINS[weakest].name.toLowerCase() + ", where you scored lowest, and read the explanations for every miss below."; }
+  else { title = "Plenty of room to grow."; text = "Work through the Microsoft Learn path for "+EX.code+" alongside hands-on practice in Power BI Desktop, then retake this test."; }
+  $("verdictTitle").textContent = correct + " of " + total + " correct. " + title;
+  $("verdictText").textContent = text;
+
+  const dom = $("domains");
+  dom.textContent = "";
+  Object.keys(DOMAINS).forEach(k => {
+    const p = Math.round(by[k].ok / by[k].n * 100);
+    const row = document.createElement("div");
+    row.className = "drow";
+    const head = document.createElement("div");
+    head.className = "dhead";
+    const a = document.createElement("span"); a.textContent = DOMAINS[k].name;
+    const b = document.createElement("span"); b.textContent = by[k].ok + " of " + by[k].n + " (" + p + "%)";
+    head.appendChild(a); head.appendChild(b);
+    const bar = document.createElement("div"); bar.className = "bar";
+    bar.setAttribute("role", "img");
+    bar.setAttribute("aria-label", DOMAINS[k].name + " " + p + " percent");
+    const fill = document.createElement("i");
+    fill.style.width = p + "%"; fill.style.background = DOMAINS[k].color;
+    bar.appendChild(fill);
+    row.appendChild(head); row.appendChild(bar);
+    dom.appendChild(row);
+  });
+
+  { const hu = items.filter(x => x.hintUsed).length; $("verdictText").textContent += " Hints used: " + hu + " of " + total + "."; }
+  renderSwitches();
+  recordAndExtras(pct, by, weakest);
+  buildFilters();
+  renderReview("all");
+  window.scrollTo(0, 0);
+}
+
+let filterMode = "all";
+function buildFilters() {
+  const f = $("filters");
+  f.textContent = "";
+  const defs = [["all", "All questions"], ["missed", "Missed or skipped"], ["flagged", "Flagged"]];
+  defs.forEach(([key, label]) => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "btn ghost small"; b.textContent = label;
+    b.setAttribute("aria-pressed", key === "all" ? "true" : "false");
+    b.addEventListener("click", () => {
+      [...f.children].forEach(c => c.setAttribute("aria-pressed", "false"));
+      b.setAttribute("aria-pressed", "true");
+      renderReview(key);
+    });
+    f.appendChild(b);
+  });
+}
+
+function renderReview(mode) {
+  filterMode = mode;
+  const box = $("review");
+  box.textContent = "";
+  let shown = 0;
+  items.forEach((it, i) => {
+    const ok = isCorrect(i);
+    if (mode === "missed" && ok) return;
+    if (mode === "flagged" && !flags[i]) return;
+    shown++;
+    const wrap = document.createElement("article");
+    wrap.className = "rev " + (ok ? "ok" : "no"); wrap.dataset.i = i;
+
+    const tag = document.createElement("div");
+    tag.className = "tag";
+    const skipped = answers[i].length === 0;
+    tag.textContent = "Question " + (i + 1) + " · " + DOMAINS[it.d].name + " · " + (ok ? "Correct" : skipped ? "Skipped" : "Incorrect") + " · " + Math.round(tq[i] || 0) + "s";
+    wrap.appendChild(tag);
+
+    const h = document.createElement("h3");
+    h.textContent = it.q;
+    wrap.appendChild(h);
+
+    if (it.c) {
+      const pre = document.createElement("pre");
+      pre.className = "code"; pre.textContent = it.c;
+      wrap.appendChild(pre);
+    }
+
+    it.o.forEach((text, k) => {
+      const isRight = it.a.includes(k);
+      const picked = answers[i].includes(k);
+      const d = document.createElement("div");
+      d.className = "ropt" + (isRight ? " right" : picked ? " wrong" : "");
+      const mk = document.createElement("span");
+      mk.className = "mk";
+      mk.textContent = isRight ? (picked ? "Correct, your answer:" : "Correct answer:") : picked ? "Your answer:" : "";
+      if (mk.textContent) d.appendChild(mk);
+      d.appendChild(document.createTextNode(text));
+      wrap.appendChild(d);
+    });
+
+    const why = document.createElement("p");
+    why.className = "why";
+    const bold = document.createElement("b"); bold.textContent = "Why: ";
+    why.appendChild(bold);
+    why.appendChild(document.createTextNode(it.e));
+    wrap.appendChild(why);
+    box.appendChild(wrap);
+  });
+  if (!shown) {
+    const p = document.createElement("p");
+    p.textContent = mode === "flagged" ? "You didn't flag any questions." : "Nothing missed. Every answer was correct.";
+    box.appendChild(p);
+  }
+}
+
+$("retryBtn").addEventListener("click", () => {
+  $("results").hidden = true;
+  $("start").hidden = false;
+  window.scrollTo(0, 0);
+});
+/* ---------- tab-switch guard ---------- */
+function leave(){ if (!$("exam").hidden && !ended && !guardPause && away===null) away = Date.now(); }
+function back(){
+  if (away===null || $("exam").hidden || ended) { away=null; return; }
+  const secs = Math.round((Date.now()-away)/1000); away=null;
+  strikes++;
+  const rec = {secs, reason:""}; swLog.push(rec);
+  const last = strikes>=3;
+  $("swTitle").textContent = last ? "Test ended: you left the tab 3 times" : "Warning: you left the test tab ("+strikes+" of 3)";
+  $("swSub").textContent = last ? "Enter your reason, then your results will open." : "Switch 3 ends the test and stops the timer.";
+  $("swReason").value=""; $("swBtn").disabled=true;
+  $("swBtn").textContent = last ? "Submit reason and see results" : "Return to the test";
+  $("swModal").hidden=false; $("swReason").focus();
+  if (last) { ended = true; clearInterval(tick); }
+  rec.last = last;
+}
+$("swReason").addEventListener("input",()=>{ $("swBtn").disabled = $("swReason").value.trim().length<5; });
+$("swBtn").addEventListener("click",()=>{
+  swLog[swLog.length-1].reason = $("swReason").value.trim();
+  $("swModal").hidden=true;
+  if (swLog[swLog.length-1].last) finish();
+});
+document.addEventListener("keydown",e=>{ if(e.key==="Escape" && !$("swModal").hidden) e.preventDefault(); });
+document.addEventListener("visibilitychange",()=>{ document.hidden?leave():back(); });
+window.addEventListener("blur",leave);
+window.addEventListener("focus",()=>{ if(!document.hidden) back(); });
+function renderSwitches(){
+  let p=$("swPanel");
+  if(!p){ p=document.createElement("div"); p.className="panel"; p.id="swPanel"; $("results").insertBefore(p,$("results").children[2]); }
+  p.textContent="";
+  const h=document.createElement("h2"); h.style.cssText="margin:0 0 10px;font-size:1.15rem"; h.textContent="Tab switches ("+swLog.length+")"; p.appendChild(h);
+  if(!swLog.length){ const q=document.createElement("p"); q.textContent="None. You stayed on the test the whole time."; p.appendChild(q); return; }
+  swLog.forEach((r,i)=>{ const q=document.createElement("p"); q.style.margin="0 0 8px"; q.textContent=(i+1)+". Away about "+r.secs+"s. Reason: "+r.reason; p.appendChild(q); });
+}
+applyExam("PL300");
+Object.keys(EXAMS).forEach(k=>{const o=document.createElement("option"); o.value=k; o.textContent=EXAMS[k].code+" · "+EXAMS[k].name; $("examSel").appendChild(o);});
+$("examSel").addEventListener("change",()=>applyExam($("examSel").value));
+/* ---------- save, history, prefs, export ---------- */
+function savedState(){ try { return JSON.parse(localStorage.getItem(SK)); } catch(e) { return null; } }
+function clearSave(){ try { localStorage.removeItem(SK); } catch(e) {} }
+function save(){
+  if (ended || $("exam").hidden || !items.length) return;
+  try { localStorage.setItem(SK, JSON.stringify({key:curKey,items,answers,flags,pos,elapsed,timeLeft,timed,learn,checked,tq,strikes,swLog,retest})); } catch(e) {}
+}
+function showResume(){
+  const d = savedState(); $("resumeWrap").hidden = !d;
+  if (d && EXAMS[d.key]) $("resumeBtn").textContent = "Resume paused " + EXAMS[d.key].code + " test (" + d.answers.filter(a=>a.length).length + " of " + d.items.length + " answered)";
+  else $("resumeWrap").hidden = true;
+}
+let discardTimer = null, sbTimer = null;
+function resetDiscard(){ clearTimeout(discardTimer); const d=$("discardBtn"); d.textContent="×"; d.style.fontSize=""; d.dataset.armed=""; d.setAttribute("aria-label","Discard paused test"); }
+$("discardBtn").addEventListener("click",()=>{
+  const d=$("discardBtn");
+  if (d.dataset.armed === "1") { resetDiscard(); clearSave(); showResume(); return; }
+  d.dataset.armed="1"; d.textContent="Delete?"; d.style.fontSize=".95rem"; d.setAttribute("aria-label","Click again to delete the paused test");
+  discardTimer=setTimeout(resetDiscard,4000);
+});
+$("resumeBtn").addEventListener("click",()=>{
+  const d = savedState(); if (!d) return;
+  $("examSel").value = d.key; applyExam(d.key);
+  items=d.items; answers=d.answers; flags=d.flags; pos=d.pos; elapsed=d.elapsed; timeLeft=d.timeLeft; timed=d.timed; learn=d.learn;
+  checked=d.checked||[]; tq=d.tq||[]; strikes=d.strikes||0; swLog=d.swLog||[]; retest=d.retest; ended=false; lastPos=null; away=null;
+  $("start").hidden=true; $("results").hidden=true; $("exam").hidden=false;
+  $("totQ").textContent=items.length; $("topTitle").textContent = retest ? "Weak-area practice ("+EX.code+")" : EX.code+" knowledge check";
+  buildGrid(); renderQuestion(); clearInterval(tick); tick=setInterval(onTick,1000); onTick(true);
+});
+$("pauseBtn").addEventListener("click",()=>{
+  if (lastPos !== null) { tq[lastPos]=(tq[lastPos]||0)+(Date.now()-qStart)/1000; lastPos=null; }
+  save(); clearInterval(tick); away=null; $("exam").hidden=true; $("start").hidden=false; showResume();
+});
+function mkPanel(id,title,rows){
+  let p=$(id); if(!p){ p=document.createElement("div"); p.className="panel"; p.id=id; $("results").insertBefore(p,$("results").children[2]); }
+  p.textContent=""; const h=document.createElement("h2"); h.style.cssText="margin:0 0 10px;font-size:1.15rem"; h.textContent=title; p.appendChild(h);
+  rows.forEach(r=>{ const q=document.createElement("p"); q.style.cssText="margin:0 0 6px;font-family:ui-monospace,monospace;font-size:.9rem"; q.textContent=r; p.appendChild(q); });
+}
+function recordAndExtras(pct,by,weak){
+  lastWeak = weak;
+  const times = items.map((it,i)=>({i,t:tq[i]||0})).sort((a,b)=>b.t-a.t);
+  const avg = Math.round(times.reduce((n,x)=>n+x.t,0)/Math.max(items.length,1));
+  mkPanel("slowPanel","Time per question",["Average: "+avg+"s per question."].concat(times.slice(0,3).map(x=>"Slowest: question "+(x.i+1)+" ("+DOMAINS[items[x.i].d].name+") took "+Math.round(x.t)+"s.")));
+  let h=[]; try { h=JSON.parse(localStorage.getItem(HK))||[]; } catch(e) {}
+  if (!retest) {
+    const ok=items.filter((_,i)=>isCorrect(i)).length;
+    h.push({k:curKey,t:Date.now(),pct,ok,n:items.length}); h=h.slice(-100);
+    try { localStorage.setItem(HK,JSON.stringify(h)); } catch(e) {}
+  }
+  const mine=h.filter(x=>x.k===curKey).slice(-8);
+  mkPanel("histPanel","Score history for "+EX.code+(mine.length?"":" (none yet)"),mine.map(x=>new Date(x.t).toLocaleDateString()+"  "+"█".repeat(Math.round(x.pct/5)).padEnd(20,"·")+" "+x.pct+"% ("+x.ok+" of "+x.n+")"));
+}
+$("weakBtn").addEventListener("click",()=>{
+  let list = items.filter((_,i)=>!isCorrect(i)).map(x=>x.src);
+  if (!list.length) list = Qcur.filter(q=>q.d===lastWeak);
+  if (list.length) beginTest(list,true);
+});
+$("csvBtn").addEventListener("click",()=>{
+  const esc=v=>'"'+String(v).replace(/"/g,'""')+'"';
+  const rows=[["Question","Skill area","Text","Your answer","Correct answer","Result","Seconds"]];
+  items.forEach((it,i)=>rows.push([i+1,DOMAINS[it.d].name,it.q,answers[i].map(k=>it.o[k]).join(" | "),it.a.map(k=>it.o[k]).join(" | "),isCorrect(i)?"Correct":answers[i].length?"Incorrect":"Skipped",Math.round(tq[i]||0)]));
+  const a=document.createElement("a"); a.href=URL.createObjectURL(new Blob([rows.map(r=>r.map(esc).join(",")).join("\n")],{type:"text/csv"}));
+  a.download=EX.code+"-results.csv"; document.body.appendChild(a); a.click(); a.remove();
+});
+$("printBtn").addEventListener("click",()=>window.print());
+let P={}; try { P=JSON.parse(localStorage.getItem(PK))||{}; } catch(e) {}
+function applyPrefs(){
+  document.body.classList.toggle("dark",!!P.dark);
+  document.documentElement.style.fontSize=[100,115,130][P.size||0]+"%";
+  $("darkBtn").textContent=P.dark?"Light":"Dark";
+  try { localStorage.setItem(PK,JSON.stringify(P)); } catch(e) {}
+}
+$("darkBtn").addEventListener("click",()=>{ P.dark=!P.dark; applyPrefs(); });
+$("sizeBtn").addEventListener("click",()=>{ P.size=((P.size||0)+1)%3; applyPrefs(); });
+document.addEventListener("keydown",e=>{
+  if($("exam").hidden||!$("swModal").hidden||e.ctrlKey||e.metaKey||e.altKey) return;
+  const t=e.target.tagName; if(t==="TEXTAREA"||t==="SELECT") return;
+  const k=e.key.toLowerCase(); if(t==="INPUT"&&k.startsWith("arrow")) return;
+  const nb=[...document.querySelectorAll("#card .nav button")];
+  if(k==="arrowright"){ nb[1]&&nb[1].click(); }
+  else if(k==="arrowleft"){ nb[0]&&!nb[0].disabled&&nb[0].click(); }
+  else if(k==="f"){ const fb=document.querySelector("#card .flagbtn"); fb&&fb.click(); }
+  else { let n="1234567".indexOf(k); if(n<0) n="abcdefg".indexOf(k); const ins=document.querySelectorAll("#card .opt input"); if(n>=0&&ins[n]&&!ins[n].disabled) ins[n].click(); }
+});
+/* ---------- AI helpers (appear only where Claude is available) ---------- */
+function addExplain(host, it, mine){
+  if (!AI) return;
+  const b = document.createElement("button"); b.type = "button"; b.className = "btn ghost small"; b.style.marginTop = "10px"; b.textContent = "Explain with AI";
+  const out = document.createElement("p"); out.className = "aiout"; out.hidden = true;
+  b.addEventListener("click", async () => {
+    b.disabled = true; b.textContent = "Explaining..."; out.hidden = false; out.textContent = "Thinking...";
+    const right = it.a.map(k => it.o[k]).join(" | "), picked = mine.map(k => it.o[k]).join(" | ") || "no answer";
+    const prompt = "You are a tutor for the Microsoft " + EX.code + " exam (" + EX.name + "). Explain in plain language, in under 150 words, why the correct answer is right and why the other options are wrong. Then give one memory tip. If the student's answer was wrong, say what mistake leads to it.\n\nQuestion: " + it.q + (it.c ? "\nCode:\n" + it.c : "") + "\nOptions: " + it.o.join(" | ") + "\nCorrect answer: " + right + "\nStudent answer: " + picked;
+    try { const r = await AI(prompt, { modelTier: "quick", onText: x => { out.textContent = x.text; } }); out.textContent = r.text; b.textContent = "Explained"; }
+    catch (e) { out.textContent = "Claude could not answer right now. Try again in a moment."; b.disabled = false; b.textContent = "Explain with AI"; }
+  });
+  host.appendChild(b); host.appendChild(out);
+}
+const _rr = renderReview;
+renderReview = function(m){ _rr(m); document.querySelectorAll("#review .rev").forEach(w => { const it = items[+w.dataset.i]; if (it) addExplain(w, it, answers[+w.dataset.i]); }); };
+$("aiGenBtn").addEventListener("click", async () => {
+  if (!AI) return;
+  const btn = $("aiGenBtn"), msg = $("aiMsg"); btn.disabled = true; msg.textContent = "Writing 10 new " + EX.code + " questions. This takes about 20 seconds.";
+  const areas = Object.keys(DOMAINS).map(k => k + " = " + DOMAINS[k].name).join("; ");
+  const prompt = "Write 10 new, original multiple-choice practice questions for the Microsoft " + EX.code + " exam (" + EX.name + "). Do not copy real exam questions. Make them scenario-based where possible, with 4 plausible options each, and put the correct answer in varied positions. Spread them across these skill areas using the key letters: " + areas + ". Return only a JSON array. Each item: {\"d\": key letter, \"q\": question, \"o\": [4 option strings], \"a\": [index of the correct option], \"e\": one or two sentence explanation}. A choose-two question has two indexes in a and \"multi\": true, and says Choose two in the question.";
+  try {
+    const arr = await AI.json(prompt, { modelTier: "default", cache: false });
+    const good = (Array.isArray(arr) ? arr : []).filter(q => q && DOMAINS[q.d] && typeof q.q === "string" && Array.isArray(q.o) && q.o.length >= 3 && q.o.every(x => typeof x === "string") && Array.isArray(q.a) && q.a.length && q.a.every(i => Number.isInteger(i) && i >= 0 && i < q.o.length)).map(q => ({ d: q.d, q: q.q, o: q.o, a: q.a, e: typeof q.e === "string" ? q.e : "", multi: q.a.length > 1 }));
+    if (good.length < 3) throw new Error("too few");
+    msg.textContent = ""; beginTest(good, true, true);
+  } catch (e) { msg.textContent = "Claude could not write the questions this time. Try again."; }
+  btn.disabled = false;
+});
+(async () => {
+  try { if (window.claude && claude.use) { AI = await claude.use("sample"); } } catch (e) { AI = null; }
+  if (AI) { $("aiGenBtn").hidden = false; }
+})();
+applyPrefs(); showResume();
+</script>
+</body>
+</html>
