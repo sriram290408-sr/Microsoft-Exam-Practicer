@@ -74,7 +74,7 @@ During an exam session:
 
 ## 🌓 Display Preferences
 
-A floating toolbar in the bottom-right corner allows adjusting:
+A floating glassmorphic 3D dock positioned in the top-right corner allows quick adjustment at any time:
 * **Dark / Light Mode**:
   * **Light Mode**: Calm, glare-free architectural slate-grey canvas (`#E1E5EA`) with soft neutral panels.
   * **Dark Mode**: High-contrast, tuned charcoal palette (`#10151C`) with luminous text and exam accents (`#F0F4F8`).

@@ -476,15 +476,66 @@
   .ropt.wrong { background: var(--bad-bg); border-color: var(--bad); }
   .ropt .mk { font-weight: 700; margin-right: 8px; }
 
-  /* Floating Preferences */
-  #prefs { position: fixed; right: 14px; bottom: 14px; z-index: 50; display: flex; gap: 8px; }
-  #prefs .btn {
-    background: linear-gradient(180deg, var(--panel-top) 0%, var(--panel-bottom) 100%);
-    color: var(--ink); border: 1.5px solid var(--line);
-    box-shadow: 0 3px 0 var(--bevel-bottom), 0 4px 10px rgba(0,0,0,0.1);
+  /* ---------- Floating Top-Right 3D Glass Preferences Dock ---------- */
+  #prefs {
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 80;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 6px;
+    background: color-mix(in srgb, var(--panel) 88%, transparent);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    box-shadow: 0 8px 22px -4px rgba(18, 28, 38, 0.12), 0 2px 6px rgba(18, 28, 38, 0.05);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
-  #prefs .btn:hover { transform: translateY(-2px); box-shadow: 0 4.5px 0 var(--bevel-bottom); }
-  #prefs .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--bevel-bottom); }
+  #prefs:hover {
+    box-shadow: 0 12px 28px -4px rgba(18, 28, 38, 0.16), 0 3px 8px rgba(18, 28, 38, 0.08);
+  }
+  #prefs .btn {
+    border-radius: 999px;
+    padding: 7px 14px;
+    font-size: .83rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    gap: 7px;
+    display: inline-flex;
+    align-items: center;
+    background: linear-gradient(180deg, var(--panel-top) 0%, var(--panel-bottom) 100%);
+    color: var(--ink);
+    border: 1.5px solid var(--line);
+    box-shadow: 0 2.5px 0 var(--bevel-bottom), 0 2px 4px rgba(0,0,0,0.04);
+    transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease, border-color 0.18s ease;
+  }
+  #prefs .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4.5px 0 var(--bevel-bottom), 0 6px 14px rgba(0,0,0,0.08);
+    border-color: var(--ink-soft);
+  }
+  #prefs .btn:active {
+    transform: translateY(1.5px);
+    box-shadow: 0 1px 0 var(--bevel-bottom);
+  }
+  .pref-icon {
+    width: 15px; height: 15px; flex: none; stroke: currentColor;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  #prefs .btn:hover .pref-icon {
+    transform: rotate(15deg) scale(1.12);
+  }
+  #prefs .btn:hover .pref-icon.sun {
+    transform: rotate(45deg) scale(1.18);
+  }
+
+  @media (max-width: 800px) {
+    #prefs { top: 8px; right: 10px; gap: 4px; padding: 4px 5px; }
+    #prefs .btn { padding: 6px 10px; font-size: .78rem; gap: 5px; }
+  }
 
   /* Modal */
   #swModal {
@@ -714,16 +765,23 @@
     color: #F0F4F8 !important;
   }
 
-  /* Dark mode prefs */
+  /* Dark mode top-right glass dock */
+  body.dark #prefs {
+    background: color-mix(in srgb, #161E27 90%, transparent);
+    border-color: #283444;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+  }
   body.dark #prefs .btn {
-    background: #1B2430;
+    background: linear-gradient(180deg, #222C38 0%, #171E27 100%);
     color: #F0F4F8;
-    border-color: #2B3748;
-    box-shadow: 0 3px 0 #0A0E14, 0 4px 10px rgba(0,0,0,0.3);
+    border-color: #2E3B4D;
+    box-shadow: 0 2.5px 0 #0A0E14, 0 3px 8px rgba(0,0,0,0.25);
   }
   body.dark #prefs .btn:hover {
-    background: #232E3D;
+    background: linear-gradient(180deg, #2A3644 0%, #1D2631 100%);
+    border-color: #3F5066;
     color: #FFFFFF;
+    box-shadow: 0 4.5px 0 #0A0E14, 0 6px 14px rgba(0,0,0,0.35);
   }
 
   /* Soft Ambient Specular Sheen (Drastically Reduced Glare) */
@@ -1005,7 +1063,16 @@
     </div>
   </section>
 </div>
-<div id="prefs" style="position:fixed;right:10px;bottom:10px;z-index:50;display:flex;gap:6px"><button class="btn small" id="darkBtn">Dark</button><button class="btn small" id="sizeBtn">Text size</button></div>
+<nav id="prefs" class="pref-dock" aria-label="Display Preferences">
+  <button class="btn small" id="darkBtn" title="Toggle dark / light theme" aria-label="Toggle dark / light theme">
+    <svg class="pref-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+    <span>Dark</span>
+  </button>
+  <button class="btn small" id="sizeBtn" title="Cycle font size (100%, 115%, 130%)" aria-label="Cycle font size">
+    <svg class="pref-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"></path><path d="M9 20h6"></path><path d="M12 4v16"></path></svg>
+    <span>100%</span>
+  </button>
+</nav>
 <div id="swModal" role="alertdialog" aria-modal="true" aria-labelledby="swTitle" hidden style="position:fixed;inset:0;background:rgba(23,32,43,.88);z-index:99;display:flex;align-items:center;justify-content:center;padding:16px">
  <div style="background:#fff;border-radius:6px;max-width:480px;width:100%;padding:24px">
   <h2 id="swTitle" style="margin:0 0 6px;font-size:1.25rem"></h2>
@@ -1970,10 +2037,28 @@ $("csvBtn").addEventListener("click",()=>{
 });
 $("printBtn").addEventListener("click",()=>window.print());
 let P={}; try { P=JSON.parse(localStorage.getItem(PK))||{}; } catch(e) {}
+const moonSvg = '<svg class="pref-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+const sunSvg = '<svg class="pref-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>';
+const fontSvg = '<svg class="pref-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"></path><path d="M9 20h6"></path><path d="M12 4v16"></path></svg>';
+
 function applyPrefs(){
   document.body.classList.toggle("dark",!!P.dark);
-  document.documentElement.style.fontSize=[100,115,130][P.size||0]+"%";
-  $("darkBtn").textContent=P.dark?"Light":"Dark";
+  const sizeLevels = [100, 115, 130];
+  const curSize = sizeLevels[P.size || 0];
+  document.documentElement.style.fontSize = curSize + "%";
+
+  const darkBtn = $("darkBtn");
+  if (darkBtn) {
+    darkBtn.innerHTML = (P.dark ? sunSvg + "<span>Light</span>" : moonSvg + "<span>Dark</span>");
+    darkBtn.setAttribute("aria-label", P.dark ? "Switch to light mode" : "Switch to dark mode");
+  }
+
+  const sizeBtn = $("sizeBtn");
+  if (sizeBtn) {
+    sizeBtn.innerHTML = fontSvg + "<span>" + curSize + "%</span>";
+    sizeBtn.setAttribute("aria-label", "Text size " + curSize + " percent");
+  }
+
   try { localStorage.setItem(PK,JSON.stringify(P)); } catch(e) {}
 }
 $("darkBtn").addEventListener("click",()=>{ P.dark=!P.dark; applyPrefs(); });
