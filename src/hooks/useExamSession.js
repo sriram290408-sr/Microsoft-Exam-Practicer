@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { EXAMS } from '../data/exams/index.js';
-import { STORAGE_KEYS, MAX_PAUSES } from '../data/constants.js';
+import { STORAGE_KEYS, MAX_PAUSES, SECTION_DURATION_SECONDS } from '../data/constants.js';
 import { storage } from '../utils/storage.js';
 import { prepareExamQuestions } from '../utils/formatters.js';
 
 export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProgress }) {
   const [screen, setScreen] = useState('start'); // 'start' | 'exam' | 'results'
   const [examKey, setExamKey] = useState('PL300');
-  
+
   // Active test state
   const [items, setItems] = useState([]);
   const [answers, setAnswers] = useState([]);
@@ -15,384 +15,346 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   const [pos, setPos] = useState(0);
   const [timed, setTimed] = useState(false);
   const [learn, setLearn] = useState(false);
-  const [checked, setChecked] = useState([]); // for learn mode
-  const [timeLeft, setTimeLeft] = useState(7200); // 120 mins default for 200 Qs
+  const [checked, setChecked] = useState([]);
+
+  // Two independent 60-minute section timers (break time is NOT counted)
+  const [sec1Time, setSec1Time] = useState(SECTION_DURATION_SECONDS);
+  const [sec2Time, setSec2Time] = useState(SECTION_DURATION_SECONDS);
   const [elapsed, setElapsed] = useState(0);
   const [pausesUsed, setPausesUsed] = useState(0);
   const [questionTimes, setQuestionTimes] = useState([]);
   const [isRetest, setIsRetest] = useState(false);
   const [lastWeakSpots, setLastWeakSpots] = useState(null);
 
-  // 2-Section & 10-Minute Break states
+  // Section 1 submit + break
+  const [sec1Locked, setSec1Locked] = useState(false); // true once Section 1 is submitted
   const [isOnBreak, setIsOnBreak] = useState(false);
   const [breakTaken, setBreakTaken] = useState(false);
 
-  // Resume state available in storage
   const [savedSession, setSavedSession] = useState(() => storage.get(STORAGE_KEYS.SAVE, null));
 
-  // Timer interval reference
+  // Refs to avoid stale closures in timer callbacks
   const timerRef = useRef(null);
-  const currentPosRef = useRef(pos);
-  currentPosRef.current = pos;
-
-  // Refs to avoid stale closures in timer callback
-  const itemsRef = useRef(items);
-  itemsRef.current = items;
-  const answersRef = useRef(answers);
-  answersRef.current = answers;
-  const examKeyRef = useRef(examKey);
-  examKeyRef.current = examKey;
-  const elapsedRef = useRef(elapsed);
-  elapsedRef.current = elapsed;
-  const timedAutoSubmitRef = useRef(false);
+  const posRef = useRef(pos);           posRef.current = pos;
+  const sec1LockedRef = useRef(sec1Locked); sec1LockedRef.current = sec1Locked;
+  const itemsRef = useRef(items);       itemsRef.current = items;
+  const answersRef = useRef(answers);   answersRef.current = answers;
+  const examKeyRef = useRef(examKey);   examKeyRef.current = examKey;
+  const elapsedRef = useRef(elapsed);   elapsedRef.current = elapsed;
+  const autoSubmittedRef = useRef(false);
 
   const currentExam = EXAMS[examKey] || EXAMS.PL300;
-  const currentSection = pos < 100 ? 1 : 2;
+  const currentSection = sec1Locked || pos >= 100 ? 2 : 1;
+  const timeLeft = currentSection === 1 ? sec1Time : sec2Time;
 
   const s1AnsweredCount = answers.slice(0, 100).filter(a => a && a.length > 0).length;
-  // Section 1 is completed if break has already been taken, or user is past question 100, or all 100 questions in Section 1 are answered, or currently finishing question 100
-  const isSection1Complete = breakTaken || pos >= 100 || s1AnsweredCount >= 100 || (pos === 99 && (answers[99] && answers[99].length > 0));
+  const isSection1Complete = sec1Locked || breakTaken || pos >= 100 || s1AnsweredCount >= 100;
 
-  // Auto-submit when timer expires
+  // ─── Auto-submit entire exam (Section 2 timer expires) ───────────────────
   const autoSubmitFromTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
-    if (timedAutoSubmitRef.current) return;
-    timedAutoSubmitRef.current = true;
+    if (autoSubmittedRef.current) return;
+    autoSubmittedRef.current = true;
 
-    const currentItems = itemsRef.current;
-    const currentAnswers = answersRef.current;
-    const currentExamKey = examKeyRef.current;
-    const currentElapsed = elapsedRef.current;
-    const currentExamDef = EXAMS[currentExamKey] || EXAMS.PL300;
+    const its = itemsRef.current;
+    const ans = answersRef.current;
+    const ek  = examKeyRef.current;
+    const el  = elapsedRef.current;
+    const def = EXAMS[ek] || EXAMS.PL300;
 
-    let correctCount = 0;
-    const weakQuestions = [];
-    currentItems.forEach((item, idx) => {
-      const userAns = currentAnswers[idx] || [];
-      const isCorrect =
-        userAns.length === item.correctAnswers.length &&
-        item.correctAnswers.every(ans => userAns.includes(ans));
-      if (isCorrect) correctCount++;
-      else weakQuestions.push(item);
+    let correct = 0;
+    const weak = [];
+    its.forEach((item, idx) => {
+      const ua = ans[idx] || [];
+      const ok = ua.length === item.correctAnswers.length &&
+                 item.correctAnswers.every(a => ua.includes(a));
+      if (ok) correct++; else weak.push(item);
     });
 
-    const scorePct = Math.round((correctCount / Math.max(currentItems.length, 1)) * 100);
-    setLastWeakSpots(weakQuestions);
-
-    const historyEntry = {
-      id: Date.now(),
-      examKey: currentExamKey,
-      examCode: currentExamDef.code,
-      examName: currentExamDef.name,
-      score: scorePct,
-      correctCount,
-      totalCount: currentItems.length,
-      elapsed: currentElapsed,
-      date: new Date().toLocaleDateString(),
-      proctorStrikesCount: 0
-    };
-
-    const existingHist = storage.get(STORAGE_KEYS.HISTORY, []);
-    storage.set(STORAGE_KEYS.HISTORY, [historyEntry, ...existingHist].slice(0, 50));
+    setLastWeakSpots(weak);
+    const score = Math.round((correct / Math.max(its.length, 1)) * 100);
+    const hist = storage.get(STORAGE_KEYS.HISTORY, []);
+    storage.set(STORAGE_KEYS.HISTORY, [{
+      id: Date.now(), examKey: ek, examCode: def.code, examName: def.name,
+      score, correctCount: correct, totalCount: its.length,
+      elapsed: el, date: new Date().toLocaleDateString(), proctorStrikesCount: 0
+    }, ...hist].slice(0, 50));
     storage.remove(STORAGE_KEYS.SAVE);
     setSavedSession(null);
     setScreen('results');
   }, []);
 
-  // Track time per question (PAUSED during break)
+  // ─── Submit Section 1 → start break ──────────────────────────────────────
+  const submitSection1 = useCallback(() => {
+    setSec1Locked(true);
+    setIsOnBreak(true);
+    setBreakTaken(true);
+    setPos(100);
+    onCatCheer?.('Section 1 submitted! Enjoy your 10-minute cat dance break! 🐾🕺');
+  }, [onCatCheer]);
+
+  // ─── End break → move to Section 2 ───────────────────────────────────────
+  const endBreak = useCallback(() => {
+    setIsOnBreak(false);
+    setSec1Locked(true);
+    setBreakTaken(true);
+    setPos(100);
+    onCatCheer?.('Section 2 starts now (60 min)! Section 1 is locked. Go get it! 🐾✨');
+  }, [onCatCheer]);
+
+  // ─── Main exam timer (paused during break) ───────────────────────────────
   useEffect(() => {
     if (screen !== 'exam' || isOnBreak) return;
-    timedAutoSubmitRef.current = false;
+    autoSubmittedRef.current = false;
 
-    const interval = setInterval(() => {
+    const id = setInterval(() => {
       setElapsed(e => e + 1);
-      
       setQuestionTimes(prev => {
         const copy = [...prev];
-        const p = currentPosRef.current;
+        const p = posRef.current;
         copy[p] = (copy[p] || 0) + 1;
         return copy;
       });
 
       if (timed) {
-        setTimeLeft(t => {
-          if (t <= 1) {
-            clearInterval(interval);
-            setTimeout(() => autoSubmitFromTimer(), 0);
-            return 0;
-          }
-          return t - 1;
-        });
+        const inSec1 = !sec1LockedRef.current && posRef.current < 100;
+        if (inSec1) {
+          setSec1Time(t => {
+            if (t <= 1) {
+              clearInterval(id);
+              // Auto-submit Section 1 when 60 min expires
+              setTimeout(() => {
+                submitSection1();
+                onCatAlert?.('Section 1 time up (60 min)! Auto-submitted — enjoy your break! 🐾⏱️');
+              }, 0);
+              return 0;
+            }
+            return t - 1;
+          });
+        } else {
+          setSec2Time(t => {
+            if (t <= 1) {
+              clearInterval(id);
+              // Auto-submit whole exam when Section 2 60 min expires
+              setTimeout(() => {
+                autoSubmitFromTimer();
+                onCatAlert?.('Section 2 time up (60 min)! Exam auto-submitted. 🐾⏱️');
+              }, 0);
+              return 0;
+            }
+            return t - 1;
+          });
+        }
       }
     }, 1000);
 
-    timerRef.current = interval;
-    return () => clearInterval(interval);
-  }, [screen, timed, isOnBreak, autoSubmitFromTimer]);
+    timerRef.current = id;
+    return () => clearInterval(id);
+  }, [screen, timed, isOnBreak, submitSection1, autoSubmitFromTimer, onCatAlert]);
 
-  // Sync saved session whenever exam state changes during exam
+  // ─── Auto-save session state ──────────────────────────────────────────────
   useEffect(() => {
     if (screen === 'exam' && items.length > 0) {
       storage.set(STORAGE_KEYS.SAVE, {
-        examKey,
-        items,
-        answers,
-        flags,
-        pos,
-        timed,
-        learn,
-        checked,
-        timeLeft,
-        elapsed,
-        pausesUsed,
-        questionTimes,
-        isRetest,
-        isOnBreak,
-        breakTaken
+        _v: 4, examKey, items, answers, flags, pos, timed, learn, checked,
+        sec1Time, sec2Time, elapsed, pausesUsed, questionTimes, isRetest,
+        sec1Locked, isOnBreak, breakTaken
       });
     }
-  }, [screen, examKey, items, answers, flags, pos, timed, learn, checked, timeLeft, elapsed, pausesUsed, questionTimes, isRetest, isOnBreak, breakTaken]);
+  }, [screen, examKey, items, answers, flags, pos, timed, learn, checked,
+      sec1Time, sec2Time, elapsed, pausesUsed, questionTimes, isRetest,
+      sec1Locked, isOnBreak, breakTaken]);
 
-  // Start new test
-  const startExam = useCallback(({ selectedExamKey, isTimed = false, isLearning = false, customItems = null, retestMode = false }) => {
-    const targetKey = selectedExamKey || examKey;
-    const examDef = EXAMS[targetKey] || EXAMS.PL300;
-    const examQuestions = customItems || prepareExamQuestions(examDef.bank);
+  // ─── Start new exam ───────────────────────────────────────────────────────
+  const startExam = useCallback(({
+    selectedExamKey, isTimed = false, isLearning = false, customItems = null, retestMode = false
+  }) => {
+    const key = selectedExamKey || examKey;
+    const def = EXAMS[key] || EXAMS.PL300;
+    const qs  = customItems || prepareExamQuestions(def.bank);
 
-    setExamKey(targetKey);
-    setItems(examQuestions);
-    setAnswers(examQuestions.map(() => []));
-    setFlags(examQuestions.map(() => false));
-    setChecked(examQuestions.map(() => false));
-    setQuestionTimes(examQuestions.map(() => 0));
+    setExamKey(key);
+    setItems(qs);
+    setAnswers(qs.map(() => []));
+    setFlags(qs.map(() => false));
+    setChecked(qs.map(() => false));
+    setQuestionTimes(qs.map(() => 0));
     setPos(0);
     setTimed(isTimed);
     setLearn(isLearning);
-    // Double time allowance for 200 questions: 180 mins or custom min * 1.8
-    setTimeLeft(Math.round(examDef.min * 60 * 1.8));
+    setSec1Time(SECTION_DURATION_SECONDS);
+    setSec2Time(SECTION_DURATION_SECONDS);
     setElapsed(0);
     setPausesUsed(0);
     setIsRetest(retestMode);
+    setSec1Locked(false);
     setIsOnBreak(false);
     setBreakTaken(false);
+    autoSubmittedRef.current = false;
     setScreen('exam');
   }, [examKey]);
 
-  // Select or toggle an answer option
+  // ─── Toggle answer option ─────────────────────────────────────────────────
   const toggleOption = useCallback((optIndex) => {
-    const currentItem = items[pos];
-    if (!currentItem) return;
-
+    if (sec1Locked && pos < 100) return; // Section 1 locked — no changes
+    const item = items[pos];
+    if (!item) return;
     setAnswers(prev => {
       const copy = [...prev];
-      const currentSelected = copy[pos] || [];
-
-      if (currentItem.multi) {
-        if (currentSelected.includes(optIndex)) {
-          copy[pos] = currentSelected.filter(i => i !== optIndex);
-        } else {
-          copy[pos] = [...currentSelected, optIndex].sort();
-        }
+      const cur  = copy[pos] || [];
+      if (item.multi) {
+        copy[pos] = cur.includes(optIndex)
+          ? cur.filter(i => i !== optIndex)
+          : [...cur, optIndex].sort();
       } else {
         copy[pos] = [optIndex];
       }
-
-      // Check progress milestones
-      const answeredTotal = copy.filter(a => a && a.length > 0).length;
-      onCatProgress?.(answeredTotal, items.length);
-
+      onCatProgress?.(copy.filter(a => a && a.length > 0).length, items.length);
       return copy;
     });
-  }, [items, pos, onCatProgress]);
+  }, [items, pos, sec1Locked, onCatProgress]);
 
-  // Check answer immediately (Learning Mode)
+  // ─── Check answer (learning mode) ────────────────────────────────────────
   const checkAnswer = useCallback(() => {
-    const currentItem = items[pos];
-    const currentAns = answers[pos] || [];
-    if (!currentItem || currentAns.length === 0) return;
-
-    setChecked(prev => {
-      const copy = [...prev];
-      copy[pos] = true;
-      return copy;
-    });
-
-    const isCorrect = 
-      currentAns.length === currentItem.correctAnswers.length &&
-      currentItem.correctAnswers.every(idx => currentAns.includes(idx));
-
-    if (isCorrect) {
-      onCatCheer?.();
-    } else {
-      onCatSupport?.();
-    }
+    const item = items[pos];
+    const ans  = answers[pos] || [];
+    if (!item || ans.length === 0) return;
+    setChecked(prev => { const c = [...prev]; c[pos] = true; return c; });
+    const ok = ans.length === item.correctAnswers.length &&
+               item.correctAnswers.every(i => ans.includes(i));
+    if (ok) onCatCheer?.(); else onCatSupport?.();
   }, [items, pos, answers, onCatCheer, onCatSupport]);
 
-  // Toggle flag on current question
+  // ─── Toggle flag ──────────────────────────────────────────────────────────
   const toggleFlag = useCallback(() => {
-    setFlags(prev => {
-      const copy = [...prev];
-      copy[pos] = !copy[pos];
-      return copy;
-    });
-  }, [pos]);
+    if (sec1Locked && pos < 100) return;
+    setFlags(prev => { const c = [...prev]; c[pos] = !c[pos]; return c; });
+  }, [pos, sec1Locked]);
 
-  // Break controls
-  const startBreak = useCallback(() => {
-    setIsOnBreak(true);
-    setBreakTaken(true);
-    onCatCheer?.('Section 1 complete! Enjoy your 10-minute dance break! 🐾🪩');
-  }, [onCatCheer]);
-
-  const endBreak = useCallback(() => {
-    setIsOnBreak(false);
-    setBreakTaken(true);
-    if (pos < 100 && items.length > 100) {
-      setPos(100);
-    }
-    onCatCheer?.('Section 2 begins! Let’s crush the rest of the test! 🐾✨');
-  }, [pos, items.length, onCatCheer]);
-
-  // Navigation
+  // ─── Navigation ───────────────────────────────────────────────────────────
   const goToQuestion = useCallback((index) => {
-    if (index >= 0 && index < items.length) {
-      setPos(index);
+    if (index < 0 || index >= items.length) return;
+    // Once Section 1 is locked, cannot go back to it
+    if (sec1Locked && index < 100) {
+      onCatAlert?.('Section 1 is locked! Focus on Section 2. 🐾🔒');
+      return;
     }
-  }, [items.length]);
+    // Before submitting Section 1, cannot skip ahead to Section 2
+    if (!sec1Locked && items.length > 100 && index >= 100) {
+      onCatAlert?.('Complete and submit Section 1 first! 🐾');
+      return;
+    }
+    setPos(index);
+  }, [items.length, sec1Locked, onCatAlert]);
 
   const nextQuestion = useCallback(() => {
-    // When finishing question 100 (index 99) in a 200-question test and break hasn't been taken
-    if (pos === 99 && !breakTaken && items.length > 100) {
-      startBreak();
+    // At last Q of Section 1 in a 200-Q exam → trigger submit + break
+    if (pos === 99 && !sec1Locked && items.length > 100) {
+      submitSection1();
       return;
     }
     if (pos < items.length - 1) {
       setPos(pos + 1);
     } else {
-      // Go to first unanswered
-      const firstUnanswered = answers.findIndex(a => !a || a.length === 0);
-      if (firstUnanswered !== -1) setPos(firstUnanswered);
+      // Wrap to first unanswered in current section
+      const min = sec1Locked ? 100 : 0;
+      const max = sec1Locked ? items.length : Math.min(100, items.length);
+      for (let i = min; i < max; i++) {
+        if (!answers[i] || answers[i].length === 0) { setPos(i); return; }
+      }
     }
-  }, [pos, items.length, answers, breakTaken, startBreak]);
+  }, [pos, items.length, answers, sec1Locked, submitSection1]);
 
   const prevQuestion = useCallback(() => {
-    if (pos > 0) {
-      setPos(pos - 1);
-    }
-  }, [pos]);
+    const min = sec1Locked ? 100 : 0;
+    if (pos > min) setPos(pos - 1);
+  }, [pos, sec1Locked]);
 
-  // Pause test
+  // ─── Pause ────────────────────────────────────────────────────────────────
   const pauseExam = useCallback(() => {
     if (pausesUsed >= MAX_PAUSES) {
-      onCatAlert?.('Pause limit reached! Maximum 2 pauses allowed per test attempt. 🐾⏱️');
+      onCatAlert?.('Pause limit reached! Max 2 pauses per attempt. 🐾⏱️');
       return false;
     }
-
     if (timerRef.current) clearInterval(timerRef.current);
-
-    const nextPauses = pausesUsed + 1;
-    setPausesUsed(nextPauses);
-
-    const savedData = {
-      examKey,
-      items,
-      answers,
-      flags,
-      pos,
-      timed,
-      learn,
-      checked,
-      timeLeft,
-      elapsed,
-      pausesUsed: nextPauses,
-      questionTimes,
-      isRetest,
-      isOnBreak,
-      breakTaken
+    const next = pausesUsed + 1;
+    setPausesUsed(next);
+    const data = {
+      _v: 4, examKey, items, answers, flags, pos, timed, learn, checked,
+      sec1Time, sec2Time, elapsed, pausesUsed: next, questionTimes, isRetest,
+      sec1Locked, isOnBreak, breakTaken
     };
-    storage.set(STORAGE_KEYS.SAVE, savedData);
-    setSavedSession(savedData);
+    storage.set(STORAGE_KEYS.SAVE, data);
+    setSavedSession(data);
     setScreen('start');
     return true;
-  }, [pausesUsed, examKey, items, answers, flags, pos, timed, learn, checked, timeLeft, elapsed, questionTimes, isRetest, isOnBreak, breakTaken, onCatAlert]);
+  }, [pausesUsed, examKey, items, answers, flags, pos, timed, learn, checked,
+      sec1Time, sec2Time, elapsed, questionTimes, isRetest,
+      sec1Locked, isOnBreak, breakTaken, onCatAlert]);
 
-  // Resume paused test
+  // ─── Resume ───────────────────────────────────────────────────────────────
   const resumeExam = useCallback(() => {
-    const saved = storage.get(STORAGE_KEYS.SAVE);
-    if (!saved) return;
-
-    setExamKey(saved.examKey);
-    setItems(saved.items);
-    setAnswers(saved.answers);
-    setFlags(saved.flags);
-    setPos(saved.pos);
-    setTimed(saved.timed);
-    setLearn(saved.learn);
-    setChecked(saved.checked || []);
-    setTimeLeft(saved.timeLeft);
-    setElapsed(saved.elapsed);
-    setPausesUsed(saved.pausesUsed || 0);
-    setQuestionTimes(saved.questionTimes || []);
-    setIsRetest(saved.isRetest || false);
-    setIsOnBreak(saved.isOnBreak || false);
-    setBreakTaken(saved.breakTaken || false);
+    const s = storage.get(STORAGE_KEYS.SAVE);
+    if (!s) return;
+    // If old format (no _v:4), discard and start fresh
+    if (!s._v || s._v < 4) {
+      storage.remove(STORAGE_KEYS.SAVE);
+      setSavedSession(null);
+      onCatAlert?.('Old saved session cleared — please start a new test. 🐾');
+      return;
+    }
+    setExamKey(s.examKey);
+    setItems(s.items);
+    setAnswers(s.answers);
+    setFlags(s.flags);
+    setPos(s.pos);
+    setTimed(s.timed);
+    setLearn(s.learn);
+    setChecked(s.checked || []);
+    setSec1Time(s.sec1Time ?? SECTION_DURATION_SECONDS);
+    setSec2Time(s.sec2Time ?? SECTION_DURATION_SECONDS);
+    setElapsed(s.elapsed || 0);
+    setPausesUsed(s.pausesUsed || 0);
+    setQuestionTimes(s.questionTimes || []);
+    setIsRetest(s.isRetest || false);
+    setSec1Locked(s.sec1Locked || false);
+    setIsOnBreak(s.isOnBreak || false);
+    setBreakTaken(s.breakTaken || false);
     setScreen('exam');
+    onCatCheer?.('Welcome back! Let\'s crush this test! 🐾✨');
+  }, [onCatCheer, onCatAlert]);
 
-    onCatCheer?.('Welcome back! Let\'s crush this test together! 🐾✨');
-  }, [onCatCheer]);
-
-  // Discard paused test
+  // ─── Discard ──────────────────────────────────────────────────────────────
   const discardExam = useCallback(() => {
     storage.remove(STORAGE_KEYS.SAVE);
     setSavedSession(null);
   }, []);
 
-  // Submit test and compute results
+  // ─── Manual submit ────────────────────────────────────────────────────────
   const handleSubmit = useCallback((proctorStrikes = []) => {
     if (timerRef.current) clearInterval(timerRef.current);
-
-    let correctCount = 0;
-    const weakQuestions = [];
-
+    let correct = 0;
+    const weak = [];
     items.forEach((item, idx) => {
-      const userAns = answers[idx] || [];
-      const isCorrect =
-        userAns.length === item.correctAnswers.length &&
-        item.correctAnswers.every(ans => userAns.includes(ans));
-
-      if (isCorrect) {
-        correctCount++;
-      } else {
-        weakQuestions.push(item);
-      }
+      const ua = answers[idx] || [];
+      const ok = ua.length === item.correctAnswers.length &&
+                 item.correctAnswers.every(a => ua.includes(a));
+      if (ok) correct++; else weak.push(item);
     });
-
-    const scorePct = Math.round((correctCount / Math.max(items.length, 1)) * 100);
-    setLastWeakSpots(weakQuestions);
-
-    const historyEntry = {
-      id: Date.now(),
-      examKey,
-      examCode: currentExam.code,
-      examName: currentExam.name,
-      score: scorePct,
-      correctCount,
-      totalCount: items.length,
-      elapsed,
-      date: new Date().toLocaleDateString(),
-      proctorStrikesCount: proctorStrikes.length
-    };
-
-    const existingHist = storage.get(STORAGE_KEYS.HISTORY, []);
-    storage.set(STORAGE_KEYS.HISTORY, [historyEntry, ...existingHist].slice(0, 50));
-
+    setLastWeakSpots(weak);
+    const score = Math.round((correct / Math.max(items.length, 1)) * 100);
+    const hist = storage.get(STORAGE_KEYS.HISTORY, []);
+    storage.set(STORAGE_KEYS.HISTORY, [{
+      id: Date.now(), examKey, examCode: currentExam.code, examName: currentExam.name,
+      score, correctCount: correct, totalCount: items.length,
+      elapsed, date: new Date().toLocaleDateString(), proctorStrikesCount: proctorStrikes.length
+    }, ...hist].slice(0, 50));
     storage.remove(STORAGE_KEYS.SAVE);
     setSavedSession(null);
-
     setScreen('results');
   }, [items, answers, examKey, currentExam, elapsed]);
 
-  // Practice weak spots
+  // ─── Weak-spots retest ────────────────────────────────────────────────────
   const startWeakSpotsRetest = useCallback(() => {
     if (!lastWeakSpots || lastWeakSpots.length === 0) return;
     startExam({
@@ -400,56 +362,36 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
       isTimed: false,
       isLearning: true,
       customItems: prepareExamQuestions(lastWeakSpots.map(q => ({
-        d: q.domain,
-        q: q.question,
-        c: q.code,
-        o: q.options,
-        a: q.correctAnswers,
-        e: q.explanation,
-        multi: q.multi
+        d: q.domain, q: q.question, c: q.code,
+        o: q.options, a: q.correctAnswers, e: q.explanation, multi: q.multi
       }))),
       retestMode: true
     });
   }, [lastWeakSpots, examKey, startExam]);
 
   return {
-    screen,
-    setScreen,
-    examKey,
-    setExamKey,
+    screen, setScreen,
+    examKey, setExamKey,
     currentExam,
-    items,
-    answers,
-    flags,
-    pos,
-    timed,
-    learn,
-    checked,
+    items, answers, flags, pos,
+    timed, learn, checked,
+    // expose both section timers + a unified timeLeft
+    sec1Time, sec2Time,
     timeLeft,
-    elapsed,
-    pausesUsed,
-    maxPauses: MAX_PAUSES,
-    questionTimes,
-    isRetest,
-    savedSession,
-    lastWeakSpots,
-    isOnBreak,
-    breakTaken,
-    currentSection,
-    isSection1Complete,
-    s1AnsweredCount,
-    startBreak,
+    elapsed, pausesUsed, maxPauses: MAX_PAUSES,
+    questionTimes, isRetest,
+    savedSession, lastWeakSpots,
+    sec1Locked,
+    isOnBreak, breakTaken,
+    currentSection, isSection1Complete, s1AnsweredCount,
+    // actions
+    submitSection1,
+    startBreak: submitSection1,   // alias kept for backward compat
     endBreak,
     startExam,
-    toggleOption,
-    checkAnswer,
-    toggleFlag,
-    goToQuestion,
-    nextQuestion,
-    prevQuestion,
-    pauseExam,
-    resumeExam,
-    discardExam,
+    toggleOption, checkAnswer, toggleFlag,
+    goToQuestion, nextQuestion, prevQuestion,
+    pauseExam, resumeExam, discardExam,
     handleSubmit,
     startWeakSpotsRetest
   };

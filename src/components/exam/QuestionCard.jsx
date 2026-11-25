@@ -11,6 +11,7 @@ export function QuestionCard({
   isChecked = false,
   isLearningMode = false,
   breakTaken = false,
+  sec1Locked = false,
   onTriggerBreak,
   onToggleOption,
   onCheckAnswer,
@@ -153,7 +154,7 @@ export function QuestionCard({
         <button
           type="button"
           className="btn ghost"
-          disabled={index === 0}
+          disabled={index === 0 || (sec1Locked && index === 100)}
           onClick={onPrev}
         >
           Previous

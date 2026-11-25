@@ -29,7 +29,7 @@ export function StartControls({
     : 0;
 
   const answeredInSave = savedSession?.answers
-    ? savedSession.answers.filter((a) => a && a.length > 0).length
+    ? savedSession.answers.filter(a => a && a.length > 0).length
     : 0;
 
   return (
@@ -39,10 +39,10 @@ export function StartControls({
           type="checkbox"
           id="timed"
           checked={timed}
-          onChange={(e) => setTimed(e.target.checked)}
+          onChange={e => setTimed(e.target.checked)}
         />
         <span id="timedLbl">
-          Time me: {currentExam.min} minutes, auto-submit at zero
+          Time me: 120 minutes total (60m Section 1 + 10m break + 60m Section 2), auto-submits at zero
         </span>
       </label>
 
@@ -51,33 +51,25 @@ export function StartControls({
           type="checkbox"
           id="learn"
           checked={learn}
-          onChange={(e) => setLearn(e.target.checked)}
+          onChange={e => setLearn(e.target.checked)}
         />
         <span>Learning mode: check each answer and read the explanation as you go</span>
       </label>
 
       <p style={{ fontSize: '.9rem' }}>
-        <b>Tab rule:</b> leaving this tab or window shows a warning and asks for a reason. The third time ends the test.
+        <b>Tab rule:</b> leaving this tab or window shows a warning. The third time ends the test.
       </p>
 
-      <button
-        type="button"
-        className="btn accent big"
-        id="startBtn"
-        onClick={onStart}
-      >
+      <button type="button" className="btn accent big" id="startBtn" onClick={onStart}>
         Start test
       </button>
 
       {savedSession && (
         <span className="rbox" id="resumeWrap" style={{ marginLeft: '10px' }}>
-          <button
-            type="button"
-            className="btn"
-            id="resumeBtn"
-            onClick={onResume}
-          >
-            Resume paused {savedSession.examKey} test ({answeredInSave} of {savedSession.items?.length || 200} answered · {resumePausesRemaining} pause{resumePausesRemaining === 1 ? '' : 's'} left)
+          <button type="button" className="btn" id="resumeBtn" onClick={onResume}>
+            Resume paused {savedSession.examKey} test ({answeredInSave} of{' '}
+            {savedSession.items?.length || 200} answered · {resumePausesRemaining} pause
+            {resumePausesRemaining === 1 ? '' : 's'} left)
           </button>
           <button
             type="button"
@@ -98,7 +90,9 @@ export function StartControls({
       )}
 
       <p style={{ marginTop: '18px', fontSize: '.9rem', color: 'var(--ink-soft)' }}>
-        Question and answer order is shuffled on every attempt. Some questions ask for two answers, and you must pick both to score. You can flag questions and jump around freely. Answers show only after you submit.
+        Question and answer order is shuffled on every attempt. Some questions need two answers.
+        You can flag questions and jump around freely within your current section.
+        Answers show only after you submit.
       </p>
     </>
   );

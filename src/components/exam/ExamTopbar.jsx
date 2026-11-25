@@ -16,90 +16,76 @@ export function ExamTopbar({
   currentSection = 1,
   onTriggerBreak,
   breakTaken = false,
-  s1Completed = false
+  s1Completed = false,
+  sec1Locked = false
 }) {
-  const displayTimer = timed ? formatTime(timeLeft) : formatTime(elapsed);
+  const displayTimer    = timed ? formatTime(timeLeft) : formatTime(elapsed);
   const remainingPauses = Math.max(0, maxPauses - pausesUsed);
-  const progressPct = totalCount > 0 ? (answeredCount / totalCount) * 100 : 0;
-  const pauseDisabled = remainingPauses <= 0;
-
-  const topbarTitle = isRetest
-    ? `${examCode} weak-area practice`
-    : `${examCode} knowledge check`;
+  const pauseDisabled   = remainingPauses <= 0;
+  const topbarTitle     = isRetest ? `${examCode} weak-area practice` : `${examCode} knowledge check`;
 
   return (
     <div className="topbar">
       <img src="/logo.jpg" alt="Logo" className="topbar-logo" />
-      <span className="title" id="topTitle">
-        {topbarTitle}
-      </span>
+      <span className="title" id="topTitle">{topbarTitle}</span>
+
+      {/* Section badge for 200-Q exams */}
       {totalCount > 100 && (
-        <span
-          style={{
-            background: currentSection === 1 ? 'rgba(59, 130, 246, 0.2)' : 'rgba(16, 185, 129, 0.2)',
-            border: `1px solid ${currentSection === 1 ? '#3B82F6' : '#10B981'}`,
-            color: currentSection === 1 ? '#93C5FD' : '#6EE7B7',
-            padding: '4px 10px',
-            borderRadius: '12px',
-            fontSize: '0.82rem',
-            fontWeight: 700,
-            whiteSpace: 'nowrap'
-          }}
-        >
-          Section {currentSection} of 2 ({currentSection === 1 ? 'Qs 1–100' : 'Qs 101–200'})
+        <span style={{
+          background: currentSection === 1 ? 'rgba(59,130,246,0.2)' : 'rgba(16,185,129,0.2)',
+          border: `1px solid ${currentSection === 1 ? '#3B82F6' : '#10B981'}`,
+          color: currentSection === 1 ? '#93C5FD' : '#6EE7B7',
+          padding: '4px 10px', borderRadius: '12px',
+          fontSize: '0.82rem', fontWeight: 700, whiteSpace: 'nowrap'
+        }}>
+          Section {currentSection} of 2 · {currentSection === 1 ? 'Qs 1–100' : 'Qs 101–200'} · 60m
         </span>
       )}
+
       <span className="stat">
         Answered <b id="ansCount">{answeredCount}</b> of <span id="totQ">{totalCount}</span>
       </span>
+
       <span
         className={`stat timer${timed && timeLeft <= 60 ? ' timer-urgent' : timed && timeLeft <= 300 ? ' timer-warn' : ''}`}
         id="timer"
+        title={timed ? `Section ${currentSection} time remaining (60 min)` : 'Elapsed time'}
       >
         {displayTimer}
       </span>
-      {totalCount > 100 && currentSection === 1 && s1Completed && !breakTaken && onTriggerBreak && (
+
+      {/* Submit Section 1 & Break button — visible only while in Section 1 and not yet locked */}
+      {totalCount > 100 && currentSection === 1 && !sec1Locked && onTriggerBreak && (
         <button
           type="button"
           className="btn ghost small"
           onClick={onTriggerBreak}
-          title="Take 10-minute break with dancing cat"
-          style={{
-            background: 'rgba(245, 158, 11, 0.15)',
-            borderColor: '#F59E0B',
-            color: '#FCD34D'
-          }}
+          title="Submit Section 1 and start 10-minute cat dance break"
+          style={{ background: 'rgba(245,158,11,0.15)', borderColor: '#F59E0B', color: '#FCD34D' }}
         >
-          🐾 10m Break
+          🐾 Submit Sec 1 & Break
         </button>
       )}
+
       <button
         type="button"
         className="btn ghost small"
         id="pauseBtn"
-        onClick={!pauseDisabled ? onPause : undefined}
+        onClick={onPause}
         disabled={pauseDisabled}
-        style={pauseDisabled ? { opacity: 0.45, cursor: 'not-allowed' } : {}}
-        title={
-          pauseDisabled
-            ? 'Pause limit reached (maximum 2 pauses per test attempt)'
-            : `Pause test (${remainingPauses} pause${remainingPauses === 1 ? '' : 's'} remaining)`
-        }
+        title={pauseDisabled ? 'No pauses remaining' : `Pause test (${remainingPauses} left)`}
       >
-        {pauseDisabled ? 'Pause (0/2 left)' : `Pause (${remainingPauses} left)`}
+        ⏸ Pause {!pauseDisabled && `(${remainingPauses} left)`}
       </button>
+
       <button
         type="button"
-        className="btn accent small"
+        className="btn ghost small"
         id="submitBtn"
         onClick={onSubmit}
       >
-        Submit test
+        Submit & finish
       </button>
-      <div className="progress">
-        <i id="progressFill" style={{ width: `${progressPct}%` }} />
-      </div>
     </div>
   );
 }
-
