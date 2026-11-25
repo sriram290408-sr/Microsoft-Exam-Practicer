@@ -16,12 +16,16 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   const [timed, setTimed] = useState(false);
   const [learn, setLearn] = useState(false);
   const [checked, setChecked] = useState([]); // for learn mode
-  const [timeLeft, setTimeLeft] = useState(6000);
+  const [timeLeft, setTimeLeft] = useState(7200); // 120 mins default for 200 Qs
   const [elapsed, setElapsed] = useState(0);
   const [pausesUsed, setPausesUsed] = useState(0);
   const [questionTimes, setQuestionTimes] = useState([]);
   const [isRetest, setIsRetest] = useState(false);
   const [lastWeakSpots, setLastWeakSpots] = useState(null);
+
+  // 2-Section & 10-Minute Break states
+  const [isOnBreak, setIsOnBreak] = useState(false);
+  const [breakTaken, setBreakTaken] = useState(false);
 
   // Resume state available in storage
   const [savedSession, setSavedSession] = useState(() => storage.get(STORAGE_KEYS.SAVE, null));
@@ -40,11 +44,12 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   examKeyRef.current = examKey;
   const elapsedRef = useRef(elapsed);
   elapsedRef.current = elapsed;
-  const timedAutoSubmitRef = useRef(false); // tracks if timer already fired auto-submit
+  const timedAutoSubmitRef = useRef(false);
 
   const currentExam = EXAMS[examKey] || EXAMS.PL300;
+  const currentSection = pos < 100 ? 1 : 2;
 
-  // Auto-submit when timer expires (uses refs to avoid stale closure)
+  // Auto-submit when timer expires
   const autoSubmitFromTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     if (timedAutoSubmitRef.current) return;
@@ -90,10 +95,10 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     setScreen('results');
   }, []);
 
-  // Track time per question
+  // Track time per question (PAUSED during break)
   useEffect(() => {
-    if (screen !== 'exam') return;
-    timedAutoSubmitRef.current = false; // reset for new exam session
+    if (screen !== 'exam' || isOnBreak) return;
+    timedAutoSubmitRef.current = false;
 
     const interval = setInterval(() => {
       setElapsed(e => e + 1);
@@ -119,7 +124,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
 
     timerRef.current = interval;
     return () => clearInterval(interval);
-  }, [screen, timed, autoSubmitFromTimer]);
+  }, [screen, timed, isOnBreak, autoSubmitFromTimer]);
 
   // Sync saved session whenever exam state changes during exam
   useEffect(() => {
@@ -137,10 +142,12 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
         elapsed,
         pausesUsed,
         questionTimes,
-        isRetest
+        isRetest,
+        isOnBreak,
+        breakTaken
       });
     }
-  }, [screen, examKey, items, answers, flags, pos, timed, learn, checked, timeLeft, elapsed, pausesUsed, questionTimes, isRetest]);
+  }, [screen, examKey, items, answers, flags, pos, timed, learn, checked, timeLeft, elapsed, pausesUsed, questionTimes, isRetest, isOnBreak, breakTaken]);
 
   // Start new test
   const startExam = useCallback(({ selectedExamKey, isTimed = false, isLearning = false, customItems = null, retestMode = false }) => {
@@ -157,10 +164,13 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     setPos(0);
     setTimed(isTimed);
     setLearn(isLearning);
-    setTimeLeft(examDef.min * 60);
+    // Double time allowance for 200 questions: 180 mins or custom min * 1.8
+    setTimeLeft(Math.round(examDef.min * 60 * 1.8));
     setElapsed(0);
     setPausesUsed(0);
     setIsRetest(retestMode);
+    setIsOnBreak(false);
+    setBreakTaken(false);
     setScreen('exam');
   }, [examKey]);
 
@@ -223,6 +233,22 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     });
   }, [pos]);
 
+  // Break controls
+  const startBreak = useCallback(() => {
+    setIsOnBreak(true);
+    setBreakTaken(true);
+    onCatCheer?.('Section 1 complete! Enjoy your 10-minute dance break! 🐾🪩');
+  }, [onCatCheer]);
+
+  const endBreak = useCallback(() => {
+    setIsOnBreak(false);
+    setBreakTaken(true);
+    if (pos < 100 && items.length > 100) {
+      setPos(100);
+    }
+    onCatCheer?.('Section 2 begins! Let’s crush the rest of the test! 🐾✨');
+  }, [pos, items.length, onCatCheer]);
+
   // Navigation
   const goToQuestion = useCallback((index) => {
     if (index >= 0 && index < items.length) {
@@ -231,6 +257,11 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   }, [items.length]);
 
   const nextQuestion = useCallback(() => {
+    // When finishing question 100 (index 99) in a 200-question test and break hasn't been taken
+    if (pos === 99 && !breakTaken && items.length > 100) {
+      startBreak();
+      return;
+    }
     if (pos < items.length - 1) {
       setPos(pos + 1);
     } else {
@@ -238,7 +269,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
       const firstUnanswered = answers.findIndex(a => !a || a.length === 0);
       if (firstUnanswered !== -1) setPos(firstUnanswered);
     }
-  }, [pos, items.length, answers]);
+  }, [pos, items.length, answers, breakTaken, startBreak]);
 
   const prevQuestion = useCallback(() => {
     if (pos > 0) {
@@ -258,7 +289,6 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     const nextPauses = pausesUsed + 1;
     setPausesUsed(nextPauses);
 
-    // Save state explicitly (bypass the useEffect which checks screen === 'exam')
     const savedData = {
       examKey,
       items,
@@ -272,13 +302,15 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
       elapsed,
       pausesUsed: nextPauses,
       questionTimes,
-      isRetest
+      isRetest,
+      isOnBreak,
+      breakTaken
     };
     storage.set(STORAGE_KEYS.SAVE, savedData);
     setSavedSession(savedData);
     setScreen('start');
     return true;
-  }, [pausesUsed, examKey, items, answers, flags, pos, timed, learn, checked, timeLeft, elapsed, questionTimes, isRetest, onCatAlert]);
+  }, [pausesUsed, examKey, items, answers, flags, pos, timed, learn, checked, timeLeft, elapsed, questionTimes, isRetest, isOnBreak, breakTaken, onCatAlert]);
 
   // Resume paused test
   const resumeExam = useCallback(() => {
@@ -298,9 +330,10 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     setPausesUsed(saved.pausesUsed || 0);
     setQuestionTimes(saved.questionTimes || []);
     setIsRetest(saved.isRetest || false);
+    setIsOnBreak(saved.isOnBreak || false);
+    setBreakTaken(saved.breakTaken || false);
     setScreen('exam');
 
-    // Welcome back cat message via onCatCheer
     onCatCheer?.('Welcome back! Let\'s crush this test together! 🐾✨');
   }, [onCatCheer]);
 
@@ -314,7 +347,6 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   const handleSubmit = useCallback((proctorStrikes = []) => {
     if (timerRef.current) clearInterval(timerRef.current);
 
-    // Calculate score
     let correctCount = 0;
     const weakQuestions = [];
 
@@ -327,7 +359,6 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
       if (isCorrect) {
         correctCount++;
       } else {
-        // Collect question for weak spots
         weakQuestions.push(item);
       }
     });
@@ -335,7 +366,6 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     const scorePct = Math.round((correctCount / Math.max(items.length, 1)) * 100);
     setLastWeakSpots(weakQuestions);
 
-    // Record history
     const historyEntry = {
       id: Date.now(),
       examKey,
@@ -352,7 +382,6 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     const existingHist = storage.get(STORAGE_KEYS.HISTORY, []);
     storage.set(STORAGE_KEYS.HISTORY, [historyEntry, ...existingHist].slice(0, 50));
 
-    // Clear saved test
     storage.remove(STORAGE_KEYS.SAVE);
     setSavedSession(null);
 
@@ -400,6 +429,11 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     isRetest,
     savedSession,
     lastWeakSpots,
+    isOnBreak,
+    breakTaken,
+    currentSection,
+    startBreak,
+    endBreak,
     startExam,
     toggleOption,
     checkAnswer,

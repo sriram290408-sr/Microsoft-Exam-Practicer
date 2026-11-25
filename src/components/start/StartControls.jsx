@@ -77,7 +77,7 @@ export function StartControls({
             id="resumeBtn"
             onClick={onResume}
           >
-            Resume paused {savedSession.examKey} test ({answeredInSave} of {savedSession.items?.length || 50} answered · {resumePausesRemaining} pause{resumePausesRemaining === 1 ? '' : 's'} left)
+            Resume paused {savedSession.examKey} test ({answeredInSave} of {savedSession.items?.length || 200} answered · {resumePausesRemaining} pause{resumePausesRemaining === 1 ? '' : 's'} left)
           </button>
           <button
             type="button"

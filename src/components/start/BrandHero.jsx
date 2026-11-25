@@ -9,7 +9,7 @@ export function BrandHero({ onOpenHistory }) {
       </div>
       <div className="brand-text" style={{ flex: 1 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px' }}>
-          <div className="brand-badge">Official Skills Outlines · 250 Questions · 5 Certifications</div>
+          <div className="brand-badge">Official Skills Outlines · 1,000 Questions (200 Qs / 2 Sections per Exam) · 5 Certifications</div>
           {onOpenHistory && (
             <button
               type="button"

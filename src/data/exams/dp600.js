@@ -1,4 +1,4 @@
-// DP-600: Fabric Analytics Engineer
+// DP-600: Fabric Analytics Engineer (200 Questions across 2 Sections)
 export const DP600 = {
   id: 'DP600',
   code: "DP-600",
@@ -391,7 +391,7 @@ export const DP600 = {
     "a": [
       0
     ],
-    "e": "A left outer join keeps every left row and fills right-side columns with nulls where there is no match."
+    "e": "A left outer join keeps every left row and fills right-side columns with Nones where there is no match."
   },
   {
     "d": "M",
@@ -716,8 +716,2106 @@ export const DP600 = {
       0
     ],
     "e": "KQL queries chain operators with the pipe symbol, for example filtering with where and aggregating with summarize."
+  },
+  {
+    "d": "P",
+    "q": "In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 9 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 9 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 10 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 10 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 11 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 11 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 12 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 12 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 13 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 13 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 14 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 14 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 15 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 15 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 16 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 16 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 17 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 17 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): When does a Power BI semantic model in Direct Lake mode fall back to DirectQuery mode?",
+    "o": [
+      "When memory limits are exceeded or tables use unsupported features like row-level security on SQL views",
+      "Whenever users refresh the browser",
+      "When more than 10 users view the report",
+      "On weekends"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fallback to DirectQuery occurs when Delta files cannot be mapped directly into memory or security boundaries require query translation."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 18 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): Which feature in Microsoft Fabric provides Git integration for version controlling workspace assets such as Notebooks, Semantic Models, and Reports?",
+    "o": [
+      "Fabric Git Integration with Azure DevOps / GitHub",
+      "Export to Zip file",
+      "OneDrive file version history",
+      "SQL Server Data Tools"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric Git integration connects workspaces directly to Git branches for CI/CD and source control."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): How does Medallion Architecture structure data across Bronze, Silver, and Gold layers?",
+    "o": [
+      "Bronze is raw ingested; Silver is cleaned/enriched; Gold is curated business star-schema models",
+      "Bronze is archived; Silver is active; Gold is deleted",
+      "Bronze is for Power BI; Gold is for Excel",
+      "Bronze is CSV; Gold is PDF"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Medallion architecture refines data quality progressively from raw ingestion to enterprise presentation."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): What tool allows you to manage calculation groups, partitions, and tabular metadata in Fabric semantic models over the XMLA endpoint?",
+    "o": [
+      "Tabular Editor",
+      "Azure Data Studio",
+      "PowerPoint",
+      "Command Prompt"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tabular Editor connects via XMLA to inspect and optimize Fabric semantic model definitions."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 18 (S): How does Real-Time Intelligence in Microsoft Fabric ingest and query high-velocity streaming telemetry data?",
+    "o": [
+      "Eventhouse with KQL (Kusto Query Language) databases",
+      "Power Query M scripts",
+      "Scheduled nightly Excel imports",
+      "Dataverse Virtual Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Eventhouses and KQL databases are optimized for low-latency streaming ingestion and millisecond analytical queries."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 13 (P): In Microsoft Fabric, what single logical unified data lake connects all analytics engines and eliminates data silos without copying data?",
+    "o": [
+      "OneLake",
+      "Azure Data Lake Storage Gen1",
+      "SharePoint Document Library",
+      "SQL Server Filestream"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake is the SaaS multi-cloud data lake for your entire organization, built on ADLS Gen2."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 13 (M): In a Fabric Lakehouse, what is the default and optimized file storage format for all structured tables?",
+    "o": [
+      "Delta Parquet (with V-Order enabled)",
+      "CSV",
+      "JSON Lines",
+      "Avro"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Fabric standardizes on Delta Lake (Parquet with transaction logs) with V-Order write optimization for lightning-fast reads."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 13 (V): Why is Direct Lake mode in Fabric considered superior to Import mode and DirectQuery mode for Power BI semantic models?",
+    "o": [
+      "It reads Delta Parquet files directly into memory without data duplication or translating DAX to T-SQL queries",
+      "It exports all data to Excel automatically",
+      "It eliminates the need for DAX measures",
+      "It only works offline"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Direct Lake loads column segments directly from OneLake into the VertiPaq engine with Import-speed performance and zero data copying."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 19 (S): In Fabric T-SQL, which window function calculates the ranking of rows within a partition without leaving gaps in ranking values?",
+    "o": [
+      "DENSE_RANK()",
+      "RANK()",
+      "ROW_NUMBER()",
+      "NTILE()"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DENSE_RANK() assigns consecutive rank integers without skipping numbers when ties occur."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 13 (P): How do Fabric Shortcuts simplify cross-cloud data architectures without data movement?",
+    "o": [
+      "They create symbolic links in OneLake pointing to external data in ADLS Gen2, Amazon S3, or Google Cloud Storage",
+      "They duplicate all parquet files on a nightly timer",
+      "They convert all external tables to CSV",
+      "They require VPN tunnels"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Shortcuts reference remote storage objects seamlessly as if they were local OneLake Delta tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 13 (M): What is the primary difference between a Fabric Lakehouse and a Fabric Warehouse?",
+    "o": [
+      "Lakehouses support Spark and SQL endpoints over Delta tables; Warehouses provide full multi-table ACID T-SQL transactions",
+      "Lakehouses do not support SQL queries",
+      "Warehouses store data in proprietary binary files",
+      "Lakehouses require Hadoop clusters"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Warehouses are T-SQL first with full DML/DDL cross-table transactions, while Lakehouses provide Spark and read-only SQL endpoints."
   }
 ]
 };
-
-export default DP600;

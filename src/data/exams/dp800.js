@@ -1,4 +1,4 @@
-// DP-800: Developing AI-Enabled Database Solutions
+// DP-800: Developing AI-Enabled Database Solutions (200 Questions across 2 Sections)
 export const DP800 = {
   id: 'DP800',
   code: "DP-800",
@@ -715,8 +715,2106 @@ export const DP800 = {
       0
     ],
     "e": "Grounding responses in retrieved data reduces made-up answers."
+  },
+  {
+    "d": "P",
+    "q": "In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 9 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 9 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 10 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 10 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 11 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 11 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 12 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 12 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 13 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 13 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 14 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 14 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 15 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 15 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 16 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 16 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 17 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 17 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): Which mathematical distance metric is most commonly used to measure the similarity between two normalized text embeddings?",
+    "o": [
+      "Cosine Distance",
+      "Manhattan Distance",
+      "Hamming Distance",
+      "Jaccard Index"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Cosine similarity (and cosine distance) evaluates the angle between high-dimensional vector representations."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 18 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): What is the key advantage of using SQL Server Ledger tables in enterprise audit scenarios?",
+    "o": [
+      "Cryptographic verification and immutable data records backed by blockchain hashing",
+      "Automatic CSV export",
+      "Faster compression than VertiPaq",
+      "Direct integration with Power Pages"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Ledger provides tamper-evident cryptographic verification of all database transactions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): You observe high CPU usage due to parameter sniffing on a critical stored procedure. What query hint helps stabilize plan generation?",
+    "o": [
+      "OPTION (OPTIMIZE FOR UNKNOWN) or OPTION (RECOMPILE)",
+      "OPTION (MAXDOP 1)",
+      "OPTION (HASH JOIN)",
+      "OPTION (IGNORE_INDEX)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OPTIMIZE FOR UNKNOWN prevents caching plans biased towards extreme parameter values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): In a RAG (Retrieval-Augmented Generation) pipeline, what is the role of the database vector search step?",
+    "o": [
+      "Retrieve the top-k most semantically relevant document chunks to inject into the LLM prompt context",
+      "Train the foundation model weights from scratch",
+      "Encrypt user passwords",
+      "Generate SVG icons"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Vector search performs semantic nearest-neighbor retrieval to augment LLM prompts with grounded domain facts."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 18 (S): What metric in Azure OpenAI and Azure SQL integrations must be carefully monitored to avoid HTTP 429 Too Many Requests errors?",
+    "o": [
+      "Tokens Per Minute (TPM) and Requests Per Minute (RPM) rate limits",
+      "Monitor screen resolution",
+      "Hard drive spindle speed",
+      "Fan rotation RPM"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure OpenAI enforces TPM and RPM rate limits; exceeding quotas results in HTTP 429 throttles."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 13 (P): In Azure SQL Database, which feature automatically tracks changes to data over time and allows point-in-time historical querying using `FOR SYSTEM_TIME AS OF`?",
+    "o": [
+      "Temporal Tables (System-Versioned Tables)",
+      "Change Data Capture (CDC)",
+      "Dynamic Data Masking",
+      "SQL Ledger"
+    ],
+    "a": [
+      0
+    ],
+    "e": "System-versioned temporal tables automatically record period start/end timestamps and history tables."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 13 (M): Which Azure SQL security feature protects sensitive column data in use, during transit, and at rest by encrypting data on the client side before sending it to the database?",
+    "o": [
+      "Always Encrypted (with secure enclaves)",
+      "Transparent Data Encryption (TDE)",
+      "Firewall rules",
+      "Dynamic Data Masking"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Always Encrypted ensures that database administrators and cloud operators cannot view plaintext values."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 13 (V): How can you invoke a deployed Azure OpenAI embedding model directly from T-SQL in Azure SQL Database?",
+    "o": [
+      "Using `sp_invoke_external_rest_endpoint` with an HTTPS endpoint and database scoped credential",
+      "Running an external C++ executable on the server",
+      "Using the xp_cmdshell command",
+      "Invoking a PowerShell script from SQL Agent"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`sp_invoke_external_rest_endpoint` enables secure outbound HTTPS calls to Azure OpenAI from inside T-SQL."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 19 (S): Which feature in Azure SQL allows masking sensitive data like credit card numbers from unauthorized users on the fly without altering the stored underlying data?",
+    "o": [
+      "Dynamic Data Masking (DDM)",
+      "Transparent Data Encryption (TDE)",
+      "Always On Availability Groups",
+      "Temporal Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dynamic Data Masking obfuscates data in query results (e.g., `XXXX-XXXX-XXXX-1234`) based on user permissions."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 13 (P): You need to store and query high-dimensional embeddings generated from Azure OpenAI inside an Azure SQL database. What data structure and functions are supported?",
+    "o": [
+      "Vector storage using `VARBINARY` or JSON arrays with `VECTOR_DISTANCE()` / cosine distance functions",
+      "Standard VARCHAR(50) columns with LIKE filters",
+      "XML columns with XQuery",
+      "Image binary blobs without vector math"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure SQL and SQL Server support vector embeddings with native vector similarity distance functions."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 13 (M): What is the role of the Query Store in Azure SQL Database?",
+    "o": [
+      "Captures query execution history, compile plans, and runtime performance telemetry to diagnose plan regressions",
+      "Stores user passwords",
+      "Manages automated backups",
+      "Compresses index files"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Query Store records query performance metrics and enables forcing stable execution plans."
   }
 ]
 };
-
-export default DP800;

@@ -10,6 +10,8 @@ export function QuestionCard({
   isFlagged = false,
   isChecked = false,
   isLearningMode = false,
+  breakTaken = false,
+  onTriggerBreak,
   onToggleOption,
   onCheckAnswer,
   onToggleFlag,
@@ -55,7 +57,14 @@ export function QuestionCard({
     <main className="card" id="card" data-d={item.domain} aria-live="polite">
       {/* Top Metadata: Question count & Flag button */}
       <div className="qmeta">
-        <span>Question {index + 1} of {totalCount}</span>
+        <span>
+          {totalCount > 100 && (
+            <b style={{ color: 'var(--accent, #B8860B)', marginRight: '6px' }}>
+              [Section {index < 100 ? '1' : '2'}]
+            </b>
+          )}
+          Question {index + 1} of {totalCount}
+        </span>
         <button
           type="button"
           className="flagbtn"
@@ -151,10 +160,15 @@ export function QuestionCard({
         </button>
         <button
           type="button"
-          className="btn"
+          className={`btn ${index === 99 && !breakTaken && totalCount > 100 ? 'accent' : ''}`}
           onClick={onNext}
+          title={index === 99 && !breakTaken && totalCount > 100 ? 'Finish Section 1 and enjoy a 10-minute dance party break with your study cat!' : undefined}
         >
-          {index === totalCount - 1 ? 'Go to first unanswered' : 'Next'}
+          {index === 99 && !breakTaken && totalCount > 100
+            ? 'Complete Section 1 & Start 10-Min Break 🐾'
+            : index === totalCount - 1
+            ? 'Go to first unanswered'
+            : 'Next'}
         </button>
       </div>
     </main>

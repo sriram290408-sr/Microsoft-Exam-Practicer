@@ -7,6 +7,9 @@ export const STORAGE_KEYS = {
 
 export const MAX_PAUSES = 2;
 export const PASSING_SCORE = 70; // 70% threshold
+export const QUESTIONS_PER_SECTION = 100;
+export const TOTAL_EXAM_QUESTIONS = 200;
+export const BREAK_DURATION_SECONDS = 600; // 10 minutes break
 
 export const EXAM_COLORS = {
   PL300: '#F2C811',

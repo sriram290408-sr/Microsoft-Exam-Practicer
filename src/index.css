@@ -1548,3 +1548,93 @@
     cursor: not-allowed;
     pointer-events: auto;
   }
+
+  /* ========== 10-Minute Break Screen & Dancing Cat Styles ========== */
+  .break-disco-active {
+    box-shadow: 0 0 45px rgba(236, 72, 153, 0.25), 0 0 90px rgba(59, 130, 246, 0.2) !important;
+  }
+
+  @keyframes bubbleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @keyframes toyBounce {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-16px) rotate(20deg); }
+  }
+
+  /* Dance Move Animations */
+  .dance-disco svg {
+    animation: danceDisco 0.8s infinite alternate ease-in-out;
+    transform-origin: bottom center;
+  }
+  @keyframes danceDisco {
+    0% { transform: rotate(-8deg) translateY(-4px); }
+    100% { transform: rotate(8deg) translateY(-8px); }
+  }
+
+  .dance-wiggle svg {
+    animation: danceWiggle 0.5s infinite alternate ease-in-out;
+    transform-origin: bottom center;
+  }
+  @keyframes danceWiggle {
+    0% { transform: scaleX(1.06) scaleY(0.94); }
+    100% { transform: scaleX(0.94) scaleY(1.06) translateY(-6px); }
+  }
+
+  .dance-spin svg {
+    animation: danceSpin 1.4s infinite cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+  }
+  @keyframes danceSpin {
+    0% { transform: rotateY(0deg) translateY(0); }
+    50% { transform: rotateY(180deg) translateY(-14px); }
+    100% { transform: rotateY(360deg) translateY(0); }
+  }
+
+  .dance-moonwalk svg {
+    animation: danceMoonwalk 1.2s infinite ease-in-out;
+  }
+  @keyframes danceMoonwalk {
+    0%, 100% { transform: translateX(-24px) skewX(-6deg); }
+    50% { transform: translateX(24px) skewX(6deg); }
+  }
+
+  .dance-hyped svg {
+    animation: danceHyped 0.4s infinite alternate ease-in-out;
+    transform-origin: bottom center;
+  }
+  @keyframes danceHyped {
+    0% { transform: translateY(0) scale(1); }
+    100% { transform: translateY(-22px) scale(1.08); }
+  }
+
+  .cat-dance-tail path {
+    animation: tailWhip 0.6s infinite alternate ease-in-out;
+    transform-origin: 95px 95px;
+  }
+  @keyframes tailWhip {
+    0% { transform: rotate(-15deg); }
+    100% { transform: rotate(20deg); }
+  }
+
+  .dance-notes text {
+    animation: noteFloat 1.8s infinite ease-out;
+  }
+  @keyframes noteFloat {
+    0% { opacity: 0; transform: translateY(10px) scale(0.8); }
+    50% { opacity: 1; transform: translateY(-10px) scale(1.2); }
+    100% { opacity: 0; transform: translateY(-25px) scale(1); }
+  }
+
+  .cat-dance-paws .paw-left {
+    animation: pawStep 0.4s infinite alternate ease-in-out;
+  }
+  .cat-dance-paws .paw-right {
+    animation: pawStep 0.4s infinite alternate-reverse ease-in-out;
+  }
+  @keyframes pawStep {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-8px); }
+  }

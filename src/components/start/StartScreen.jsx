@@ -36,7 +36,7 @@ export function StartScreen({
       </h2>
 
       <p id="intro">
-        {currentExam.bank.length} original practice questions for {currentExam.code} ({currentExam.name}), written from the published skills outline, not taken from Microsoft's exam.
+        {currentExam.bank.length} original practice questions for {currentExam.code} ({currentExam.name}), structured into 2 sections (100 questions each) with an interactive 10-minute dancing buddy cat break in between.
       </p>
 
       <DomainWeights currentExam={currentExam} />

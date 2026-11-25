@@ -12,7 +12,10 @@ export function ExamTopbar({
   maxPauses,
   onPause,
   onSubmit,
-  isRetest
+  isRetest,
+  currentSection = 1,
+  onTriggerBreak,
+  breakTaken = false
 }) {
   const displayTimer = timed ? formatTime(timeLeft) : formatTime(elapsed);
   const remainingPauses = Math.max(0, maxPauses - pausesUsed);
@@ -29,6 +32,22 @@ export function ExamTopbar({
       <span className="title" id="topTitle">
         {topbarTitle}
       </span>
+      {totalCount > 100 && (
+        <span
+          style={{
+            background: currentSection === 1 ? 'rgba(59, 130, 246, 0.2)' : 'rgba(16, 185, 129, 0.2)',
+            border: `1px solid ${currentSection === 1 ? '#3B82F6' : '#10B981'}`,
+            color: currentSection === 1 ? '#93C5FD' : '#6EE7B7',
+            padding: '4px 10px',
+            borderRadius: '12px',
+            fontSize: '0.82rem',
+            fontWeight: 700,
+            whiteSpace: 'nowrap'
+          }}
+        >
+          Section {currentSection} of 2 ({currentSection === 1 ? 'Qs 1–100' : 'Qs 101–200'})
+        </span>
+      )}
       <span className="stat">
         Answered <b id="ansCount">{answeredCount}</b> of <span id="totQ">{totalCount}</span>
       </span>
@@ -38,6 +57,21 @@ export function ExamTopbar({
       >
         {displayTimer}
       </span>
+      {totalCount > 100 && currentSection === 1 && !breakTaken && onTriggerBreak && (
+        <button
+          type="button"
+          className="btn ghost small"
+          onClick={onTriggerBreak}
+          title="Take 10-minute break with dancing cat"
+          style={{
+            background: 'rgba(245, 158, 11, 0.15)',
+            borderColor: '#F59E0B',
+            color: '#FCD34D'
+          }}
+        >
+          🐾 10m Break
+        </button>
+      )}
       <button
         type="button"
         className="btn ghost small"

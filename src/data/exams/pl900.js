@@ -1,4 +1,4 @@
-// PL-900: Power Platform Fundamentals
+// PL-900: Power Platform Fundamentals (200 Questions across 2 Sections)
 export const PL900 = {
   id: 'PL900',
   code: "PL-900",
@@ -714,8 +714,2106 @@ export const PL900 = {
       0
     ],
     "e": "A condition branches the flow based on a test such as a value comparison."
+  },
+  {
+    "d": "P",
+    "q": "Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 9 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 9 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 9 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 10 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 10 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 10 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 11 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 11 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 11 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 12 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): You need to build a responsive, data-driven portal for external customers to submit support tickets securely. What should you build?",
+    "o": [
+      "Power Pages",
+      "Canvas App",
+      "Power Automate Flow",
+      "Power BI Dashboard"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Pages is tailored for secure, external-facing websites connected to Dataverse data."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 12 (S): You want a workflow that guides customer service agents step-by-step through a standardized multi-stage onboarding process. What should you use?",
+    "o": [
+      "Business Process Flow",
+      "Instant Cloud Flow",
+      "Power Pages snippet",
+      "Power Virtual Agents topic"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Business Process Flows provide guided visual stages across headers on model-driven app forms."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): What is the primary benefit of using custom connectors in Power Platform?",
+    "o": [
+      "Connecting to proprietary or internal REST APIs with OpenAPI specifications",
+      "Bypassing Dataverse licensing",
+      "Translating canvas apps to Java",
+      "Creating 3D games"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Custom connectors allow low-code apps and flows to interact with any RESTful API service."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): You need to view real-time data residing in an external Azure SQL database inside Dataverse without copying or synchronizing the data. What feature should you implement?",
+    "o": [
+      "Virtual Tables (Virtual Entities)",
+      "Dataverse Dataflows Gen2",
+      "Elastic Tables",
+      "Export to Data Lake"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Virtual Tables represent external data sources as native Dataverse tables without data replication."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): What is the declarative, low-code formula language used to express logic across Power Apps canvas apps and Dataverse?",
+    "o": [
+      "Power Fx",
+      "DAX",
+      "C#",
+      "VBA"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power Fx is the Excel-like open-source formula language used across Microsoft Power Platform."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 12 (S): In Microsoft Copilot Studio (formerly Power Virtual Agents), what is the primary building block that defines a conversation path for a specific user inquiry?",
+    "o": [
+      "Topic",
+      "Trigger Entity",
+      "Skill",
+      "Connector"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Topics define conversational dialogues with trigger phrases, question nodes, and conditional branches."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 13 (P): Which Microsoft Power Platform component provides a low-code artificial intelligence capability that can extract invoice data, analyze sentiment, and predict outcomes?",
+    "o": [
+      "AI Builder",
+      "Power Automate Desktop",
+      "Power Pages",
+      "Dataverse Elastic Tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "AI Builder provides turnkey AI models directly inside Power Apps and Power Automate."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 13 (M): In Microsoft Dataverse, what type of table stores data that is shared across all environments and maintained by Microsoft, such as Account and Contact?",
+    "o": [
+      "Standard tables",
+      "Custom tables",
+      "Virtual tables",
+      "Elastic tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Standard tables are out-of-the-box business entities provided with the Common Data Model in Dataverse."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 13 (V): Which type of Power App is pixel-perfect, tailored for mobile/tablet task-oriented experiences, and allows starting from a blank canvas?",
+    "o": [
+      "Canvas App",
+      "Model-Driven App",
+      "Power Pages Site",
+      "Dynamics 365 Sales App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Canvas apps provide granular design control over UI elements and direct data connection using Power Fx."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 13 (S): Which type of Power Automate flow is designed to automate legacy Windows desktop applications that lack an API?",
+    "o": [
+      "Desktop Flow (Robotic Process Automation / RPA)",
+      "Automated Cloud Flow",
+      "Scheduled Cloud Flow",
+      "Business Process Flow"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Desktop flows perform RPA by recording and replaying user keystrokes and UI interactions on workstations."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 13 (P): How does Microsoft Dataverse ensure security and data isolation across different business divisions?",
+    "o": [
+      "Business Units combined with Role-Based Access Control (RBAC) security roles",
+      "Creating separate SQL Server instances",
+      "Using different email domains",
+      "Exporting data to Excel workbooks"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse security models use Business Units and security roles for hierarchical and matrix data governance."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 13 (M): Which Dataverse feature enforces business logic such as setting field requirements or showing error messages on the client side without writing JavaScript?",
+    "o": [
+      "Business Rules",
+      "Cloud Flows",
+      "Power Fx formulas in Excel",
+      "Dataflows"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataverse Business Rules provide visual client-side logic execution on model-driven forms."
   }
 ]
 };
-
-export default PL900;

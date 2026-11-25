@@ -57,6 +57,9 @@ export function ExamScreen({
         onPause={session.pauseExam}
         onSubmit={onOpenSubmitConfirm}
         isRetest={session.isRetest}
+        currentSection={session.currentSection}
+        onTriggerBreak={session.startBreak}
+        breakTaken={session.breakTaken}
       />
 
       <div className="layout">
@@ -66,6 +69,8 @@ export function ExamScreen({
           flags={session.flags}
           currentIndex={session.pos}
           onSelectQuestion={session.goToQuestion}
+          onTriggerBreak={session.startBreak}
+          breakTaken={session.breakTaken}
         />
 
         <QuestionCard
@@ -77,6 +82,8 @@ export function ExamScreen({
           isFlagged={currentFlag}
           isChecked={currentChecked}
           isLearningMode={session.learn}
+          breakTaken={session.breakTaken}
+          onTriggerBreak={session.startBreak}
           onToggleOption={session.toggleOption}
           onCheckAnswer={session.checkAnswer}
           onToggleFlag={() => {

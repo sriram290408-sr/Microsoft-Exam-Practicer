@@ -1,4 +1,4 @@
-// DP-700: Fabric Data Engineer
+// DP-700: Fabric Data Engineer (200 Questions across 2 Sections)
 export const DP700 = {
   id: 'DP700',
   code: "DP-700",
@@ -480,7 +480,7 @@ export const DP700 = {
     "multi": true,
     "o": [
       "Replace with a default value",
-      "Drop rows with nulls in key columns",
+      "Drop rows with Nones in key columns",
       "Rename the workspace",
       "Increase capacity size"
     ],
@@ -488,7 +488,7 @@ export const DP700 = {
       0,
       1
     ],
-    "e": "Replacing or dropping nulls are standard cleaning options, depending on the column's meaning."
+    "e": "Replacing or dropping Nones are standard cleaning options, depending on the column's meaning."
   },
   {
     "d": "M",
@@ -715,8 +715,2106 @@ export const DP700 = {
       0
     ],
     "e": "Caching policy defines how long data stays in fast storage, and retention policy defines how long it is kept."
+  },
+  {
+    "d": "P",
+    "q": "What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 6 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 7 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 8 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 8 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 9 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 9 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 6 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 9 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 9 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 10 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 10 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 10 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 10 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 7 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 11 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 11 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 11 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 11 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 12 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 12 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 8 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 12 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 12 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 13 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 13 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 13 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 13 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 13 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 13 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 14 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 9 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 14 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 14 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 14 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 14 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 14 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 15 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 15 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 15 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 15 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 10 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 15 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 15 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 16 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 16 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 16 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 16 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 16 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 16 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 17 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 11 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 17 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 17 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 17 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 17 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 17 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 18 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 18 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 18 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 18 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 12 (M): In PySpark on Microsoft Fabric, which command compacts small files in a Delta table to improve query reading performance?",
+    "o": [
+      "OPTIMIZE table_name",
+      "VACUUM table_name RETAIN 0 HOURS",
+      "DROP TABLE table_name",
+      "REFRESH TABLE table_name"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`OPTIMIZE` coalesces fragmented small files into larger 1GB files to boost scan efficiency."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 18 (V): In Microsoft Fabric, what feature reorganizes Delta table data along multiple dimensions to optimize query filtering without partition skew?",
+    "o": [
+      "Liquid Clustering",
+      "Manual Directory Partitioning",
+      "B-Tree Indexing",
+      "Zip Compression"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Liquid Clustering replaces rigid hive partitioning with dynamic multi-column clustering that adapts to query patterns."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 18 (S): Which Microsoft Purview feature enables automated classification and scanning of sensitive data (like credit cards or SSNs) stored across Fabric Lakehouses?",
+    "o": [
+      "Purview Information Protection and Data Map Automated Classification",
+      "Power BI Performance Analyzer",
+      "Spark History Server",
+      "Capacity Metrics App"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Purview Data Map automatically classifies sensitive data entities across OneLake storage."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 19 (P): What is the primary architectural goal of designing a Fabric Data Engineering solution with OneLake as the foundation?",
+    "o": [
+      "Single copy of data used by multiple analytics engines without ETL data duplication",
+      "Storing all data on local developer hard drives",
+      "Converting all databases into flat CSV text files",
+      "Restricting data access to a single user"
+    ],
+    "a": [
+      0
+    ],
+    "e": "OneLake enables multi-engine analytics (Spark, T-SQL, KQL, Power BI) over a single centralized data copy."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 13 (M): In a Fabric Data Factory pipeline, which activity is optimized for high-throughput parallel data movement from on-premises sources to OneLake?",
+    "o": [
+      "Copy Activity",
+      "Lookup Activity",
+      "Web Activity",
+      "Wait Activity"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Copy Activity utilizes scalable cloud data movement engines to ingest gigabytes to terabytes efficiently."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 19 (V): What is the purpose of the `VACUUM` command in a Delta Lake table?",
+    "o": [
+      "Removes older data files no longer referenced by the transaction log outside the retention period",
+      "Indexes text columns",
+      "Converts Delta format to CSV",
+      "Forces schema evolution"
+    ],
+    "a": [
+      0
+    ],
+    "e": "`VACUUM` purges uncommitted or obsolete historical Parquet files to reclaim OneLake storage."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 19 (S): How can you implement Column-Level Security (CLS) in a Fabric SQL Analytics Endpoint or Warehouse?",
+    "o": [
+      "Using standard `GRANT SELECT ON table(col1, col2) TO [user]` T-SQL permissions",
+      "Hiding columns in Power BI Desktop",
+      "Encrypting the columns with WinZip",
+      "Deleting the column from the Delta table"
+    ],
+    "a": [
+      0
+    ],
+    "e": "T-SQL Column-Level Security permits granting access to specific columns while restricting sensitive ones."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 19 (P): In Microsoft Fabric, which role is needed to manage capacity sizing, pause/resume capacity, and assign workspaces to capacities?",
+    "o": [
+      "Fabric Capacity Administrator",
+      "Workspace Viewer",
+      "Power BI Report Author",
+      "Azure SQL Contributor"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Capacity Administrators configure compute capacity allocations and workload throttling across tenant workspaces."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 13 (M): You are using Apache Spark in a Fabric Notebook to append streaming events to a Delta table. What Delta Lake feature ensures transactional atomicity and rollback capability?",
+    "o": [
+      "Delta Transaction Log (`_delta_log`)",
+      "Parquet file headers",
+      "Windows registry",
+      "Spark UI console log"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The `_delta_log` records ACID commit protocols, enabling time travel and rollback safety."
   }
 ]
 };
-
-export default DP700;

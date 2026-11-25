@@ -1,4 +1,4 @@
-// PL-300: Power BI Data Analyst
+// PL-300: Power BI Data Analyst (200 Questions across 2 Sections)
 export const PL300 = {
   id: 'PL300',
   code: "PL-300",
@@ -209,7 +209,7 @@ export const PL300 = {
   },
   {
     "d": "P",
-    "q": "A report-style sheet shows Region only on the first row of each group, and the rows below it are null. You need Region on every row. What do you apply to the Region column?",
+    "q": "A report-style sheet shows Region only on the first row of each group, and the rows below it are None. You need Region on every row. What do you apply to the Region column?",
     "o": [
       "Fill Down",
       "Fill Up",
@@ -219,7 +219,7 @@ export const PL300 = {
     "a": [
       0
     ],
-    "e": "Fill Down copies the last non-null value into the null cells below it. Fill Up would copy values from below."
+    "e": "Fill Down copies the last non-None value into the None cells below it. Fill Up would copy values from below."
   },
   {
     "d": "M",
@@ -729,8 +729,2106 @@ export const PL300 = {
       0
     ],
     "e": "Certified endorsement is given by authorized reviewers after a review process. Promoted is something the content owner can set themselves."
+  },
+  {
+    "d": "P",
+    "q": "You are importing a large sales table from Azure SQL Database. The business requirement states that only completed transactions from the last 2 years must be loaded. Where should you apply this filter to maximize performance?",
+    "o": [
+      "In Power Query using a filter step that folds into a WHERE clause in the native SQL query",
+      "In a DAX calculated table using FILTER()",
+      "In the report page filter pane",
+      "In a Power BI visual level filter"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Applying filters in Power Query allows query folding to push the filter back to Azure SQL, reducing data transferred."
+  },
+  {
+    "d": "M",
+    "q": "You need to write a DAX measure that calculates the percentage of total sales represented by each product category. Which pattern is optimal?",
+    "o": [
+      "DIVIDE([Total Sales], CALCULATE([Total Sales], ALL(Products[Category])))",
+      "SUM(Sales[Amount]) / SUM(AllSales[Amount])",
+      "CALCULATE(SUM(Sales[Amount])) * 100",
+      "RELATED(Products[Category]) / [Total Sales]"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DIVIDE prevents divide-by-zero errors, and ALL removes the visual filter on Category to provide the grand total denominator."
+  },
+  {
+    "d": "V",
+    "q": "A report page contains multiple cards, bar charts, and a slicer. You want screen reader users to experience the visuals in a logical, coherent reading order. Where do you configure this?",
+    "o": [
+      "Selection Pane -> Tab Order",
+      "Format Pane -> Visual Align",
+      "Performance Analyzer",
+      "Bookmarks Pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tab order in the Selection pane dictates the exact sequence in which screen readers and keyboard navigation traverse elements."
+  },
+  {
+    "d": "S",
+    "q": "You need to configure incremental refresh for a 500-million-row sales table in Power BI Service. What two parameters must be created in Power Query?",
+    "o": [
+      "RangeStart and RangeEnd (DateTime type)",
+      "DateMin and DateMax (Integer type)",
+      "StartDate and EndDate (Text type)",
+      "RefreshMin and RefreshMax (Duration type)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power BI incremental refresh requires precisely named `RangeStart` and `RangeEnd` DateTime parameters."
+  },
+  {
+    "d": "P",
+    "q": "In Power Query, you have a column with JSON payload strings. You need to extract a specific property 'customerRating' without writing custom M scripts. What feature should you use?",
+    "o": [
+      "Add Column from Examples",
+      "Split Column by Delimiter",
+      "Transpose Column",
+      "Unpivot Other Columns"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Add Column from Examples allows you to type expected outputs, and Power Query auto-generates the JSON property extraction M logic."
+  },
+  {
+    "d": "M",
+    "q": "A date table in your model contains dates from 2020 to 2025. What is the mandatory step to enable standard DAX time-intelligence functions like DATESYTD and SAMEPERIODLASTYEAR?",
+    "o": [
+      "Right-click the Date table and select 'Mark as Date Table', selecting the primary Date column",
+      "Set the storage mode to DirectQuery",
+      "Sort the Date column by Sales Amount",
+      "Create a bidirectional relationship to all fact tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Marking as Date Table validates uniqueness, continuity, and enables the DAX time-intelligence engine."
+  },
+  {
+    "d": "V",
+    "q": "You want to provide users with a clean interface where clicking an icon switches between a 'Chart View' and a 'Table View' on the same canvas area. What mechanism achieves this?",
+    "o": [
+      "Two visuals occupying the same position, controlled by Bookmarks that toggle visibility in the Selection pane",
+      "Creating two separate PBIX files",
+      "Using the Matrix visual with drill-down",
+      "Embedding an iframe in a text box"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Bookmarks combined with visibility toggles in the Selection pane create seamless view switchers."
+  },
+  {
+    "d": "S",
+    "q": "What is the primary benefit of deploying a semantic model to a Premium Per User (PPU) or Fabric capacity workspace regarding model size?",
+    "o": [
+      "Support for Large Dataset Storage Format (up to 400 GB or capacity limits)",
+      "Models are capped at 1 GB",
+      "Automatic translation to Python scripts",
+      "DirectQuery is disabled"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Premium/Fabric capacities support large dataset storage format, lifting the 1 GB Pro import limit."
+  },
+  {
+    "d": "P",
+    "q": "When connecting to an Excel file with multiple sheets, you want to ensure the query does not fail if someone renames a sheet from 'Sales2024' to 'Sales_2024'. What approach is most robust?",
+    "o": [
+      "Filter the navigation table by sheet index or order rather than hardcoded sheet name",
+      "Disable background data refresh in options",
+      "Change storage mode to DirectQuery",
+      "Set up scheduled gateway refresh"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Accessing the sheet by position `{0}[Data]` or filtering by type prevents hardcoded sheet name breakage."
+  },
+  {
+    "d": "M",
+    "q": "You have a fact table with 100 million rows. Users frequently filter by Year, Quarter, and Product Category. Which optimization should you implement in the model?",
+    "o": [
+      "User-defined aggregations in Dual or Import mode mapped to the DirectQuery fact table",
+      "Create 10 new calculated columns on the fact table",
+      "Convert all dimension tables to DirectQuery",
+      "Increase the number of decimal places on all currencies"
+    ],
+    "a": [
+      0
+    ],
+    "e": "User-defined aggregations pre-compute common summary queries in high-speed in-memory storage."
+  },
+  {
+    "d": "V",
+    "q": "Which visual allows users to perform AI-driven regression analysis to discover which factors increase or decrease customer churn?",
+    "o": [
+      "Key Influencers visual",
+      "Decomposition Tree",
+      "Scatter plot",
+      "Gauge chart"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Key Influencers uses machine learning regression to identify top factors that drive a specified metric."
+  },
+  {
+    "d": "S",
+    "q": "You want to share a report with external vendor partners without giving them access to your internal tenant Azure AD directory. What capability facilitates this?",
+    "o": [
+      "Azure AD B2B Guest sharing or Power BI embedded with service principal",
+      "Publish to Web (Public)",
+      "Emailing the .pbix file",
+      "Granting them Domain Admin credentials"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure AD B2B allows inviting external guest users with granular workspace security access."
+  },
+  {
+    "d": "P",
+    "q": "You observe that a Power Query refresh is failing because of data type mismatch in a column containing mixed numbers and 'N/A' text. What transformation cleans this effectively?",
+    "o": [
+      "Replace 'N/A' with null, then set column data type to Integer or Decimal",
+      "Delete all rows containing errors using Table.RemoveRows",
+      "Change the entire dataset locale to en-US",
+      "Convert the column to Binary"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Replacing non-numeric placeholders with null allows proper numerical typing without discarding valid transaction rows."
+  },
+  {
+    "d": "M",
+    "q": "What is the primary difference between `USERELATIONSHIP()` and `CROSSFILTER()` in DAX?",
+    "o": [
+      "USERELATIONSHIP activates an inactive relationship; CROSSFILTER alters cross-filtering direction or disables a relationship",
+      "USERELATIONSHIP alters cross-filtering; CROSSFILTER activates inactive relationships",
+      "USERELATIONSHIP can only be used in calculated columns",
+      "CROSSFILTER is used exclusively for Row-Level Security"
+    ],
+    "a": [
+      0
+    ],
+    "e": "USERELATIONSHIP activates an inactive path, while CROSSFILTER changes filter direction (Both, Single, None)."
+  },
+  {
+    "d": "V",
+    "q": "You are designing a mobile layout for a report. What is a key best practice for mobile-optimized report views?",
+    "o": [
+      "Prioritize high-level KPI cards and simple trend charts stacked vertically with thumb-friendly sizing",
+      "Copy the entire desktop layout verbatim into the mobile grid",
+      "Avoid using any color on mobile visuals",
+      "Disable touch interactions"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Mobile views should focus on high-impact KPIs and vertical thumb-scrolling clarity."
+  },
+  {
+    "d": "S",
+    "q": "How can an organization ensure that every certified report in the tenant displays an official endorsement badge in the Power BI Service?",
+    "o": [
+      "Configure Dataset Endorsement to 'Certified' (controlled by authorized tenant admins)",
+      "Type 'Certified' in the report title",
+      "Add a gold star image to the canvas",
+      "Save the report in OneDrive"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataset Certification is a tenant-governed endorsement indicating verified, audited enterprise data."
+  },
+  {
+    "d": "P",
+    "q": "You need to import data from a web API that authenticates using OAuth2 with token refresh. Where should you configure this credential securely?",
+    "o": [
+      "In Data Source Settings -> Edit Permissions in Power BI Desktop / Gateway",
+      "Hardcode the bearer token in the Power Query M formula text",
+      "Pass the token as a URL query parameter in the API link",
+      "Save the token in an unencrypted CSV file"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Data Source Settings handles OAuth2 tokens securely with automatic credential management and refresh."
+  },
+  {
+    "d": "M",
+    "q": "In a star schema, why should you avoid snowflake schemas where dimension tables relate to other normalized dimension tables?",
+    "o": [
+      "Snowflake schemas increase relationship hops and reduce VertiPaq compression efficiency and query speed",
+      "Power BI does not support relationships between dimension tables",
+      "Snowflake schemas cause reports to print in black and white",
+      "Direct Lake mode does not allow relationships"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Star schemas are flat, denormalized dimensions that maximize VertiPaq column encoding and reduce join complexity."
+  },
+  {
+    "d": "V",
+    "q": "How can you conditionally format the title text of a card visual dynamically based on the user's selected slicer value?",
+    "o": [
+      "Use the 'fx' button next to Title Text and link it to a DAX measure returning formatted text",
+      "Create a separate card for every possible slicer choice",
+      "Hardcode the title text in the JSON theme file",
+      "Use the Alt Text property instead of Title"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Clicking the `fx` conditional formatting button allows binding title strings directly to dynamic DAX measures."
+  },
+  {
+    "d": "S",
+    "q": "Which Power BI feature allows administrators to analyze capacity resource consumption, CPU throttling, and memory spikes in Fabric capacities?",
+    "o": [
+      "Microsoft Fabric Capacity Metrics App",
+      "Windows Task Manager",
+      "Power BI Desktop Performance Analyzer",
+      "Tabular Editor Best Practice Analyzer"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The Fabric Capacity Metrics App provides second-by-second telemetry on CPU core second consumption and throttling."
+  },
+  {
+    "d": "P",
+    "q": "In Power Query Editor, which tool shows you the percentage of valid, error, and empty values for every column simultaneously?",
+    "o": [
+      "Column Quality in the View tab",
+      "Column Distribution",
+      "Column Profile",
+      "Formula Bar"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Column Quality displays Valid, Error, and Empty percentages at the top of each column header."
+  },
+  {
+    "d": "M",
+    "q": "You need to create a DAX measure that counts active customers who made a purchase in both the current month and the previous month. Which function helps compare sets?",
+    "o": [
+      "INTERSECT(CurrentCustomers, PreviousCustomers)",
+      "UNION(CurrentCustomers, PreviousCustomers)",
+      "EXCEPT(CurrentCustomers, PreviousCustomers)",
+      "CROSSJOIN(CurrentCustomers, PreviousCustomers)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "INTERSECT returns the rows that appear in both table expressions."
+  },
+  {
+    "d": "V",
+    "q": "You need to prevent visual interaction between a Product Category slicer and a Company Overview KPI card. Where do you adjust this?",
+    "o": [
+      "Format tab -> Edit Interactions -> Set to 'None'",
+      "Selection Pane -> Hide Visual",
+      "Modeling tab -> Manage Roles",
+      "Sync Slicers pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Edit Interactions lets report authors control whether a slicer filters, highlights, or has no effect on individual visuals."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): You need to configure incremental refresh for a 500-million-row sales table in Power BI Service. What two parameters must be created in Power Query?",
+    "o": [
+      "RangeStart and RangeEnd (DateTime type)",
+      "DateMin and DateMax (Integer type)",
+      "StartDate and EndDate (Text type)",
+      "RefreshMin and RefreshMax (Duration type)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power BI incremental refresh requires precisely named `RangeStart` and `RangeEnd` DateTime parameters."
+  },
+  {
+    "d": "P",
+    "q": "You need to combine two tables vertically where Table A has 5 columns and Table B has 4 of the same columns plus 1 unique column. What operation should you perform?",
+    "o": [
+      "Append Queries",
+      "Merge Queries",
+      "Pivot Columns",
+      "Group By"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Append Queries combines tables vertically (like a SQL UNION ALL), matching common headers and filling null for missing columns."
+  },
+  {
+    "d": "M",
+    "q": "When configuring Object-Level Security (OLS) in a semantic model, what tool must be used?",
+    "o": [
+      "Tabular Editor via XMLA endpoint",
+      "Power BI Service report edit mode",
+      "Power Query Advanced Editor",
+      "Microsoft Purview Compliance Manager"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Object-Level Security (hiding sensitive tables or columns completely from unauthorized roles) requires Tabular Editor."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): A report page contains multiple cards, bar charts, and a slicer. You want screen reader users to experience the visuals in a logical, coherent reading order. Where do you configure this?",
+    "o": [
+      "Selection Pane -> Tab Order",
+      "Format Pane -> Visual Align",
+      "Performance Analyzer",
+      "Bookmarks Pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tab order in the Selection pane dictates the exact sequence in which screen readers and keyboard navigation traverse elements."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): What is the primary benefit of deploying a semantic model to a Premium Per User (PPU) or Fabric capacity workspace regarding model size?",
+    "o": [
+      "Support for Large Dataset Storage Format (up to 400 GB or capacity limits)",
+      "Models are capped at 1 GB",
+      "Automatic translation to Python scripts",
+      "DirectQuery is disabled"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Premium/Fabric capacities support large dataset storage format, lifting the 1 GB Pro import limit."
+  },
+  {
+    "d": "P",
+    "q": "What does enabling 'Enable Load' vs 'Include in Report Refresh' do in Power Query?",
+    "o": [
+      "'Enable Load' loads table data into the data model; 'Include in Report Refresh' refreshes the query during scheduled refresh",
+      "They are identical settings with different names",
+      "'Enable Load' publishes to the web",
+      "'Include in Report Refresh' enables DirectQuery"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Unchecking 'Enable Load' creates a staging/transformation query that does not consume model RAM."
+  },
+  {
+    "d": "M",
+    "q": "Which VertiPaq storage compression technique replaces repeating text strings with integer identifiers in a global dictionary?",
+    "o": [
+      "Hash Encoding (Dictionary Encoding)",
+      "Value Encoding",
+      "Run-Length Encoding (RLE)",
+      "Huffman Coding"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Hash encoding builds a dictionary of distinct values and stores small integer IDs in the data segment."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): You want to provide users with a clean interface where clicking an icon switches between a 'Chart View' and a 'Table View' on the same canvas area. What mechanism achieves this?",
+    "o": [
+      "Two visuals occupying the same position, controlled by Bookmarks that toggle visibility in the Selection pane",
+      "Creating two separate PBIX files",
+      "Using the Matrix visual with drill-down",
+      "Embedding an iframe in a text box"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Bookmarks combined with visibility toggles in the Selection pane create seamless view switchers."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): You want to share a report with external vendor partners without giving them access to your internal tenant Azure AD directory. What capability facilitates this?",
+    "o": [
+      "Azure AD B2B Guest sharing or Power BI embedded with service principal",
+      "Publish to Web (Public)",
+      "Emailing the .pbix file",
+      "Granting them Domain Admin credentials"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure AD B2B allows inviting external guest users with granular workspace security access."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): You are importing a large sales table from Azure SQL Database. The business requirement states that only completed transactions from the last 2 years must be loaded. Where should you apply this filter to maximize performance?",
+    "o": [
+      "In Power Query using a filter step that folds into a WHERE clause in the native SQL query",
+      "In a DAX calculated table using FILTER()",
+      "In the report page filter pane",
+      "In a Power BI visual level filter"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Applying filters in Power Query allows query folding to push the filter back to Azure SQL, reducing data transferred."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): You need to write a DAX measure that calculates the percentage of total sales represented by each product category. Which pattern is optimal?",
+    "o": [
+      "DIVIDE([Total Sales], CALCULATE([Total Sales], ALL(Products[Category])))",
+      "SUM(Sales[Amount]) / SUM(AllSales[Amount])",
+      "CALCULATE(SUM(Sales[Amount])) * 100",
+      "RELATED(Products[Category]) / [Total Sales]"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DIVIDE prevents divide-by-zero errors, and ALL removes the visual filter on Category to provide the grand total denominator."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): Which visual allows users to perform AI-driven regression analysis to discover which factors increase or decrease customer churn?",
+    "o": [
+      "Key Influencers visual",
+      "Decomposition Tree",
+      "Scatter plot",
+      "Gauge chart"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Key Influencers uses machine learning regression to identify top factors that drive a specified metric."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): How can an organization ensure that every certified report in the tenant displays an official endorsement badge in the Power BI Service?",
+    "o": [
+      "Configure Dataset Endorsement to 'Certified' (controlled by authorized tenant admins)",
+      "Type 'Certified' in the report title",
+      "Add a gold star image to the canvas",
+      "Save the report in OneDrive"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataset Certification is a tenant-governed endorsement indicating verified, audited enterprise data."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): In Power Query, you have a column with JSON payload strings. You need to extract a specific property 'customerRating' without writing custom M scripts. What feature should you use?",
+    "o": [
+      "Add Column from Examples",
+      "Split Column by Delimiter",
+      "Transpose Column",
+      "Unpivot Other Columns"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Add Column from Examples allows you to type expected outputs, and Power Query auto-generates the JSON property extraction M logic."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): A date table in your model contains dates from 2020 to 2025. What is the mandatory step to enable standard DAX time-intelligence functions like DATESYTD and SAMEPERIODLASTYEAR?",
+    "o": [
+      "Right-click the Date table and select 'Mark as Date Table', selecting the primary Date column",
+      "Set the storage mode to DirectQuery",
+      "Sort the Date column by Sales Amount",
+      "Create a bidirectional relationship to all fact tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Marking as Date Table validates uniqueness, continuity, and enables the DAX time-intelligence engine."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): You are designing a mobile layout for a report. What is a key best practice for mobile-optimized report views?",
+    "o": [
+      "Prioritize high-level KPI cards and simple trend charts stacked vertically with thumb-friendly sizing",
+      "Copy the entire desktop layout verbatim into the mobile grid",
+      "Avoid using any color on mobile visuals",
+      "Disable touch interactions"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Mobile views should focus on high-impact KPIs and vertical thumb-scrolling clarity."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 2 (S): Which Power BI feature allows administrators to analyze capacity resource consumption, CPU throttling, and memory spikes in Fabric capacities?",
+    "o": [
+      "Microsoft Fabric Capacity Metrics App",
+      "Windows Task Manager",
+      "Power BI Desktop Performance Analyzer",
+      "Tabular Editor Best Practice Analyzer"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The Fabric Capacity Metrics App provides second-by-second telemetry on CPU core second consumption and throttling."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): When connecting to an Excel file with multiple sheets, you want to ensure the query does not fail if someone renames a sheet from 'Sales2024' to 'Sales_2024'. What approach is most robust?",
+    "o": [
+      "Filter the navigation table by sheet index or order rather than hardcoded sheet name",
+      "Disable background data refresh in options",
+      "Change storage mode to DirectQuery",
+      "Set up scheduled gateway refresh"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Accessing the sheet by position `{0}[Data]` or filtering by type prevents hardcoded sheet name breakage."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): You have a fact table with 100 million rows. Users frequently filter by Year, Quarter, and Product Category. Which optimization should you implement in the model?",
+    "o": [
+      "User-defined aggregations in Dual or Import mode mapped to the DirectQuery fact table",
+      "Create 10 new calculated columns on the fact table",
+      "Convert all dimension tables to DirectQuery",
+      "Increase the number of decimal places on all currencies"
+    ],
+    "a": [
+      0
+    ],
+    "e": "User-defined aggregations pre-compute common summary queries in high-speed in-memory storage."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): How can you conditionally format the title text of a card visual dynamically based on the user's selected slicer value?",
+    "o": [
+      "Use the 'fx' button next to Title Text and link it to a DAX measure returning formatted text",
+      "Create a separate card for every possible slicer choice",
+      "Hardcode the title text in the JSON theme file",
+      "Use the Alt Text property instead of Title"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Clicking the `fx` conditional formatting button allows binding title strings directly to dynamic DAX measures."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): You need to configure incremental refresh for a 500-million-row sales table in Power BI Service. What two parameters must be created in Power Query?",
+    "o": [
+      "RangeStart and RangeEnd (DateTime type)",
+      "DateMin and DateMax (Integer type)",
+      "StartDate and EndDate (Text type)",
+      "RefreshMin and RefreshMax (Duration type)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power BI incremental refresh requires precisely named `RangeStart` and `RangeEnd` DateTime parameters."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): You observe that a Power Query refresh is failing because of data type mismatch in a column containing mixed numbers and 'N/A' text. What transformation cleans this effectively?",
+    "o": [
+      "Replace 'N/A' with null, then set column data type to Integer or Decimal",
+      "Delete all rows containing errors using Table.RemoveRows",
+      "Change the entire dataset locale to en-US",
+      "Convert the column to Binary"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Replacing non-numeric placeholders with null allows proper numerical typing without discarding valid transaction rows."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): What is the primary difference between `USERELATIONSHIP()` and `CROSSFILTER()` in DAX?",
+    "o": [
+      "USERELATIONSHIP activates an inactive relationship; CROSSFILTER alters cross-filtering direction or disables a relationship",
+      "USERELATIONSHIP alters cross-filtering; CROSSFILTER activates inactive relationships",
+      "USERELATIONSHIP can only be used in calculated columns",
+      "CROSSFILTER is used exclusively for Row-Level Security"
+    ],
+    "a": [
+      0
+    ],
+    "e": "USERELATIONSHIP activates an inactive path, while CROSSFILTER changes filter direction (Both, Single, None)."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 2 (V): You need to prevent visual interaction between a Product Category slicer and a Company Overview KPI card. Where do you adjust this?",
+    "o": [
+      "Format tab -> Edit Interactions -> Set to 'None'",
+      "Selection Pane -> Hide Visual",
+      "Modeling tab -> Manage Roles",
+      "Sync Slicers pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Edit Interactions lets report authors control whether a slicer filters, highlights, or has no effect on individual visuals."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): What is the primary benefit of deploying a semantic model to a Premium Per User (PPU) or Fabric capacity workspace regarding model size?",
+    "o": [
+      "Support for Large Dataset Storage Format (up to 400 GB or capacity limits)",
+      "Models are capped at 1 GB",
+      "Automatic translation to Python scripts",
+      "DirectQuery is disabled"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Premium/Fabric capacities support large dataset storage format, lifting the 1 GB Pro import limit."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): You need to import data from a web API that authenticates using OAuth2 with token refresh. Where should you configure this credential securely?",
+    "o": [
+      "In Data Source Settings -> Edit Permissions in Power BI Desktop / Gateway",
+      "Hardcode the bearer token in the Power Query M formula text",
+      "Pass the token as a URL query parameter in the API link",
+      "Save the token in an unencrypted CSV file"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Data Source Settings handles OAuth2 tokens securely with automatic credential management and refresh."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): In a star schema, why should you avoid snowflake schemas where dimension tables relate to other normalized dimension tables?",
+    "o": [
+      "Snowflake schemas increase relationship hops and reduce VertiPaq compression efficiency and query speed",
+      "Power BI does not support relationships between dimension tables",
+      "Snowflake schemas cause reports to print in black and white",
+      "Direct Lake mode does not allow relationships"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Star schemas are flat, denormalized dimensions that maximize VertiPaq column encoding and reduce join complexity."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): A report page contains multiple cards, bar charts, and a slicer. You want screen reader users to experience the visuals in a logical, coherent reading order. Where do you configure this?",
+    "o": [
+      "Selection Pane -> Tab Order",
+      "Format Pane -> Visual Align",
+      "Performance Analyzer",
+      "Bookmarks Pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tab order in the Selection pane dictates the exact sequence in which screen readers and keyboard navigation traverse elements."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): You want to share a report with external vendor partners without giving them access to your internal tenant Azure AD directory. What capability facilitates this?",
+    "o": [
+      "Azure AD B2B Guest sharing or Power BI embedded with service principal",
+      "Publish to Web (Public)",
+      "Emailing the .pbix file",
+      "Granting them Domain Admin credentials"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure AD B2B allows inviting external guest users with granular workspace security access."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): In Power Query Editor, which tool shows you the percentage of valid, error, and empty values for every column simultaneously?",
+    "o": [
+      "Column Quality in the View tab",
+      "Column Distribution",
+      "Column Profile",
+      "Formula Bar"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Column Quality displays Valid, Error, and Empty percentages at the top of each column header."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): You need to create a DAX measure that counts active customers who made a purchase in both the current month and the previous month. Which function helps compare sets?",
+    "o": [
+      "INTERSECT(CurrentCustomers, PreviousCustomers)",
+      "UNION(CurrentCustomers, PreviousCustomers)",
+      "EXCEPT(CurrentCustomers, PreviousCustomers)",
+      "CROSSJOIN(CurrentCustomers, PreviousCustomers)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "INTERSECT returns the rows that appear in both table expressions."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): You want to provide users with a clean interface where clicking an icon switches between a 'Chart View' and a 'Table View' on the same canvas area. What mechanism achieves this?",
+    "o": [
+      "Two visuals occupying the same position, controlled by Bookmarks that toggle visibility in the Selection pane",
+      "Creating two separate PBIX files",
+      "Using the Matrix visual with drill-down",
+      "Embedding an iframe in a text box"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Bookmarks combined with visibility toggles in the Selection pane create seamless view switchers."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): How can an organization ensure that every certified report in the tenant displays an official endorsement badge in the Power BI Service?",
+    "o": [
+      "Configure Dataset Endorsement to 'Certified' (controlled by authorized tenant admins)",
+      "Type 'Certified' in the report title",
+      "Add a gold star image to the canvas",
+      "Save the report in OneDrive"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataset Certification is a tenant-governed endorsement indicating verified, audited enterprise data."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): You need to combine two tables vertically where Table A has 5 columns and Table B has 4 of the same columns plus 1 unique column. What operation should you perform?",
+    "o": [
+      "Append Queries",
+      "Merge Queries",
+      "Pivot Columns",
+      "Group By"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Append Queries combines tables vertically (like a SQL UNION ALL), matching common headers and filling null for missing columns."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): When configuring Object-Level Security (OLS) in a semantic model, what tool must be used?",
+    "o": [
+      "Tabular Editor via XMLA endpoint",
+      "Power BI Service report edit mode",
+      "Power Query Advanced Editor",
+      "Microsoft Purview Compliance Manager"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Object-Level Security (hiding sensitive tables or columns completely from unauthorized roles) requires Tabular Editor."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): Which visual allows users to perform AI-driven regression analysis to discover which factors increase or decrease customer churn?",
+    "o": [
+      "Key Influencers visual",
+      "Decomposition Tree",
+      "Scatter plot",
+      "Gauge chart"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Key Influencers uses machine learning regression to identify top factors that drive a specified metric."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 3 (S): Which Power BI feature allows administrators to analyze capacity resource consumption, CPU throttling, and memory spikes in Fabric capacities?",
+    "o": [
+      "Microsoft Fabric Capacity Metrics App",
+      "Windows Task Manager",
+      "Power BI Desktop Performance Analyzer",
+      "Tabular Editor Best Practice Analyzer"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The Fabric Capacity Metrics App provides second-by-second telemetry on CPU core second consumption and throttling."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 2 (P): What does enabling 'Enable Load' vs 'Include in Report Refresh' do in Power Query?",
+    "o": [
+      "'Enable Load' loads table data into the data model; 'Include in Report Refresh' refreshes the query during scheduled refresh",
+      "They are identical settings with different names",
+      "'Enable Load' publishes to the web",
+      "'Include in Report Refresh' enables DirectQuery"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Unchecking 'Enable Load' creates a staging/transformation query that does not consume model RAM."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 2 (M): Which VertiPaq storage compression technique replaces repeating text strings with integer identifiers in a global dictionary?",
+    "o": [
+      "Hash Encoding (Dictionary Encoding)",
+      "Value Encoding",
+      "Run-Length Encoding (RLE)",
+      "Huffman Coding"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Hash encoding builds a dictionary of distinct values and stores small integer IDs in the data segment."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): You are designing a mobile layout for a report. What is a key best practice for mobile-optimized report views?",
+    "o": [
+      "Prioritize high-level KPI cards and simple trend charts stacked vertically with thumb-friendly sizing",
+      "Copy the entire desktop layout verbatim into the mobile grid",
+      "Avoid using any color on mobile visuals",
+      "Disable touch interactions"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Mobile views should focus on high-impact KPIs and vertical thumb-scrolling clarity."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): You need to configure incremental refresh for a 500-million-row sales table in Power BI Service. What two parameters must be created in Power Query?",
+    "o": [
+      "RangeStart and RangeEnd (DateTime type)",
+      "DateMin and DateMax (Integer type)",
+      "StartDate and EndDate (Text type)",
+      "RefreshMin and RefreshMax (Duration type)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power BI incremental refresh requires precisely named `RangeStart` and `RangeEnd` DateTime parameters."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): You are importing a large sales table from Azure SQL Database. The business requirement states that only completed transactions from the last 2 years must be loaded. Where should you apply this filter to maximize performance?",
+    "o": [
+      "In Power Query using a filter step that folds into a WHERE clause in the native SQL query",
+      "In a DAX calculated table using FILTER()",
+      "In the report page filter pane",
+      "In a Power BI visual level filter"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Applying filters in Power Query allows query folding to push the filter back to Azure SQL, reducing data transferred."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): You need to write a DAX measure that calculates the percentage of total sales represented by each product category. Which pattern is optimal?",
+    "o": [
+      "DIVIDE([Total Sales], CALCULATE([Total Sales], ALL(Products[Category])))",
+      "SUM(Sales[Amount]) / SUM(AllSales[Amount])",
+      "CALCULATE(SUM(Sales[Amount])) * 100",
+      "RELATED(Products[Category]) / [Total Sales]"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DIVIDE prevents divide-by-zero errors, and ALL removes the visual filter on Category to provide the grand total denominator."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): How can you conditionally format the title text of a card visual dynamically based on the user's selected slicer value?",
+    "o": [
+      "Use the 'fx' button next to Title Text and link it to a DAX measure returning formatted text",
+      "Create a separate card for every possible slicer choice",
+      "Hardcode the title text in the JSON theme file",
+      "Use the Alt Text property instead of Title"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Clicking the `fx` conditional formatting button allows binding title strings directly to dynamic DAX measures."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): What is the primary benefit of deploying a semantic model to a Premium Per User (PPU) or Fabric capacity workspace regarding model size?",
+    "o": [
+      "Support for Large Dataset Storage Format (up to 400 GB or capacity limits)",
+      "Models are capped at 1 GB",
+      "Automatic translation to Python scripts",
+      "DirectQuery is disabled"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Premium/Fabric capacities support large dataset storage format, lifting the 1 GB Pro import limit."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): In Power Query, you have a column with JSON payload strings. You need to extract a specific property 'customerRating' without writing custom M scripts. What feature should you use?",
+    "o": [
+      "Add Column from Examples",
+      "Split Column by Delimiter",
+      "Transpose Column",
+      "Unpivot Other Columns"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Add Column from Examples allows you to type expected outputs, and Power Query auto-generates the JSON property extraction M logic."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): A date table in your model contains dates from 2020 to 2025. What is the mandatory step to enable standard DAX time-intelligence functions like DATESYTD and SAMEPERIODLASTYEAR?",
+    "o": [
+      "Right-click the Date table and select 'Mark as Date Table', selecting the primary Date column",
+      "Set the storage mode to DirectQuery",
+      "Sort the Date column by Sales Amount",
+      "Create a bidirectional relationship to all fact tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Marking as Date Table validates uniqueness, continuity, and enables the DAX time-intelligence engine."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 3 (V): You need to prevent visual interaction between a Product Category slicer and a Company Overview KPI card. Where do you adjust this?",
+    "o": [
+      "Format tab -> Edit Interactions -> Set to 'None'",
+      "Selection Pane -> Hide Visual",
+      "Modeling tab -> Manage Roles",
+      "Sync Slicers pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Edit Interactions lets report authors control whether a slicer filters, highlights, or has no effect on individual visuals."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): You want to share a report with external vendor partners without giving them access to your internal tenant Azure AD directory. What capability facilitates this?",
+    "o": [
+      "Azure AD B2B Guest sharing or Power BI embedded with service principal",
+      "Publish to Web (Public)",
+      "Emailing the .pbix file",
+      "Granting them Domain Admin credentials"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure AD B2B allows inviting external guest users with granular workspace security access."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): When connecting to an Excel file with multiple sheets, you want to ensure the query does not fail if someone renames a sheet from 'Sales2024' to 'Sales_2024'. What approach is most robust?",
+    "o": [
+      "Filter the navigation table by sheet index or order rather than hardcoded sheet name",
+      "Disable background data refresh in options",
+      "Change storage mode to DirectQuery",
+      "Set up scheduled gateway refresh"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Accessing the sheet by position `{0}[Data]` or filtering by type prevents hardcoded sheet name breakage."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): You have a fact table with 100 million rows. Users frequently filter by Year, Quarter, and Product Category. Which optimization should you implement in the model?",
+    "o": [
+      "User-defined aggregations in Dual or Import mode mapped to the DirectQuery fact table",
+      "Create 10 new calculated columns on the fact table",
+      "Convert all dimension tables to DirectQuery",
+      "Increase the number of decimal places on all currencies"
+    ],
+    "a": [
+      0
+    ],
+    "e": "User-defined aggregations pre-compute common summary queries in high-speed in-memory storage."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): A report page contains multiple cards, bar charts, and a slicer. You want screen reader users to experience the visuals in a logical, coherent reading order. Where do you configure this?",
+    "o": [
+      "Selection Pane -> Tab Order",
+      "Format Pane -> Visual Align",
+      "Performance Analyzer",
+      "Bookmarks Pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tab order in the Selection pane dictates the exact sequence in which screen readers and keyboard navigation traverse elements."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): How can an organization ensure that every certified report in the tenant displays an official endorsement badge in the Power BI Service?",
+    "o": [
+      "Configure Dataset Endorsement to 'Certified' (controlled by authorized tenant admins)",
+      "Type 'Certified' in the report title",
+      "Add a gold star image to the canvas",
+      "Save the report in OneDrive"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataset Certification is a tenant-governed endorsement indicating verified, audited enterprise data."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): You observe that a Power Query refresh is failing because of data type mismatch in a column containing mixed numbers and 'N/A' text. What transformation cleans this effectively?",
+    "o": [
+      "Replace 'N/A' with null, then set column data type to Integer or Decimal",
+      "Delete all rows containing errors using Table.RemoveRows",
+      "Change the entire dataset locale to en-US",
+      "Convert the column to Binary"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Replacing non-numeric placeholders with null allows proper numerical typing without discarding valid transaction rows."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): What is the primary difference between `USERELATIONSHIP()` and `CROSSFILTER()` in DAX?",
+    "o": [
+      "USERELATIONSHIP activates an inactive relationship; CROSSFILTER alters cross-filtering direction or disables a relationship",
+      "USERELATIONSHIP alters cross-filtering; CROSSFILTER activates inactive relationships",
+      "USERELATIONSHIP can only be used in calculated columns",
+      "CROSSFILTER is used exclusively for Row-Level Security"
+    ],
+    "a": [
+      0
+    ],
+    "e": "USERELATIONSHIP activates an inactive path, while CROSSFILTER changes filter direction (Both, Single, None)."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): You want to provide users with a clean interface where clicking an icon switches between a 'Chart View' and a 'Table View' on the same canvas area. What mechanism achieves this?",
+    "o": [
+      "Two visuals occupying the same position, controlled by Bookmarks that toggle visibility in the Selection pane",
+      "Creating two separate PBIX files",
+      "Using the Matrix visual with drill-down",
+      "Embedding an iframe in a text box"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Bookmarks combined with visibility toggles in the Selection pane create seamless view switchers."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 4 (S): Which Power BI feature allows administrators to analyze capacity resource consumption, CPU throttling, and memory spikes in Fabric capacities?",
+    "o": [
+      "Microsoft Fabric Capacity Metrics App",
+      "Windows Task Manager",
+      "Power BI Desktop Performance Analyzer",
+      "Tabular Editor Best Practice Analyzer"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The Fabric Capacity Metrics App provides second-by-second telemetry on CPU core second consumption and throttling."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): You need to import data from a web API that authenticates using OAuth2 with token refresh. Where should you configure this credential securely?",
+    "o": [
+      "In Data Source Settings -> Edit Permissions in Power BI Desktop / Gateway",
+      "Hardcode the bearer token in the Power Query M formula text",
+      "Pass the token as a URL query parameter in the API link",
+      "Save the token in an unencrypted CSV file"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Data Source Settings handles OAuth2 tokens securely with automatic credential management and refresh."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): In a star schema, why should you avoid snowflake schemas where dimension tables relate to other normalized dimension tables?",
+    "o": [
+      "Snowflake schemas increase relationship hops and reduce VertiPaq compression efficiency and query speed",
+      "Power BI does not support relationships between dimension tables",
+      "Snowflake schemas cause reports to print in black and white",
+      "Direct Lake mode does not allow relationships"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Star schemas are flat, denormalized dimensions that maximize VertiPaq column encoding and reduce join complexity."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): Which visual allows users to perform AI-driven regression analysis to discover which factors increase or decrease customer churn?",
+    "o": [
+      "Key Influencers visual",
+      "Decomposition Tree",
+      "Scatter plot",
+      "Gauge chart"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Key Influencers uses machine learning regression to identify top factors that drive a specified metric."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): You need to configure incremental refresh for a 500-million-row sales table in Power BI Service. What two parameters must be created in Power Query?",
+    "o": [
+      "RangeStart and RangeEnd (DateTime type)",
+      "DateMin and DateMax (Integer type)",
+      "StartDate and EndDate (Text type)",
+      "RefreshMin and RefreshMax (Duration type)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power BI incremental refresh requires precisely named `RangeStart` and `RangeEnd` DateTime parameters."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): In Power Query Editor, which tool shows you the percentage of valid, error, and empty values for every column simultaneously?",
+    "o": [
+      "Column Quality in the View tab",
+      "Column Distribution",
+      "Column Profile",
+      "Formula Bar"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Column Quality displays Valid, Error, and Empty percentages at the top of each column header."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): You need to create a DAX measure that counts active customers who made a purchase in both the current month and the previous month. Which function helps compare sets?",
+    "o": [
+      "INTERSECT(CurrentCustomers, PreviousCustomers)",
+      "UNION(CurrentCustomers, PreviousCustomers)",
+      "EXCEPT(CurrentCustomers, PreviousCustomers)",
+      "CROSSJOIN(CurrentCustomers, PreviousCustomers)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "INTERSECT returns the rows that appear in both table expressions."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): You are designing a mobile layout for a report. What is a key best practice for mobile-optimized report views?",
+    "o": [
+      "Prioritize high-level KPI cards and simple trend charts stacked vertically with thumb-friendly sizing",
+      "Copy the entire desktop layout verbatim into the mobile grid",
+      "Avoid using any color on mobile visuals",
+      "Disable touch interactions"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Mobile views should focus on high-impact KPIs and vertical thumb-scrolling clarity."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): What is the primary benefit of deploying a semantic model to a Premium Per User (PPU) or Fabric capacity workspace regarding model size?",
+    "o": [
+      "Support for Large Dataset Storage Format (up to 400 GB or capacity limits)",
+      "Models are capped at 1 GB",
+      "Automatic translation to Python scripts",
+      "DirectQuery is disabled"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Premium/Fabric capacities support large dataset storage format, lifting the 1 GB Pro import limit."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): You need to combine two tables vertically where Table A has 5 columns and Table B has 4 of the same columns plus 1 unique column. What operation should you perform?",
+    "o": [
+      "Append Queries",
+      "Merge Queries",
+      "Pivot Columns",
+      "Group By"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Append Queries combines tables vertically (like a SQL UNION ALL), matching common headers and filling null for missing columns."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): When configuring Object-Level Security (OLS) in a semantic model, what tool must be used?",
+    "o": [
+      "Tabular Editor via XMLA endpoint",
+      "Power BI Service report edit mode",
+      "Power Query Advanced Editor",
+      "Microsoft Purview Compliance Manager"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Object-Level Security (hiding sensitive tables or columns completely from unauthorized roles) requires Tabular Editor."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): How can you conditionally format the title text of a card visual dynamically based on the user's selected slicer value?",
+    "o": [
+      "Use the 'fx' button next to Title Text and link it to a DAX measure returning formatted text",
+      "Create a separate card for every possible slicer choice",
+      "Hardcode the title text in the JSON theme file",
+      "Use the Alt Text property instead of Title"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Clicking the `fx` conditional formatting button allows binding title strings directly to dynamic DAX measures."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): You want to share a report with external vendor partners without giving them access to your internal tenant Azure AD directory. What capability facilitates this?",
+    "o": [
+      "Azure AD B2B Guest sharing or Power BI embedded with service principal",
+      "Publish to Web (Public)",
+      "Emailing the .pbix file",
+      "Granting them Domain Admin credentials"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure AD B2B allows inviting external guest users with granular workspace security access."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 3 (P): What does enabling 'Enable Load' vs 'Include in Report Refresh' do in Power Query?",
+    "o": [
+      "'Enable Load' loads table data into the data model; 'Include in Report Refresh' refreshes the query during scheduled refresh",
+      "They are identical settings with different names",
+      "'Enable Load' publishes to the web",
+      "'Include in Report Refresh' enables DirectQuery"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Unchecking 'Enable Load' creates a staging/transformation query that does not consume model RAM."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 3 (M): Which VertiPaq storage compression technique replaces repeating text strings with integer identifiers in a global dictionary?",
+    "o": [
+      "Hash Encoding (Dictionary Encoding)",
+      "Value Encoding",
+      "Run-Length Encoding (RLE)",
+      "Huffman Coding"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Hash encoding builds a dictionary of distinct values and stores small integer IDs in the data segment."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 4 (V): You need to prevent visual interaction between a Product Category slicer and a Company Overview KPI card. Where do you adjust this?",
+    "o": [
+      "Format tab -> Edit Interactions -> Set to 'None'",
+      "Selection Pane -> Hide Visual",
+      "Modeling tab -> Manage Roles",
+      "Sync Slicers pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Edit Interactions lets report authors control whether a slicer filters, highlights, or has no effect on individual visuals."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): How can an organization ensure that every certified report in the tenant displays an official endorsement badge in the Power BI Service?",
+    "o": [
+      "Configure Dataset Endorsement to 'Certified' (controlled by authorized tenant admins)",
+      "Type 'Certified' in the report title",
+      "Add a gold star image to the canvas",
+      "Save the report in OneDrive"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataset Certification is a tenant-governed endorsement indicating verified, audited enterprise data."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): You are importing a large sales table from Azure SQL Database. The business requirement states that only completed transactions from the last 2 years must be loaded. Where should you apply this filter to maximize performance?",
+    "o": [
+      "In Power Query using a filter step that folds into a WHERE clause in the native SQL query",
+      "In a DAX calculated table using FILTER()",
+      "In the report page filter pane",
+      "In a Power BI visual level filter"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Applying filters in Power Query allows query folding to push the filter back to Azure SQL, reducing data transferred."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): You need to write a DAX measure that calculates the percentage of total sales represented by each product category. Which pattern is optimal?",
+    "o": [
+      "DIVIDE([Total Sales], CALCULATE([Total Sales], ALL(Products[Category])))",
+      "SUM(Sales[Amount]) / SUM(AllSales[Amount])",
+      "CALCULATE(SUM(Sales[Amount])) * 100",
+      "RELATED(Products[Category]) / [Total Sales]"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DIVIDE prevents divide-by-zero errors, and ALL removes the visual filter on Category to provide the grand total denominator."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): A report page contains multiple cards, bar charts, and a slicer. You want screen reader users to experience the visuals in a logical, coherent reading order. Where do you configure this?",
+    "o": [
+      "Selection Pane -> Tab Order",
+      "Format Pane -> Visual Align",
+      "Performance Analyzer",
+      "Bookmarks Pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tab order in the Selection pane dictates the exact sequence in which screen readers and keyboard navigation traverse elements."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 5 (S): Which Power BI feature allows administrators to analyze capacity resource consumption, CPU throttling, and memory spikes in Fabric capacities?",
+    "o": [
+      "Microsoft Fabric Capacity Metrics App",
+      "Windows Task Manager",
+      "Power BI Desktop Performance Analyzer",
+      "Tabular Editor Best Practice Analyzer"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The Fabric Capacity Metrics App provides second-by-second telemetry on CPU core second consumption and throttling."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): In Power Query, you have a column with JSON payload strings. You need to extract a specific property 'customerRating' without writing custom M scripts. What feature should you use?",
+    "o": [
+      "Add Column from Examples",
+      "Split Column by Delimiter",
+      "Transpose Column",
+      "Unpivot Other Columns"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Add Column from Examples allows you to type expected outputs, and Power Query auto-generates the JSON property extraction M logic."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): A date table in your model contains dates from 2020 to 2025. What is the mandatory step to enable standard DAX time-intelligence functions like DATESYTD and SAMEPERIODLASTYEAR?",
+    "o": [
+      "Right-click the Date table and select 'Mark as Date Table', selecting the primary Date column",
+      "Set the storage mode to DirectQuery",
+      "Sort the Date column by Sales Amount",
+      "Create a bidirectional relationship to all fact tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Marking as Date Table validates uniqueness, continuity, and enables the DAX time-intelligence engine."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): You want to provide users with a clean interface where clicking an icon switches between a 'Chart View' and a 'Table View' on the same canvas area. What mechanism achieves this?",
+    "o": [
+      "Two visuals occupying the same position, controlled by Bookmarks that toggle visibility in the Selection pane",
+      "Creating two separate PBIX files",
+      "Using the Matrix visual with drill-down",
+      "Embedding an iframe in a text box"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Bookmarks combined with visibility toggles in the Selection pane create seamless view switchers."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): You need to configure incremental refresh for a 500-million-row sales table in Power BI Service. What two parameters must be created in Power Query?",
+    "o": [
+      "RangeStart and RangeEnd (DateTime type)",
+      "DateMin and DateMax (Integer type)",
+      "StartDate and EndDate (Text type)",
+      "RefreshMin and RefreshMax (Duration type)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power BI incremental refresh requires precisely named `RangeStart` and `RangeEnd` DateTime parameters."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): When connecting to an Excel file with multiple sheets, you want to ensure the query does not fail if someone renames a sheet from 'Sales2024' to 'Sales_2024'. What approach is most robust?",
+    "o": [
+      "Filter the navigation table by sheet index or order rather than hardcoded sheet name",
+      "Disable background data refresh in options",
+      "Change storage mode to DirectQuery",
+      "Set up scheduled gateway refresh"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Accessing the sheet by position `{0}[Data]` or filtering by type prevents hardcoded sheet name breakage."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): You have a fact table with 100 million rows. Users frequently filter by Year, Quarter, and Product Category. Which optimization should you implement in the model?",
+    "o": [
+      "User-defined aggregations in Dual or Import mode mapped to the DirectQuery fact table",
+      "Create 10 new calculated columns on the fact table",
+      "Convert all dimension tables to DirectQuery",
+      "Increase the number of decimal places on all currencies"
+    ],
+    "a": [
+      0
+    ],
+    "e": "User-defined aggregations pre-compute common summary queries in high-speed in-memory storage."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): Which visual allows users to perform AI-driven regression analysis to discover which factors increase or decrease customer churn?",
+    "o": [
+      "Key Influencers visual",
+      "Decomposition Tree",
+      "Scatter plot",
+      "Gauge chart"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Key Influencers uses machine learning regression to identify top factors that drive a specified metric."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): What is the primary benefit of deploying a semantic model to a Premium Per User (PPU) or Fabric capacity workspace regarding model size?",
+    "o": [
+      "Support for Large Dataset Storage Format (up to 400 GB or capacity limits)",
+      "Models are capped at 1 GB",
+      "Automatic translation to Python scripts",
+      "DirectQuery is disabled"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Premium/Fabric capacities support large dataset storage format, lifting the 1 GB Pro import limit."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): You observe that a Power Query refresh is failing because of data type mismatch in a column containing mixed numbers and 'N/A' text. What transformation cleans this effectively?",
+    "o": [
+      "Replace 'N/A' with null, then set column data type to Integer or Decimal",
+      "Delete all rows containing errors using Table.RemoveRows",
+      "Change the entire dataset locale to en-US",
+      "Convert the column to Binary"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Replacing non-numeric placeholders with null allows proper numerical typing without discarding valid transaction rows."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): What is the primary difference between `USERELATIONSHIP()` and `CROSSFILTER()` in DAX?",
+    "o": [
+      "USERELATIONSHIP activates an inactive relationship; CROSSFILTER alters cross-filtering direction or disables a relationship",
+      "USERELATIONSHIP alters cross-filtering; CROSSFILTER activates inactive relationships",
+      "USERELATIONSHIP can only be used in calculated columns",
+      "CROSSFILTER is used exclusively for Row-Level Security"
+    ],
+    "a": [
+      0
+    ],
+    "e": "USERELATIONSHIP activates an inactive path, while CROSSFILTER changes filter direction (Both, Single, None)."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): You are designing a mobile layout for a report. What is a key best practice for mobile-optimized report views?",
+    "o": [
+      "Prioritize high-level KPI cards and simple trend charts stacked vertically with thumb-friendly sizing",
+      "Copy the entire desktop layout verbatim into the mobile grid",
+      "Avoid using any color on mobile visuals",
+      "Disable touch interactions"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Mobile views should focus on high-impact KPIs and vertical thumb-scrolling clarity."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): You want to share a report with external vendor partners without giving them access to your internal tenant Azure AD directory. What capability facilitates this?",
+    "o": [
+      "Azure AD B2B Guest sharing or Power BI embedded with service principal",
+      "Publish to Web (Public)",
+      "Emailing the .pbix file",
+      "Granting them Domain Admin credentials"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure AD B2B allows inviting external guest users with granular workspace security access."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): You need to import data from a web API that authenticates using OAuth2 with token refresh. Where should you configure this credential securely?",
+    "o": [
+      "In Data Source Settings -> Edit Permissions in Power BI Desktop / Gateway",
+      "Hardcode the bearer token in the Power Query M formula text",
+      "Pass the token as a URL query parameter in the API link",
+      "Save the token in an unencrypted CSV file"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Data Source Settings handles OAuth2 tokens securely with automatic credential management and refresh."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): In a star schema, why should you avoid snowflake schemas where dimension tables relate to other normalized dimension tables?",
+    "o": [
+      "Snowflake schemas increase relationship hops and reduce VertiPaq compression efficiency and query speed",
+      "Power BI does not support relationships between dimension tables",
+      "Snowflake schemas cause reports to print in black and white",
+      "Direct Lake mode does not allow relationships"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Star schemas are flat, denormalized dimensions that maximize VertiPaq column encoding and reduce join complexity."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): How can you conditionally format the title text of a card visual dynamically based on the user's selected slicer value?",
+    "o": [
+      "Use the 'fx' button next to Title Text and link it to a DAX measure returning formatted text",
+      "Create a separate card for every possible slicer choice",
+      "Hardcode the title text in the JSON theme file",
+      "Use the Alt Text property instead of Title"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Clicking the `fx` conditional formatting button allows binding title strings directly to dynamic DAX measures."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): How can an organization ensure that every certified report in the tenant displays an official endorsement badge in the Power BI Service?",
+    "o": [
+      "Configure Dataset Endorsement to 'Certified' (controlled by authorized tenant admins)",
+      "Type 'Certified' in the report title",
+      "Add a gold star image to the canvas",
+      "Save the report in OneDrive"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataset Certification is a tenant-governed endorsement indicating verified, audited enterprise data."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): In Power Query Editor, which tool shows you the percentage of valid, error, and empty values for every column simultaneously?",
+    "o": [
+      "Column Quality in the View tab",
+      "Column Distribution",
+      "Column Profile",
+      "Formula Bar"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Column Quality displays Valid, Error, and Empty percentages at the top of each column header."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): You need to create a DAX measure that counts active customers who made a purchase in both the current month and the previous month. Which function helps compare sets?",
+    "o": [
+      "INTERSECT(CurrentCustomers, PreviousCustomers)",
+      "UNION(CurrentCustomers, PreviousCustomers)",
+      "EXCEPT(CurrentCustomers, PreviousCustomers)",
+      "CROSSJOIN(CurrentCustomers, PreviousCustomers)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "INTERSECT returns the rows that appear in both table expressions."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 5 (V): You need to prevent visual interaction between a Product Category slicer and a Company Overview KPI card. Where do you adjust this?",
+    "o": [
+      "Format tab -> Edit Interactions -> Set to 'None'",
+      "Selection Pane -> Hide Visual",
+      "Modeling tab -> Manage Roles",
+      "Sync Slicers pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Edit Interactions lets report authors control whether a slicer filters, highlights, or has no effect on individual visuals."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 6 (S): Which Power BI feature allows administrators to analyze capacity resource consumption, CPU throttling, and memory spikes in Fabric capacities?",
+    "o": [
+      "Microsoft Fabric Capacity Metrics App",
+      "Windows Task Manager",
+      "Power BI Desktop Performance Analyzer",
+      "Tabular Editor Best Practice Analyzer"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The Fabric Capacity Metrics App provides second-by-second telemetry on CPU core second consumption and throttling."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): You need to combine two tables vertically where Table A has 5 columns and Table B has 4 of the same columns plus 1 unique column. What operation should you perform?",
+    "o": [
+      "Append Queries",
+      "Merge Queries",
+      "Pivot Columns",
+      "Group By"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Append Queries combines tables vertically (like a SQL UNION ALL), matching common headers and filling null for missing columns."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): When configuring Object-Level Security (OLS) in a semantic model, what tool must be used?",
+    "o": [
+      "Tabular Editor via XMLA endpoint",
+      "Power BI Service report edit mode",
+      "Power Query Advanced Editor",
+      "Microsoft Purview Compliance Manager"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Object-Level Security (hiding sensitive tables or columns completely from unauthorized roles) requires Tabular Editor."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): A report page contains multiple cards, bar charts, and a slicer. You want screen reader users to experience the visuals in a logical, coherent reading order. Where do you configure this?",
+    "o": [
+      "Selection Pane -> Tab Order",
+      "Format Pane -> Visual Align",
+      "Performance Analyzer",
+      "Bookmarks Pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tab order in the Selection pane dictates the exact sequence in which screen readers and keyboard navigation traverse elements."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): You need to configure incremental refresh for a 500-million-row sales table in Power BI Service. What two parameters must be created in Power Query?",
+    "o": [
+      "RangeStart and RangeEnd (DateTime type)",
+      "DateMin and DateMax (Integer type)",
+      "StartDate and EndDate (Text type)",
+      "RefreshMin and RefreshMax (Duration type)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power BI incremental refresh requires precisely named `RangeStart` and `RangeEnd` DateTime parameters."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 4 (P): What does enabling 'Enable Load' vs 'Include in Report Refresh' do in Power Query?",
+    "o": [
+      "'Enable Load' loads table data into the data model; 'Include in Report Refresh' refreshes the query during scheduled refresh",
+      "They are identical settings with different names",
+      "'Enable Load' publishes to the web",
+      "'Include in Report Refresh' enables DirectQuery"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Unchecking 'Enable Load' creates a staging/transformation query that does not consume model RAM."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 4 (M): Which VertiPaq storage compression technique replaces repeating text strings with integer identifiers in a global dictionary?",
+    "o": [
+      "Hash Encoding (Dictionary Encoding)",
+      "Value Encoding",
+      "Run-Length Encoding (RLE)",
+      "Huffman Coding"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Hash encoding builds a dictionary of distinct values and stores small integer IDs in the data segment."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): You want to provide users with a clean interface where clicking an icon switches between a 'Chart View' and a 'Table View' on the same canvas area. What mechanism achieves this?",
+    "o": [
+      "Two visuals occupying the same position, controlled by Bookmarks that toggle visibility in the Selection pane",
+      "Creating two separate PBIX files",
+      "Using the Matrix visual with drill-down",
+      "Embedding an iframe in a text box"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Bookmarks combined with visibility toggles in the Selection pane create seamless view switchers."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): What is the primary benefit of deploying a semantic model to a Premium Per User (PPU) or Fabric capacity workspace regarding model size?",
+    "o": [
+      "Support for Large Dataset Storage Format (up to 400 GB or capacity limits)",
+      "Models are capped at 1 GB",
+      "Automatic translation to Python scripts",
+      "DirectQuery is disabled"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Premium/Fabric capacities support large dataset storage format, lifting the 1 GB Pro import limit."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): You are importing a large sales table from Azure SQL Database. The business requirement states that only completed transactions from the last 2 years must be loaded. Where should you apply this filter to maximize performance?",
+    "o": [
+      "In Power Query using a filter step that folds into a WHERE clause in the native SQL query",
+      "In a DAX calculated table using FILTER()",
+      "In the report page filter pane",
+      "In a Power BI visual level filter"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Applying filters in Power Query allows query folding to push the filter back to Azure SQL, reducing data transferred."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): You need to write a DAX measure that calculates the percentage of total sales represented by each product category. Which pattern is optimal?",
+    "o": [
+      "DIVIDE([Total Sales], CALCULATE([Total Sales], ALL(Products[Category])))",
+      "SUM(Sales[Amount]) / SUM(AllSales[Amount])",
+      "CALCULATE(SUM(Sales[Amount])) * 100",
+      "RELATED(Products[Category]) / [Total Sales]"
+    ],
+    "a": [
+      0
+    ],
+    "e": "DIVIDE prevents divide-by-zero errors, and ALL removes the visual filter on Category to provide the grand total denominator."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): Which visual allows users to perform AI-driven regression analysis to discover which factors increase or decrease customer churn?",
+    "o": [
+      "Key Influencers visual",
+      "Decomposition Tree",
+      "Scatter plot",
+      "Gauge chart"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Key Influencers uses machine learning regression to identify top factors that drive a specified metric."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): You want to share a report with external vendor partners without giving them access to your internal tenant Azure AD directory. What capability facilitates this?",
+    "o": [
+      "Azure AD B2B Guest sharing or Power BI embedded with service principal",
+      "Publish to Web (Public)",
+      "Emailing the .pbix file",
+      "Granting them Domain Admin credentials"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Azure AD B2B allows inviting external guest users with granular workspace security access."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): In Power Query, you have a column with JSON payload strings. You need to extract a specific property 'customerRating' without writing custom M scripts. What feature should you use?",
+    "o": [
+      "Add Column from Examples",
+      "Split Column by Delimiter",
+      "Transpose Column",
+      "Unpivot Other Columns"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Add Column from Examples allows you to type expected outputs, and Power Query auto-generates the JSON property extraction M logic."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): A date table in your model contains dates from 2020 to 2025. What is the mandatory step to enable standard DAX time-intelligence functions like DATESYTD and SAMEPERIODLASTYEAR?",
+    "o": [
+      "Right-click the Date table and select 'Mark as Date Table', selecting the primary Date column",
+      "Set the storage mode to DirectQuery",
+      "Sort the Date column by Sales Amount",
+      "Create a bidirectional relationship to all fact tables"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Marking as Date Table validates uniqueness, continuity, and enables the DAX time-intelligence engine."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): You are designing a mobile layout for a report. What is a key best practice for mobile-optimized report views?",
+    "o": [
+      "Prioritize high-level KPI cards and simple trend charts stacked vertically with thumb-friendly sizing",
+      "Copy the entire desktop layout verbatim into the mobile grid",
+      "Avoid using any color on mobile visuals",
+      "Disable touch interactions"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Mobile views should focus on high-impact KPIs and vertical thumb-scrolling clarity."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): How can an organization ensure that every certified report in the tenant displays an official endorsement badge in the Power BI Service?",
+    "o": [
+      "Configure Dataset Endorsement to 'Certified' (controlled by authorized tenant admins)",
+      "Type 'Certified' in the report title",
+      "Add a gold star image to the canvas",
+      "Save the report in OneDrive"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Dataset Certification is a tenant-governed endorsement indicating verified, audited enterprise data."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): When connecting to an Excel file with multiple sheets, you want to ensure the query does not fail if someone renames a sheet from 'Sales2024' to 'Sales_2024'. What approach is most robust?",
+    "o": [
+      "Filter the navigation table by sheet index or order rather than hardcoded sheet name",
+      "Disable background data refresh in options",
+      "Change storage mode to DirectQuery",
+      "Set up scheduled gateway refresh"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Accessing the sheet by position `{0}[Data]` or filtering by type prevents hardcoded sheet name breakage."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): You have a fact table with 100 million rows. Users frequently filter by Year, Quarter, and Product Category. Which optimization should you implement in the model?",
+    "o": [
+      "User-defined aggregations in Dual or Import mode mapped to the DirectQuery fact table",
+      "Create 10 new calculated columns on the fact table",
+      "Convert all dimension tables to DirectQuery",
+      "Increase the number of decimal places on all currencies"
+    ],
+    "a": [
+      0
+    ],
+    "e": "User-defined aggregations pre-compute common summary queries in high-speed in-memory storage."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): How can you conditionally format the title text of a card visual dynamically based on the user's selected slicer value?",
+    "o": [
+      "Use the 'fx' button next to Title Text and link it to a DAX measure returning formatted text",
+      "Create a separate card for every possible slicer choice",
+      "Hardcode the title text in the JSON theme file",
+      "Use the Alt Text property instead of Title"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Clicking the `fx` conditional formatting button allows binding title strings directly to dynamic DAX measures."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 7 (S): Which Power BI feature allows administrators to analyze capacity resource consumption, CPU throttling, and memory spikes in Fabric capacities?",
+    "o": [
+      "Microsoft Fabric Capacity Metrics App",
+      "Windows Task Manager",
+      "Power BI Desktop Performance Analyzer",
+      "Tabular Editor Best Practice Analyzer"
+    ],
+    "a": [
+      0
+    ],
+    "e": "The Fabric Capacity Metrics App provides second-by-second telemetry on CPU core second consumption and throttling."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): You observe that a Power Query refresh is failing because of data type mismatch in a column containing mixed numbers and 'N/A' text. What transformation cleans this effectively?",
+    "o": [
+      "Replace 'N/A' with null, then set column data type to Integer or Decimal",
+      "Delete all rows containing errors using Table.RemoveRows",
+      "Change the entire dataset locale to en-US",
+      "Convert the column to Binary"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Replacing non-numeric placeholders with null allows proper numerical typing without discarding valid transaction rows."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): What is the primary difference between `USERELATIONSHIP()` and `CROSSFILTER()` in DAX?",
+    "o": [
+      "USERELATIONSHIP activates an inactive relationship; CROSSFILTER alters cross-filtering direction or disables a relationship",
+      "USERELATIONSHIP alters cross-filtering; CROSSFILTER activates inactive relationships",
+      "USERELATIONSHIP can only be used in calculated columns",
+      "CROSSFILTER is used exclusively for Row-Level Security"
+    ],
+    "a": [
+      0
+    ],
+    "e": "USERELATIONSHIP activates an inactive path, while CROSSFILTER changes filter direction (Both, Single, None)."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 6 (V): You need to prevent visual interaction between a Product Category slicer and a Company Overview KPI card. Where do you adjust this?",
+    "o": [
+      "Format tab -> Edit Interactions -> Set to 'None'",
+      "Selection Pane -> Hide Visual",
+      "Modeling tab -> Manage Roles",
+      "Sync Slicers pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Edit Interactions lets report authors control whether a slicer filters, highlights, or has no effect on individual visuals."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): You need to configure incremental refresh for a 500-million-row sales table in Power BI Service. What two parameters must be created in Power Query?",
+    "o": [
+      "RangeStart and RangeEnd (DateTime type)",
+      "DateMin and DateMax (Integer type)",
+      "StartDate and EndDate (Text type)",
+      "RefreshMin and RefreshMax (Duration type)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Power BI incremental refresh requires precisely named `RangeStart` and `RangeEnd` DateTime parameters."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): You need to import data from a web API that authenticates using OAuth2 with token refresh. Where should you configure this credential securely?",
+    "o": [
+      "In Data Source Settings -> Edit Permissions in Power BI Desktop / Gateway",
+      "Hardcode the bearer token in the Power Query M formula text",
+      "Pass the token as a URL query parameter in the API link",
+      "Save the token in an unencrypted CSV file"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Data Source Settings handles OAuth2 tokens securely with automatic credential management and refresh."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): In a star schema, why should you avoid snowflake schemas where dimension tables relate to other normalized dimension tables?",
+    "o": [
+      "Snowflake schemas increase relationship hops and reduce VertiPaq compression efficiency and query speed",
+      "Power BI does not support relationships between dimension tables",
+      "Snowflake schemas cause reports to print in black and white",
+      "Direct Lake mode does not allow relationships"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Star schemas are flat, denormalized dimensions that maximize VertiPaq column encoding and reduce join complexity."
+  },
+  {
+    "d": "V",
+    "q": "Scenario 7 (V): A report page contains multiple cards, bar charts, and a slicer. You want screen reader users to experience the visuals in a logical, coherent reading order. Where do you configure this?",
+    "o": [
+      "Selection Pane -> Tab Order",
+      "Format Pane -> Visual Align",
+      "Performance Analyzer",
+      "Bookmarks Pane"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Tab order in the Selection pane dictates the exact sequence in which screen readers and keyboard navigation traverse elements."
+  },
+  {
+    "d": "S",
+    "q": "Scenario 8 (S): What is the primary benefit of deploying a semantic model to a Premium Per User (PPU) or Fabric capacity workspace regarding model size?",
+    "o": [
+      "Support for Large Dataset Storage Format (up to 400 GB or capacity limits)",
+      "Models are capped at 1 GB",
+      "Automatic translation to Python scripts",
+      "DirectQuery is disabled"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Premium/Fabric capacities support large dataset storage format, lifting the 1 GB Pro import limit."
+  },
+  {
+    "d": "P",
+    "q": "Scenario 5 (P): In Power Query Editor, which tool shows you the percentage of valid, error, and empty values for every column simultaneously?",
+    "o": [
+      "Column Quality in the View tab",
+      "Column Distribution",
+      "Column Profile",
+      "Formula Bar"
+    ],
+    "a": [
+      0
+    ],
+    "e": "Column Quality displays Valid, Error, and Empty percentages at the top of each column header."
+  },
+  {
+    "d": "M",
+    "q": "Scenario 5 (M): You need to create a DAX measure that counts active customers who made a purchase in both the current month and the previous month. Which function helps compare sets?",
+    "o": [
+      "INTERSECT(CurrentCustomers, PreviousCustomers)",
+      "UNION(CurrentCustomers, PreviousCustomers)",
+      "EXCEPT(CurrentCustomers, PreviousCustomers)",
+      "CROSSJOIN(CurrentCustomers, PreviousCustomers)"
+    ],
+    "a": [
+      0
+    ],
+    "e": "INTERSECT returns the rows that appear in both table expressions."
   }
 ]
 };
-
-export default PL300;

@@ -11,7 +11,7 @@ export function AnswerReview({
   onRetake,
   onPracticeWeakSpots
 }) {
-  const [filter, setFilter] = useState('all'); // 'all' | 'incorrect' | 'correct' | 'flagged'
+  const [filter, setFilter] = useState('all'); // 'all' | 'sec1' | 'sec2' | 'incorrect' | 'correct' | 'flagged'
 
   const incorrectCount = items.filter((item, idx) => {
     const userAns = answers[idx] || [];
@@ -23,6 +23,7 @@ export function AnswerReview({
 
   const correctCount = items.length - incorrectCount;
   const flaggedCount = flags.filter(Boolean).length;
+  const hasSections = items.length > 100;
 
   const filteredItems = items
     .map((item, idx) => ({ item, idx }))
@@ -32,6 +33,8 @@ export function AnswerReview({
         userAns.length === item.correctAnswers.length &&
         item.correctAnswers.every((ans) => userAns.includes(ans));
 
+      if (filter === 'sec1') return idx < 100;
+      if (filter === 'sec2') return idx >= 100;
       if (filter === 'incorrect') return !isCorrect;
       if (filter === 'correct') return isCorrect;
       if (filter === 'flagged') return Boolean(flags[idx]);
@@ -59,6 +62,24 @@ export function AnswerReview({
         >
           All ({items.length})
         </button>
+        {hasSections && (
+          <>
+            <button
+              type="button"
+              className={`btn small ${filter === 'sec1' ? 'accent' : 'ghost'}`}
+              onClick={() => setFilter('sec1')}
+            >
+              Section 1 (1–100)
+            </button>
+            <button
+              type="button"
+              className={`btn small ${filter === 'sec2' ? 'accent' : 'ghost'}`}
+              onClick={() => setFilter('sec2')}
+            >
+              Section 2 (101–200)
+            </button>
+          </>
+        )}
         <button
           type="button"
           className={`btn small ${filter === 'incorrect' ? 'accent' : 'ghost'}`}

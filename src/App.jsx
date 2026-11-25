@@ -11,6 +11,7 @@ import { TabSwitchModal } from './components/common/TabSwitchModal.jsx';
 
 import { StartScreen } from './components/start/StartScreen.jsx';
 import { ExamScreen } from './components/exam/ExamScreen.jsx';
+import { ExamBreakScreen } from './components/exam/ExamBreakScreen.jsx';
 import { ResultsScreen } from './components/results/ResultsScreen.jsx';
 
 export function App() {
@@ -28,9 +29,9 @@ export function App() {
     onCatProgress: catCompanion.commentOnProgress
   });
 
-  // Anti-cheat detection (active during exam screen)
+  // Anti-cheat detection (active during exam screen, relaxed during breaks)
   const antiCheat = useAntiCheat({
-    isActive: session.screen === 'exam',
+    isActive: session.screen === 'exam' && !session.isOnBreak,
     onAutoSubmit: (strikeLog) => {
       session.handleSubmit(strikeLog);
     },
@@ -124,11 +125,19 @@ export function App() {
         )}
 
         {session.screen === 'exam' && (
-          <ExamScreen
-            session={session}
-            catCompanion={catCompanion}
-            onOpenSubmitConfirm={handleOpenSubmitConfirm}
-          />
+          session.isOnBreak ? (
+            <ExamBreakScreen
+              onEndBreak={session.endBreak}
+              examCode={session.currentExam.code}
+              totalBreakSeconds={600}
+            />
+          ) : (
+            <ExamScreen
+              session={session}
+              catCompanion={catCompanion}
+              onOpenSubmitConfirm={handleOpenSubmitConfirm}
+            />
+          )
         )}
 
         {session.screen === 'results' && (
