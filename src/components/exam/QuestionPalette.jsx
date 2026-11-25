@@ -17,7 +17,7 @@ export function QuestionPalette({
           const isCurrent = idx === currentIndex;
 
           let cellClasses = 'cell';
-          if (isCurrent) cellClasses += ' cur';
+          if (isCurrent) cellClasses += ' current cur';
           if (isAnswered) cellClasses += ' done';
           if (isFlagged) cellClasses += ' flag';
 

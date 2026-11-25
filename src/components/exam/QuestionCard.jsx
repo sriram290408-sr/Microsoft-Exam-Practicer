@@ -104,6 +104,7 @@ export function QuestionCard({
           <OptionItem
             key={optIdx}
             index={optIdx}
+            questionIndex={index}
             text={optText}
             isSelected={selectedAnswers.includes(optIdx)}
             isEliminated={eliminated.includes(optIdx)}

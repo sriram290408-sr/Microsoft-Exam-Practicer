@@ -56,6 +56,7 @@ export function ExamScreen({
         maxPauses={session.maxPauses}
         onPause={session.pauseExam}
         onSubmit={onOpenSubmitConfirm}
+        isRetest={session.isRetest}
       />
 
       <div className="layout">

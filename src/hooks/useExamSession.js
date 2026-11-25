@@ -31,11 +31,69 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   const currentPosRef = useRef(pos);
   currentPosRef.current = pos;
 
+  // Refs to avoid stale closures in timer callback
+  const itemsRef = useRef(items);
+  itemsRef.current = items;
+  const answersRef = useRef(answers);
+  answersRef.current = answers;
+  const examKeyRef = useRef(examKey);
+  examKeyRef.current = examKey;
+  const elapsedRef = useRef(elapsed);
+  elapsedRef.current = elapsed;
+  const timedAutoSubmitRef = useRef(false); // tracks if timer already fired auto-submit
+
   const currentExam = EXAMS[examKey] || EXAMS.PL300;
+
+  // Auto-submit when timer expires (uses refs to avoid stale closure)
+  const autoSubmitFromTimer = useCallback(() => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (timedAutoSubmitRef.current) return;
+    timedAutoSubmitRef.current = true;
+
+    const currentItems = itemsRef.current;
+    const currentAnswers = answersRef.current;
+    const currentExamKey = examKeyRef.current;
+    const currentElapsed = elapsedRef.current;
+    const currentExamDef = EXAMS[currentExamKey] || EXAMS.PL300;
+
+    let correctCount = 0;
+    const weakQuestions = [];
+    currentItems.forEach((item, idx) => {
+      const userAns = currentAnswers[idx] || [];
+      const isCorrect =
+        userAns.length === item.correctAnswers.length &&
+        item.correctAnswers.every(ans => userAns.includes(ans));
+      if (isCorrect) correctCount++;
+      else weakQuestions.push(item);
+    });
+
+    const scorePct = Math.round((correctCount / Math.max(currentItems.length, 1)) * 100);
+    setLastWeakSpots(weakQuestions);
+
+    const historyEntry = {
+      id: Date.now(),
+      examKey: currentExamKey,
+      examCode: currentExamDef.code,
+      examName: currentExamDef.name,
+      score: scorePct,
+      correctCount,
+      totalCount: currentItems.length,
+      elapsed: currentElapsed,
+      date: new Date().toLocaleDateString(),
+      proctorStrikesCount: 0
+    };
+
+    const existingHist = storage.get(STORAGE_KEYS.HISTORY, []);
+    storage.set(STORAGE_KEYS.HISTORY, [historyEntry, ...existingHist].slice(0, 50));
+    storage.remove(STORAGE_KEYS.SAVE);
+    setSavedSession(null);
+    setScreen('results');
+  }, []);
 
   // Track time per question
   useEffect(() => {
     if (screen !== 'exam') return;
+    timedAutoSubmitRef.current = false; // reset for new exam session
 
     const interval = setInterval(() => {
       setElapsed(e => e + 1);
@@ -51,7 +109,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
         setTimeLeft(t => {
           if (t <= 1) {
             clearInterval(interval);
-            handleSubmit();
+            setTimeout(() => autoSubmitFromTimer(), 0);
             return 0;
           }
           return t - 1;
@@ -61,7 +119,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
 
     timerRef.current = interval;
     return () => clearInterval(interval);
-  }, [screen, timed]);
+  }, [screen, timed, autoSubmitFromTimer]);
 
   // Sync saved session whenever exam state changes during exam
   useEffect(() => {
@@ -175,8 +233,12 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   const nextQuestion = useCallback(() => {
     if (pos < items.length - 1) {
       setPos(pos + 1);
+    } else {
+      // Go to first unanswered
+      const firstUnanswered = answers.findIndex(a => !a || a.length === 0);
+      if (firstUnanswered !== -1) setPos(firstUnanswered);
     }
-  }, [pos, items.length]);
+  }, [pos, items.length, answers]);
 
   const prevQuestion = useCallback(() => {
     if (pos > 0) {
@@ -191,10 +253,12 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
       return false;
     }
 
+    if (timerRef.current) clearInterval(timerRef.current);
+
     const nextPauses = pausesUsed + 1;
     setPausesUsed(nextPauses);
 
-    // Save state
+    // Save state explicitly (bypass the useEffect which checks screen === 'exam')
     const savedData = {
       examKey,
       items,
@@ -235,7 +299,10 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     setQuestionTimes(saved.questionTimes || []);
     setIsRetest(saved.isRetest || false);
     setScreen('exam');
-  }, []);
+
+    // Welcome back cat message via onCatCheer
+    onCatCheer?.('Welcome back! Let\'s crush this test together! 🐾✨');
+  }, [onCatCheer]);
 
   // Discard paused test
   const discardExam = useCallback(() => {
@@ -265,7 +332,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
       }
     });
 
-    const scorePct = Math.round((correctCount / items.length) * 100);
+    const scorePct = Math.round((correctCount / Math.max(items.length, 1)) * 100);
     setLastWeakSpots(weakQuestions);
 
     // Record history

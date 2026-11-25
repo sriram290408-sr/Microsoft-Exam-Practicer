@@ -2,6 +2,7 @@ import React from 'react';
 
 export function OptionItem({
   index,
+  questionIndex = 0,
   text,
   isSelected,
   isEliminated = false,
@@ -43,7 +44,7 @@ export function OptionItem({
     >
       <input
         type={multi ? 'checkbox' : 'radio'}
-        name="exam_option"
+        name={`exam_opt_${questionIndex}`}
         checked={isSelected}
         disabled={disabled || isEliminated}
         onChange={onSelect}
