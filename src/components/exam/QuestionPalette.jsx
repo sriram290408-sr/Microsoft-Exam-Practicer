@@ -6,7 +6,6 @@ export function QuestionPalette({
   flags,
   currentIndex,
   onSelectQuestion,
-  onTriggerBreak,
   breakTaken = false,
   s1Completed = false,
   sec1Locked = false
@@ -121,18 +120,6 @@ export function QuestionPalette({
           );
         })}
       </div>
-
-      {/* Submit Section 1 button — shown only while in Sec 1 tab, not yet locked */}
-      {hasSections && activeTab === 1 && !sec1Locked && onTriggerBreak && (
-        <button
-          type="button"
-          className="btn accent small"
-          onClick={onTriggerBreak}
-          style={{ width: '100%', marginTop: '12px', fontSize: '0.8rem' }}
-        >
-          Submit Section 1 &amp; Start 10m Break 🐾
-        </button>
-      )}
 
       <ul className="key">
         <li><span className="k-done" /> Answered</li>

@@ -48,7 +48,6 @@ export function ExamScreen({ session, catCompanion, onOpenSubmitConfirm }) {
         onSubmit={onOpenSubmitConfirm}
         isRetest={session.isRetest}
         currentSection={session.currentSection}
-        onTriggerBreak={session.submitSection1}
         breakTaken={session.breakTaken}
         s1Completed={session.isSection1Complete}
         sec1Locked={session.sec1Locked}
@@ -61,7 +60,6 @@ export function ExamScreen({ session, catCompanion, onOpenSubmitConfirm }) {
           flags={session.flags}
           currentIndex={session.pos}
           onSelectQuestion={session.goToQuestion}
-          onTriggerBreak={session.submitSection1}
           breakTaken={session.breakTaken}
           s1Completed={session.isSection1Complete}
           sec1Locked={session.sec1Locked}

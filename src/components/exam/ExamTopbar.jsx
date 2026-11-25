@@ -14,7 +14,6 @@ export function ExamTopbar({
   onSubmit,
   isRetest,
   currentSection = 1,
-  onTriggerBreak,
   breakTaken = false,
   s1Completed = false,
   sec1Locked = false
@@ -53,19 +52,6 @@ export function ExamTopbar({
       >
         {displayTimer}
       </span>
-
-      {/* Submit Section 1 & Break button — visible only while in Section 1 and not yet locked */}
-      {totalCount > 100 && currentSection === 1 && !sec1Locked && onTriggerBreak && (
-        <button
-          type="button"
-          className="btn ghost small"
-          onClick={onTriggerBreak}
-          title="Submit Section 1 and start 10-minute cat dance break"
-          style={{ background: 'rgba(245,158,11,0.15)', borderColor: '#F59E0B', color: '#FCD34D' }}
-        >
-          🐾 Submit Sec 1 & Break
-        </button>
-      )}
 
       <button
         type="button"
