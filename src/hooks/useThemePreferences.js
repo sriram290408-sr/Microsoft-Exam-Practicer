@@ -13,41 +13,25 @@ export function useThemePreferences() {
       : 0;
   });
 
-  const [isDark, setIsDark] = useState(() => {
-    // Default to dark mode; persist user choice
-    return saved?.dark !== false; // defaults to true (dark)
-  });
-
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.setAttribute('data-theme', 'dark');
-      document.body.classList.add('dark');
-      document.body.classList.remove('light');
-    } else {
-      document.documentElement.removeAttribute('data-theme');
-      document.body.classList.remove('dark');
-      document.body.classList.add('light');
-    }
+    // Default and standard theme is tuned matte dark
+    document.documentElement.setAttribute('data-theme', 'dark');
+    document.body.classList.add('dark');
+    document.body.classList.remove('light');
     document.body.style.fontSize = FONT_SIZES[fontSizeIndex];
 
     storage.set(STORAGE_KEYS.PREFERENCES, {
-      dark: isDark,
+      dark: true,
       sizeIdx: fontSizeIndex
     });
-  }, [fontSizeIndex, isDark]);
+  }, [fontSizeIndex]);
 
   const cycleFontSize = () => {
     setFontSizeIndex(prev => (prev + 1) % FONT_SIZES.length);
   };
 
-  const toggleTheme = () => {
-    setIsDark(prev => !prev);
-  };
-
   return {
     fontSize: FONT_SIZES[fontSizeIndex],
-    cycleFontSize,
-    isDark,
-    toggleTheme
+    cycleFontSize
   };
 }

@@ -49,6 +49,10 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   const currentExam = EXAMS[examKey] || EXAMS.PL300;
   const currentSection = pos < 100 ? 1 : 2;
 
+  const s1AnsweredCount = answers.slice(0, 100).filter(a => a && a.length > 0).length;
+  // Section 1 is completed if break has already been taken, or user is past question 100, or all 100 questions in Section 1 are answered, or currently finishing question 100
+  const isSection1Complete = breakTaken || pos >= 100 || s1AnsweredCount >= 100 || (pos === 99 && (answers[99] && answers[99].length > 0));
+
   // Auto-submit when timer expires
   const autoSubmitFromTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
@@ -432,6 +436,8 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     isOnBreak,
     breakTaken,
     currentSection,
+    isSection1Complete,
+    s1AnsweredCount,
     startBreak,
     endBreak,
     startExam,

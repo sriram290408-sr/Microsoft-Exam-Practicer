@@ -153,8 +153,6 @@ export function App() {
       <PreferencesDock
         fontSize={themePrefs.fontSize}
         onCycleFontSize={themePrefs.cycleFontSize}
-        isDark={themePrefs.isDark}
-        onToggleTheme={themePrefs.toggleTheme}
       />
 
       <TabSwitchModal

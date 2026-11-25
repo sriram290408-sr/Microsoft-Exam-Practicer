@@ -60,6 +60,7 @@ export function ExamScreen({
         currentSection={session.currentSection}
         onTriggerBreak={session.startBreak}
         breakTaken={session.breakTaken}
+        s1Completed={session.isSection1Complete}
       />
 
       <div className="layout">
@@ -71,6 +72,7 @@ export function ExamScreen({
           onSelectQuestion={session.goToQuestion}
           onTriggerBreak={session.startBreak}
           breakTaken={session.breakTaken}
+          s1Completed={session.isSection1Complete}
         />
 
         <QuestionCard

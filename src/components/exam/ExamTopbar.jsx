@@ -15,7 +15,8 @@ export function ExamTopbar({
   isRetest,
   currentSection = 1,
   onTriggerBreak,
-  breakTaken = false
+  breakTaken = false,
+  s1Completed = false
 }) {
   const displayTimer = timed ? formatTime(timeLeft) : formatTime(elapsed);
   const remainingPauses = Math.max(0, maxPauses - pausesUsed);
@@ -57,7 +58,7 @@ export function ExamTopbar({
       >
         {displayTimer}
       </span>
-      {totalCount > 100 && currentSection === 1 && !breakTaken && onTriggerBreak && (
+      {totalCount > 100 && currentSection === 1 && s1Completed && !breakTaken && onTriggerBreak && (
         <button
           type="button"
           className="btn ghost small"

@@ -7,11 +7,15 @@ export function QuestionPalette({
   currentIndex,
   onSelectQuestion,
   onTriggerBreak,
-  breakTaken = false
+  breakTaken = false,
+  s1Completed = false
 }) {
   const hasSections = items.length > 100;
   const currentSectionOfActive = currentIndex < 100 ? 1 : 2;
   const [activeTab, setActiveTab] = useState(currentSectionOfActive);
+
+  // Allow switching to section 2 if section 1 is completed or break has been taken
+  const canAccessSection2 = !hasSections || s1Completed || breakTaken;
 
   // Keep tab synced with current question navigation
   useEffect(() => {
@@ -72,20 +76,27 @@ export function QuestionPalette({
           </button>
           <button
             type="button"
-            onClick={() => setActiveTab(2)}
+            onClick={() => {
+              if (canAccessSection2) {
+                setActiveTab(2);
+              }
+            }}
+            disabled={!canAccessSection2}
+            title={canAccessSection2 ? 'Switch to Section 2' : 'Complete Section 1 to unlock Section 2'}
             style={{
               background: activeTab === 2 ? 'var(--accent, #B8860B)' : 'transparent',
-              color: activeTab === 2 ? '#fff' : '#A9B7C6',
+              color: activeTab === 2 ? '#fff' : canAccessSection2 ? '#A9B7C6' : 'rgba(169, 183, 198, 0.4)',
               border: 'none',
               borderRadius: '6px',
               padding: '6px 4px',
               fontSize: '0.78rem',
               fontWeight: activeTab === 2 ? 700 : 500,
-              cursor: 'pointer',
+              cursor: canAccessSection2 ? 'pointer' : 'not-allowed',
+              opacity: canAccessSection2 ? 1 : 0.6,
               transition: 'all 0.15s ease'
             }}
           >
-            Sec 2 ({s2Answered}/100)
+            {canAccessSection2 ? `Sec 2 (${s2Answered}/100)` : `Sec 2 🔒 (${s2Answered}/100)`}
           </button>
         </div>
       )}
@@ -117,8 +128,8 @@ export function QuestionPalette({
         })}
       </div>
 
-      {/* Optional Break trigger if in Section 1 and completed/working */}
-      {hasSections && activeTab === 1 && !breakTaken && onTriggerBreak && (
+      {/* Break trigger only after Section 1 is completed and break has not been taken yet */}
+      {hasSections && activeTab === 1 && s1Completed && !breakTaken && onTriggerBreak && (
         <button
           type="button"
           className="btn ghost small"
