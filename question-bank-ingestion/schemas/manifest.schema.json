@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "QuestionSourceManifest",
+  "type": "object",
+  "required": ["questionId", "sourceName", "sourceType", "retrievedAt", "reviewStatus"],
+  "properties": {
+    "questionId": { "type": "string" },
+    "sourceName": { "type": "string" },
+    "sourceUrl": { "type": "string" },
+    "sourceType": { "type": "string", "enum": ["original", "user_import", "scraped_public", "sample_quiz"] },
+    "retrievedAt": { "type": "string" },
+    "licenseOrPermission": { "type": "string" },
+    "attribution": { "type": "string" },
+    "reviewStatus": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+    "reviewer": { "type": "string" }
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { MAX_PAUSES } from '../../data/constants.js';
 
 export function StartControls({
@@ -12,7 +12,7 @@ export function StartControls({
   onResume,
   onDiscard
 }) {
-  const [discardArmed, setDiscardArmed] = useState(false);
+  const [discardArmed, setDiscardArmed] = React.useState(false);
 
   const handleDiscardClick = () => {
     if (!discardArmed) {
@@ -32,6 +32,12 @@ export function StartControls({
     ? savedSession.answers.filter(a => a && a.length > 0).length
     : 0;
 
+  const totalQuestions = currentExam?.bank?.length || 100;
+  const isMultiSection = totalQuestions > 100;
+  const timeLabel = isMultiSection
+    ? `Time me: 120 minutes total (60m Section 1 + 10m break + 60m Section 2), auto-submits at zero`
+    : `Time me: ${currentExam.min || 90} minutes total, auto-submits when time expires`;
+
   return (
     <>
       <label className="check">
@@ -41,9 +47,7 @@ export function StartControls({
           checked={timed}
           onChange={e => setTimed(e.target.checked)}
         />
-        <span id="timedLbl">
-          Time me: 120 minutes total (60m Section 1 + 10m break + 60m Section 2), auto-submits at zero
-        </span>
+        <span id="timedLbl">{timeLabel}</span>
       </label>
 
       <label className="check">
@@ -68,7 +72,7 @@ export function StartControls({
         <span className="rbox" id="resumeWrap" style={{ marginLeft: '10px' }}>
           <button type="button" className="btn" id="resumeBtn" onClick={onResume}>
             Resume paused {savedSession.examKey} test ({answeredInSave} of{' '}
-            {savedSession.items?.length || 200} answered · {resumePausesRemaining} pause
+            {savedSession.items?.length || totalQuestions} answered · {resumePausesRemaining} pause
             {resumePausesRemaining === 1 ? '' : 's'} left)
           </button>
           <button

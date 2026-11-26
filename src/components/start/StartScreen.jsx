@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrandHero } from './BrandHero.jsx';
 import { ExamCardGrid } from './ExamCardGrid.jsx';
 import { DomainWeights } from './DomainWeights.jsx';
@@ -18,13 +18,23 @@ export function StartScreen({
   onStartExam,
   onResumeExam,
   onDiscardExam,
+  onOpenManageBanks,
   catCompanion
 }) {
-  const [historyOpen, setHistoryOpen] = useState(false);
+  const [historyOpen, setHistoryOpen] = React.useState(false);
+
+  const totalQs = currentExam.bank.length;
+  const isMultiSection = totalQs > 100;
+  const sectionSummary = isMultiSection
+    ? `${totalQs} original practice questions for ${currentExam.code} (${currentExam.name}), structured into 2 sections (100 questions each) with an interactive 10-minute dancing buddy cat break in between.`
+    : `${totalQs} original practice questions for ${currentExam.code} (${currentExam.name}), designed around official certification objectives.`;
 
   return (
     <section className="start" id="start">
-      <BrandHero onOpenHistory={() => setHistoryOpen(true)} />
+      <BrandHero
+        onOpenHistory={() => setHistoryOpen(true)}
+        onOpenManageBanks={onOpenManageBanks}
+      />
 
       <ExamCardGrid
         selectedExamKey={selectedExamKey}
@@ -35,9 +45,7 @@ export function StartScreen({
         {currentExam.code}: {currentExam.name}
       </h2>
 
-      <p id="intro">
-        {currentExam.bank.length} original practice questions for {currentExam.code} ({currentExam.name}), structured into 2 sections (100 questions each) with an interactive 10-minute dancing buddy cat break in between.
-      </p>
+      <p id="intro">{sectionSummary}</p>
 
       <DomainWeights currentExam={currentExam} />
 

@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExamQuestion",
+  "type": "object",
+  "required": ["id", "d", "q", "o", "a", "multi", "e"],
+  "properties": {
+    "id": { "type": "string" },
+    "d": { "type": "string" },
+    "q": { "type": "string" },
+    "c": { "type": ["string", "null"] },
+    "o": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 4,
+      "maxItems": 6
+    },
+    "a": {
+      "type": "array",
+      "items": { "type": "integer" },
+      "minItems": 1
+    },
+    "multi": { "type": "boolean" },
+    "e": { "type": "string" },
+    "difficulty": { "type": "string", "enum": ["beginner", "intermediate", "advanced"] }
+  }
+}

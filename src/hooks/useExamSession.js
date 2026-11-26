@@ -5,7 +5,7 @@ import { storage } from '../utils/storage.js';
 import { prepareExamQuestions } from '../utils/formatters.js';
 
 export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProgress }) {
-  const [screen, setScreen] = useState('start'); // 'start' | 'exam' | 'results'
+  const [screen, setScreen] = useState('start'); // 'start' | 'exam' | 'results' | 'manage_banks'
   const [examKey, setExamKey] = useState('PL300');
 
   // Active test state
@@ -17,7 +17,8 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   const [learn, setLearn] = useState(false);
   const [checked, setChecked] = useState([]);
 
-  // Two independent 60-minute section timers (break time is NOT counted)
+  // Configurable per-exam section timers:
+  // For 200Q exams: 60m (3600s) each. For 100Q exams: single section using exam.min * 60s
   const [sec1Time, setSec1Time] = useState(SECTION_DURATION_SECONDS);
   const [sec2Time, setSec2Time] = useState(SECTION_DURATION_SECONDS);
   const [elapsed, setElapsed] = useState(0);
@@ -26,8 +27,8 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   const [isRetest, setIsRetest] = useState(false);
   const [lastWeakSpots, setLastWeakSpots] = useState(null);
 
-  // Section 1 submit + break
-  const [sec1Locked, setSec1Locked] = useState(false); // true once Section 1 is submitted
+  // Section 1 submit + break (for 2-section exams with > 100 questions)
+  const [sec1Locked, setSec1Locked] = useState(false);
   const [isOnBreak, setIsOnBreak] = useState(false);
   const [breakTaken, setBreakTaken] = useState(false);
 
@@ -35,22 +36,23 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
 
   // Refs to avoid stale closures in timer callbacks
   const timerRef = useRef(null);
-  const posRef = useRef(pos);           posRef.current = pos;
+  const posRef = useRef(pos);               posRef.current = pos;
   const sec1LockedRef = useRef(sec1Locked); sec1LockedRef.current = sec1Locked;
-  const itemsRef = useRef(items);       itemsRef.current = items;
-  const answersRef = useRef(answers);   answersRef.current = answers;
-  const examKeyRef = useRef(examKey);   examKeyRef.current = examKey;
-  const elapsedRef = useRef(elapsed);   elapsedRef.current = elapsed;
+  const itemsRef = useRef(items);           itemsRef.current = items;
+  const answersRef = useRef(answers);       answersRef.current = answers;
+  const examKeyRef = useRef(examKey);       examKeyRef.current = examKey;
+  const elapsedRef = useRef(elapsed);       elapsedRef.current = elapsed;
   const autoSubmittedRef = useRef(false);
 
   const currentExam = EXAMS[examKey] || EXAMS.PL300;
-  const currentSection = sec1Locked || pos >= 100 ? 2 : 1;
+  const hasSections = items.length > 100;
+  const currentSection = hasSections ? (sec1Locked || pos >= 100 ? 2 : 1) : 1;
   const timeLeft = currentSection === 1 ? sec1Time : sec2Time;
 
   const s1AnsweredCount = answers.slice(0, 100).filter(a => a && a.length > 0).length;
-  const isSection1Complete = sec1Locked || breakTaken || pos >= 100 || s1AnsweredCount >= 100;
+  const isSection1Complete = !hasSections || sec1Locked || breakTaken || pos >= 100 || s1AnsweredCount >= 100;
 
-  // ─── Auto-submit entire exam (Section 2 timer expires) ───────────────────
+  // ─── Auto-submit entire exam (Timer expires) ─────────────────────────────
   const autoSubmitFromTimer = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     if (autoSubmittedRef.current) return;
@@ -76,6 +78,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     const hist = storage.get(STORAGE_KEYS.HISTORY, []);
     storage.set(STORAGE_KEYS.HISTORY, [{
       id: Date.now(), examKey: ek, examCode: def.code, examName: def.name,
+      platform: def.platform || 'General',
       score, correctCount: correct, totalCount: its.length,
       elapsed: el, date: new Date().toLocaleDateString(), proctorStrikesCount: 0
     }, ...hist].slice(0, 50));
@@ -84,14 +87,15 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     setScreen('results');
   }, []);
 
-  // ─── Submit Section 1 → start break ──────────────────────────────────────
+  // ─── Submit Section 1 → start break (only for multi-section exams) ────────
   const submitSection1 = useCallback(() => {
+    if (!hasSections) return;
     setSec1Locked(true);
     setIsOnBreak(true);
     setBreakTaken(true);
     setPos(100);
     onCatCheer?.('Section 1 submitted! Enjoy your 10-minute cat dance break! 🐾🕺');
-  }, [onCatCheer]);
+  }, [hasSections, onCatCheer]);
 
   // ─── End break → move to Section 2 ───────────────────────────────────────
   const endBreak = useCallback(() => {
@@ -117,16 +121,24 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
       });
 
       if (timed) {
-        const inSec1 = !sec1LockedRef.current && posRef.current < 100;
+        const inSec1 = hasSections ? (!sec1LockedRef.current && posRef.current < 100) : true;
         if (inSec1) {
           setSec1Time(t => {
             if (t <= 1) {
               clearInterval(id);
-              // Auto-submit Section 1 when 60 min expires
-              setTimeout(() => {
-                submitSection1();
-                onCatAlert?.('Section 1 time up (60 min)! Auto-submitted — enjoy your break! 🐾⏱️');
-              }, 0);
+              if (hasSections) {
+                // Auto-submit Section 1 when 60 min expires
+                setTimeout(() => {
+                  submitSection1();
+                  onCatAlert?.('Section 1 time up! Auto-submitted — enjoy your break! 🐾⏱️');
+                }, 0);
+              } else {
+                // For single section exam, auto-submit entire exam
+                setTimeout(() => {
+                  autoSubmitFromTimer();
+                  onCatAlert?.('Time is up! Exam auto-submitted. 🐾⏱️');
+                }, 0);
+              }
               return 0;
             }
             return t - 1;
@@ -135,7 +147,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
           setSec2Time(t => {
             if (t <= 1) {
               clearInterval(id);
-              // Auto-submit whole exam when Section 2 60 min expires
+              // Auto-submit whole exam when Section 2 expires
               setTimeout(() => {
                 autoSubmitFromTimer();
                 onCatAlert?.('Section 2 time up (60 min)! Exam auto-submitted. 🐾⏱️');
@@ -150,13 +162,13 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
 
     timerRef.current = id;
     return () => clearInterval(id);
-  }, [screen, timed, isOnBreak, submitSection1, autoSubmitFromTimer, onCatAlert]);
+  }, [screen, timed, isOnBreak, hasSections, submitSection1, autoSubmitFromTimer, onCatAlert]);
 
   // ─── Auto-save session state ──────────────────────────────────────────────
   useEffect(() => {
     if (screen === 'exam' && items.length > 0) {
       storage.set(STORAGE_KEYS.SAVE, {
-        _v: 4, examKey, items, answers, flags, pos, timed, learn, checked,
+        _v: 5, examKey, items, answers, flags, pos, timed, learn, checked,
         sec1Time, sec2Time, elapsed, pausesUsed, questionTimes, isRetest,
         sec1Locked, isOnBreak, breakTaken
       });
@@ -173,6 +185,10 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     const def = EXAMS[key] || EXAMS.PL300;
     const qs  = customItems || prepareExamQuestions(def.bank);
 
+    const isMultiSection = qs.length > 100;
+    const defaultSec1Secs = isMultiSection ? SECTION_DURATION_SECONDS : (def.min || 90) * 60;
+    const defaultSec2Secs = isMultiSection ? SECTION_DURATION_SECONDS : 0;
+
     setExamKey(key);
     setItems(qs);
     setAnswers(qs.map(() => []));
@@ -182,8 +198,8 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     setPos(0);
     setTimed(isTimed);
     setLearn(isLearning);
-    setSec1Time(SECTION_DURATION_SECONDS);
-    setSec2Time(SECTION_DURATION_SECONDS);
+    setSec1Time(defaultSec1Secs);
+    setSec2Time(defaultSec2Secs);
     setElapsed(0);
     setPausesUsed(0);
     setIsRetest(retestMode);
@@ -196,7 +212,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
 
   // ─── Toggle answer option ─────────────────────────────────────────────────
   const toggleOption = useCallback((optIndex) => {
-    if (sec1Locked && pos < 100) return; // Section 1 locked — no changes
+    if (hasSections && sec1Locked && pos < 100) return; // Section 1 locked
     const item = items[pos];
     if (!item) return;
     setAnswers(prev => {
@@ -212,7 +228,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
       onCatProgress?.(copy.filter(a => a && a.length > 0).length, items.length);
       return copy;
     });
-  }, [items, pos, sec1Locked, onCatProgress]);
+  }, [items, pos, hasSections, sec1Locked, onCatProgress]);
 
   // ─── Check answer (learning mode) ────────────────────────────────────────
   const checkAnswer = useCallback(() => {
@@ -227,29 +243,28 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
 
   // ─── Toggle flag ──────────────────────────────────────────────────────────
   const toggleFlag = useCallback(() => {
-    if (sec1Locked && pos < 100) return;
+    if (hasSections && sec1Locked && pos < 100) return;
     setFlags(prev => { const c = [...prev]; c[pos] = !c[pos]; return c; });
-  }, [pos, sec1Locked]);
+  }, [pos, hasSections, sec1Locked]);
 
   // ─── Navigation ───────────────────────────────────────────────────────────
   const goToQuestion = useCallback((index) => {
     if (index < 0 || index >= items.length) return;
-    // Once Section 1 is locked, cannot go back to it
-    if (sec1Locked && index < 100) {
-      onCatAlert?.('Section 1 is locked! Focus on Section 2. 🐾🔒');
-      return;
-    }
-    // Before submitting Section 1, cannot skip ahead to Section 2
-    if (!sec1Locked && items.length > 100 && index >= 100) {
-      onCatAlert?.('Complete and submit Section 1 first! 🐾');
-      return;
+    if (hasSections) {
+      if (sec1Locked && index < 100) {
+        onCatAlert?.('Section 1 is locked! Focus on Section 2. 🐾🔒');
+        return;
+      }
+      if (!sec1Locked && items.length > 100 && index >= 100) {
+        onCatAlert?.('Complete and submit Section 1 first! 🐾');
+        return;
+      }
     }
     setPos(index);
-  }, [items.length, sec1Locked, onCatAlert]);
+  }, [items.length, hasSections, sec1Locked, onCatAlert]);
 
   const nextQuestion = useCallback(() => {
-    // At last Q of Section 1 in a 200-Q exam → trigger submit + break
-    if (pos === 99 && !sec1Locked && items.length > 100) {
+    if (hasSections && pos === 99 && !sec1Locked) {
       submitSection1();
       return;
     }
@@ -257,18 +272,18 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
       setPos(pos + 1);
     } else {
       // Wrap to first unanswered in current section
-      const min = sec1Locked ? 100 : 0;
-      const max = sec1Locked ? items.length : Math.min(100, items.length);
+      const min = hasSections && sec1Locked ? 100 : 0;
+      const max = hasSections && !sec1Locked ? 100 : items.length;
       for (let i = min; i < max; i++) {
         if (!answers[i] || answers[i].length === 0) { setPos(i); return; }
       }
     }
-  }, [pos, items.length, answers, sec1Locked, submitSection1]);
+  }, [pos, items.length, answers, hasSections, sec1Locked, submitSection1]);
 
   const prevQuestion = useCallback(() => {
-    const min = sec1Locked ? 100 : 0;
+    const min = hasSections && sec1Locked ? 100 : 0;
     if (pos > min) setPos(pos - 1);
-  }, [pos, sec1Locked]);
+  }, [pos, hasSections, sec1Locked]);
 
   // ─── Pause ────────────────────────────────────────────────────────────────
   const pauseExam = useCallback(() => {
@@ -280,7 +295,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     const next = pausesUsed + 1;
     setPausesUsed(next);
     const data = {
-      _v: 4, examKey, items, answers, flags, pos, timed, learn, checked,
+      _v: 5, examKey, items, answers, flags, pos, timed, learn, checked,
       sec1Time, sec2Time, elapsed, pausesUsed: next, questionTimes, isRetest,
       sec1Locked, isOnBreak, breakTaken
     };
@@ -296,7 +311,6 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
   const resumeExam = useCallback(() => {
     const s = storage.get(STORAGE_KEYS.SAVE);
     if (!s) return;
-    // If old format (no _v:4), discard and start fresh
     if (!s._v || s._v < 4) {
       storage.remove(STORAGE_KEYS.SAVE);
       setSavedSession(null);
@@ -346,6 +360,7 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     const hist = storage.get(STORAGE_KEYS.HISTORY, []);
     storage.set(STORAGE_KEYS.HISTORY, [{
       id: Date.now(), examKey, examCode: currentExam.code, examName: currentExam.name,
+      platform: currentExam.platform || 'General',
       score, correctCount: correct, totalCount: items.length,
       elapsed, date: new Date().toLocaleDateString(), proctorStrikesCount: proctorStrikes.length
     }, ...hist].slice(0, 50));
@@ -375,7 +390,6 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     currentExam,
     items, answers, flags, pos,
     timed, learn, checked,
-    // expose both section timers + a unified timeLeft
     sec1Time, sec2Time,
     timeLeft,
     elapsed, pausesUsed, maxPauses: MAX_PAUSES,
@@ -383,10 +397,11 @@ export function useExamSession({ onCatAlert, onCatCheer, onCatSupport, onCatProg
     savedSession, lastWeakSpots,
     sec1Locked,
     isOnBreak, breakTaken,
+    hasSections,
     currentSection, isSection1Complete, s1AnsweredCount,
     // actions
     submitSection1,
-    startBreak: submitSection1,   // alias kept for backward compat
+    startBreak: submitSection1,
     endBreak,
     startExam,
     toggleOption, checkAnswer, toggleFlag,

@@ -13,12 +13,14 @@ import { StartScreen } from './components/start/StartScreen.jsx';
 import { ExamScreen } from './components/exam/ExamScreen.jsx';
 import { ExamBreakScreen } from './components/exam/ExamBreakScreen.jsx';
 import { ResultsScreen } from './components/results/ResultsScreen.jsx';
+import { QuestionBankManager } from './components/question-bank/QuestionBankManager.jsx';
 
 export function App() {
   const themePrefs = useThemePreferences();
   const catCompanion = useCatCompanion();
 
   const [submitConfirmOpen, setSubmitConfirmOpen] = useState(false);
+  const [manageBanksOpen, setManageBanksOpen] = useState(false);
   const [timedCheck, setTimedCheck] = useState(false);
   const [learnCheck, setLearnCheck] = useState(false);
 
@@ -120,6 +122,7 @@ export function App() {
             onStartExam={handleStartExam}
             onResumeExam={handleResumeExam}
             onDiscardExam={session.discardExam}
+            onOpenManageBanks={() => setManageBanksOpen(true)}
             catCompanion={catCompanion}
           />
         )}
@@ -162,6 +165,13 @@ export function App() {
         awaySeconds={antiCheat.awaySeconds}
         onConfirm={antiCheat.confirmModalReason}
       />
+
+      {/* Question Bank Manager Modal */}
+      {manageBanksOpen && (
+        <QuestionBankManager
+          onClose={() => setManageBanksOpen(false)}
+        />
+      )}
 
       {/* Submit Confirmation Modal */}
       {submitConfirmOpen && (
